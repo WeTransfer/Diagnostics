@@ -15,8 +15,8 @@ public final class DiagnosticsLogger {
     private let location: URL
 
     private var logSize: ByteCountFormatter.Units.Bytes
-    private let maximumSize: ByteCountFormatter.Units.Bytes = 1 << 20 // 1 MiB
-    private let trimSize: ByteCountFormatter.Units.Bytes = 100 << 10 // 100 KiB
+    private let maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
+    private let trimSize: ByteCountFormatter.Units.Bytes = 100 * 1024 // 100 KB
 
     private let pipe: Pipe
 
@@ -55,7 +55,7 @@ public final class DiagnosticsLogger {
     func readLog() -> Data? {
         return queue.sync { try? Data(contentsOf: location) }
     }
-    
+
     public static func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
         standard.log(message: message, file: file, function: function, line: line)
     }
