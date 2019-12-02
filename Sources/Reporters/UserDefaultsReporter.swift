@@ -9,9 +9,16 @@
 open class UserDefaultsReporter: DiagnosticsReporting {
 
     public static func report() -> DiagnosticsChapter {
-//        let dictionary = UserDefaults.standard.keyValuePairsRepresentation
         let formattedDictionary = UserDefaults.standard.jsonRepresentation
-        return DiagnosticsChapter(title: "UserDefaults", diagnostics: "<pre>\(formattedDictionary!)</pre>")
+        return DiagnosticsChapter(title: "UserDefaults", diagnostics: "<pre>\(formattedDictionary ?? "User Defaults could not be parsed")</pre>")
+    }
+}
+
+extension UserDefaults {
+    var jsonRepresentation: String? {
+        let jsonCompatibleDictionary = dictionaryRepresentation().jsonCompatible
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonCompatibleDictionary, options: [.prettyPrinted, .sortedKeys, .fragmentsAllowed]) else { return nil }
+        return String(data: jsonData, encoding: .utf8)
     }
 }
 
@@ -26,48 +33,5 @@ extension Dictionary where Key == String, Value == Any {
 
             return "\(value)"
         }
-    }
-}
-
-extension UserDefaults {
-    var keyValuePairsRepresentation: [String: Any] {
-        dictionaryRepresentation().jsonCompatible
-    }
-
-    var jsonRepresentation: String? {
-        "\(keyValuePairsRepresentation.format(options: [.prettyPrinted, .sortedKeys, .fragmentsAllowed]) ?? "")"
-    }
-}
-
-extension Dictionary {
-    func format(options: JSONSerialization.WritingOptions) -> Any? {
-        do {
-            let jsonData = try JSONSerialization.data(withJSONObject: self, options: options)
-            return try JSONSerialization.jsonObject(with: jsonData, options: [.allowFragments])
-        } catch {
-            print(error.localizedDescription)
-            return nil
-        }
-    }
-}
-
-extension Dictionary {
-    var jsonStringRepresentation: String? {
-        guard let theJSONData = try? JSONSerialization.data(withJSONObject: self,
-                                                            options: [.prettyPrinted]) else {
-            return nil
-        }
-
-        return String(data: theJSONData, encoding: .ascii)
-    }
-}
-
-extension String {
-    init(userDefaults: UserDefaults) {
-        var string = ""
-        for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
-            string += "\(key) = \(value) \n"
-        }
-        self = string
     }
 }

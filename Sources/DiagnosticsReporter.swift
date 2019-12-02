@@ -20,8 +20,8 @@ public struct DiagnosticsChapter {
 public final class DiagnosticsReporter {
 
     public enum DefaultReporter: CaseIterable {
-        case appMetadata
         case generalInfo
+        case appMetadata
         case userDefaults
 
         var reporter: DiagnosticsReporting.Type {
