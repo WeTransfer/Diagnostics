@@ -31,8 +31,15 @@ public struct DiagnosticReportGenerator {
     private func header() -> HTML {
         var html = "<head>"
         html += "<title>\(Bundle.appName) - Diagnostics Report</title>"
-        html += "<link rel=\"stylesheet\" href=\"/Users/antoinevanderlee/Desktop/Diagnostics/style.css\">"
+        html += style()
         html += "</head>"
         return html
+    }
+
+    private func style() -> HTML {
+        let bundle = Bundle(for: DiagnosticsReporter.self)
+        let cssFile = bundle.url(forResource: "style", withExtension: "css")!
+        let css = try! String(contentsOf: cssFile, encoding: .utf8)
+        return "<style>\(css)</style>"
     }
 }

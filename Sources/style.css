@@ -1,0 +1,29 @@
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+ul {
+	list-style: none;
+	padding: 0;
+}
+
+.chapter {
+	max-width: 800px;
+    margin: 1em auto;
+    border: 1px solid #D8D8D8;
+    border-radius: 0.25em;
+    word-break: break-word;
+}
+
+.chapter h3 {
+	padding: 1em;
+	background: #F7F7F7;
+	border-bottom: 1px solid #D8D8D8;
+	margin: 0;
+}
+
+.chapter-content {
+	padding: 1em;
+}
