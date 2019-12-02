@@ -8,19 +8,19 @@
 
 import Foundation
 
+/// A Diagnostics Logger to log messages to which will end up in the Diagnostics Report if using the default `LogsReporter`.
+/// Will keep a `.txt` log in the documents directory with the latestlogs with a max size of 2 MB.
 public final class DiagnosticsLogger {
 
     static let standard = DiagnosticsLogger()
 
     private let location: URL
+    private let pipe: Pipe
+    private let queue: DispatchQueue = DispatchQueue(label: "com.wetransfer.diagnostics.logger", qos: .utility, target: .global(qos: .utility))
 
     private var logSize: ByteCountFormatter.Units.Bytes
     private let maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
     private let trimSize: ByteCountFormatter.Units.Bytes = 100 * 1024 // 100 KB
-
-    private let pipe: Pipe
-
-    private let queue: DispatchQueue = DispatchQueue(label: "com.wetransfer.diagnostics.logger", qos: .utility, target: .global(qos: .utility))
 
     private lazy var formatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -52,10 +52,17 @@ public final class DiagnosticsLogger {
         setupPipe()
     }
 
+    /// Reads the log and converts it to a `Data` object.
     func readLog() -> Data? {
         return queue.sync { try? Data(contentsOf: location) }
     }
 
+    /// Logs the given message for the diagnostics report.
+    /// - Parameters:
+    ///   - message: The message to log.
+    ///   - file: The file from which the log is send. Defaults to `#file`.
+    ///   - function: The functino from which the log is send. Defaults to `#function`.
+    ///   - line: The line from which the log is send. Defaults to `#line`.
     public static func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
         standard.log(message: message, file: file, function: function, line: line)
     }
