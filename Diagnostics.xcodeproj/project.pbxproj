@@ -22,6 +22,7 @@
 		500B27BC239561A500C304D4 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27BB239561A500C304D4 /* BundleExtensions.swift */; };
 		500B27BE23956A8A00C304D4 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 500B27BD23956A8A00C304D4 /* style.css */; };
 		500B27C0239571FB00C304D4 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27BF239571FB00C304D4 /* UIDeviceExtensions.swift */; };
+		500B27C22395777C00C304D4 /* UserDefaultsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27C12395777C00C304D4 /* UserDefaultsReporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		500B27BB239561A500C304D4 /* BundleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtensions.swift; sourceTree = "<group>"; };
 		500B27BD23956A8A00C304D4 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		500B27BF239571FB00C304D4 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
+		500B27C12395777C00C304D4 /* UserDefaultsReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsReporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			children = (
 				500B27A4239544F200C304D4 /* AppMetadataReporter.swift */,
 				500B27B823955CAF00C304D4 /* GeneralInfoReporter.swift */,
+				500B27C12395777C00C304D4 /* UserDefaultsReporter.swift */,
 			);
 			path = Reporters;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				500B27BC239561A500C304D4 /* BundleExtensions.swift in Sources */,
 				500B276A23953ED700C304D4 /* DiagnosticReportGenerator.swift in Sources */,
 				500B27B923955CAF00C304D4 /* GeneralInfoReporter.swift in Sources */,
+				500B27C22395777C00C304D4 /* UserDefaultsReporter.swift in Sources */,
 				500B27AC2395523600C304D4 /* Diagnostics.swift in Sources */,
 				500B27A5239544F200C304D4 /* AppMetadataReporter.swift in Sources */,
 				500B27B02395551200C304D4 /* HTMLGenerating.swift in Sources */,

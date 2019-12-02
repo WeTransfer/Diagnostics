@@ -7,8 +7,6 @@
 //
 
 open class GeneralInfoReporter: DiagnosticsReporting {
-    private static let appDisplayName = Bundle.main.infoDictionary?["CFBundleName"] as? String
-
     open class var title: String {
         return "\(Bundle.appName) - Diagnostics Report"
     }

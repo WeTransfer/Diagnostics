@@ -14,6 +14,20 @@ public protocol HTMLGenerating {
     func html() -> HTML
 }
 
+extension Dictionary: HTMLGenerating where Key == String, Value == String {
+    public func html() -> HTML {
+        var html = "<ul>"
+
+        for (key, value) in self {
+            html += "<li><b>\(key)</b> \(value)</li>"
+        }
+
+        html += "</ul>"
+
+        return html
+    }
+}
+
 extension KeyValuePairs: HTMLGenerating where Key == String, Value == String {
     public func html() -> HTML {
         var html = "<ul>"
@@ -27,9 +41,10 @@ extension KeyValuePairs: HTMLGenerating where Key == String, Value == String {
         return html
     }
 }
+
 extension String: HTMLGenerating {
     public func html() -> HTML {
-        return self
+        return self//.replacingOccurrences(of: "\n", with: "<br/>")
     }
 }
 
