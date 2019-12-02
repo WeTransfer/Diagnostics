@@ -23,6 +23,8 @@
 		500B27BE23956A8A00C304D4 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 500B27BD23956A8A00C304D4 /* style.css */; };
 		500B27C0239571FB00C304D4 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27BF239571FB00C304D4 /* UIDeviceExtensions.swift */; };
 		500B27C22395777C00C304D4 /* UserDefaultsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27C12395777C00C304D4 /* UserDefaultsReporter.swift */; };
+		500B27C4239590E100C304D4 /* DiagnosticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */; };
+		500B27C62395967200C304D4 /* LogsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27C52395967200C304D4 /* LogsReporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		500B27BD23956A8A00C304D4 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		500B27BF239571FB00C304D4 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
 		500B27C12395777C00C304D4 /* UserDefaultsReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsReporter.swift; sourceTree = "<group>"; };
+		500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsLogger.swift; sourceTree = "<group>"; };
+		500B27C52395967200C304D4 /* LogsReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsReporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +130,7 @@
 				500B276723953E4100C304D4 /* DiagnosticsReporter.swift */,
 				500B27AF2395551200C304D4 /* HTMLGenerating.swift */,
 				500B27BD23956A8A00C304D4 /* style.css */,
+				500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -144,6 +149,7 @@
 				500B27A4239544F200C304D4 /* AppMetadataReporter.swift */,
 				500B27B823955CAF00C304D4 /* GeneralInfoReporter.swift */,
 				500B27C12395777C00C304D4 /* UserDefaultsReporter.swift */,
+				500B27C52395967200C304D4 /* LogsReporter.swift */,
 			);
 			path = Reporters;
 			sourceTree = "<group>";
@@ -270,6 +276,7 @@
 			files = (
 				500B27BC239561A500C304D4 /* BundleExtensions.swift in Sources */,
 				500B276A23953ED700C304D4 /* DiagnosticReportGenerator.swift in Sources */,
+				500B27C4239590E100C304D4 /* DiagnosticsLogger.swift in Sources */,
 				500B27B923955CAF00C304D4 /* GeneralInfoReporter.swift in Sources */,
 				500B27C22395777C00C304D4 /* UserDefaultsReporter.swift in Sources */,
 				500B27AC2395523600C304D4 /* Diagnostics.swift in Sources */,
@@ -278,6 +285,7 @@
 				500B27AA2395520300C304D4 /* DiagnosticsReport.swift in Sources */,
 				500B276823953E4100C304D4 /* DiagnosticsReporter.swift in Sources */,
 				500B27A22395413200C304D4 /* MFMailComposeVCExtensions.swift in Sources */,
+				500B27C62395967200C304D4 /* LogsReporter.swift in Sources */,
 				500B27C0239571FB00C304D4 /* UIDeviceExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

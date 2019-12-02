@@ -22,6 +22,7 @@ public final class DiagnosticsReporter {
     public enum DefaultReporter: CaseIterable {
         case generalInfo
         case appMetadata
+        case logs
         case userDefaults
 
         var reporter: DiagnosticsReporting.Type {
@@ -30,6 +31,8 @@ public final class DiagnosticsReporter {
                 return GeneralInfoReporter.self
             case .appMetadata:
                 return AppMetadataReporter.self
+            case .logs:
+                return LogsReporter.self
             case .userDefaults:
                 return UserDefaultsReporter.self
             }

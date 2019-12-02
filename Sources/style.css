@@ -9,6 +9,10 @@ ul {
 	padding: 0;
 }
 
+pre {
+    overflow: scroll;
+}
+
 .chapter {
 	max-width: 800px;
     margin: 1em auto;
