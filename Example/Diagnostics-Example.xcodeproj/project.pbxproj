@@ -13,6 +13,8 @@
 		500B277F23953F8C00C304D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 500B277D23953F8C00C304D4 /* Main.storyboard */; };
 		500B278123953F8E00C304D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 500B278023953F8E00C304D4 /* Assets.xcassets */; };
 		500B278423953F8E00C304D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 500B278223953F8E00C304D4 /* LaunchScreen.storyboard */; };
+		500B27B523955AD400C304D4 /* Diagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500B279B23953FCA00C304D4 /* Diagnostics.framework */; };
+		500B27B623955AD400C304D4 /* Diagnostics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 500B279B23953FCA00C304D4 /* Diagnostics.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +41,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		500B27B723955AD400C304D4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				500B27B623955AD400C304D4 /* Diagnostics.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		500B277423953F8C00C304D4 /* Diagnostics-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Diagnostics-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B277723953F8C00C304D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				500B27B523955AD400C304D4 /* Diagnostics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +85,7 @@
 				500B277623953F8C00C304D4 /* Diagnostics-Example */,
 				500B277523953F8C00C304D4 /* Products */,
 				500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */,
+				500B27B323955AC000C304D4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -102,6 +120,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		500B27B323955AC000C304D4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -112,6 +137,7 @@
 				500B277023953F8C00C304D4 /* Sources */,
 				500B277123953F8C00C304D4 /* Frameworks */,
 				500B277223953F8C00C304D4 /* Resources */,
+				500B27B723955AD400C304D4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

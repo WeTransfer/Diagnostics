@@ -19,7 +19,7 @@ extension Dictionary: HTMLGenerating where Key == String, Value == String {
         var html = "<ul>"
 
         for (key, value) in self {
-            html += "<li><b>\(key)</b>\(value)</li>"
+            html += "<li><b>\(key)</b> \(value)</li>"
         }
 
         html += "</ul>"
@@ -35,8 +35,9 @@ extension String: HTMLGenerating {
 
 extension DiagnosticsChapter: HTMLGenerating {
     public func html() -> HTML {
-        var html = "<div><h3>\(title)</h3></div>"
-        html += "<div>\(diagnostics.html())</div>"
+        var html = "<div class=\"chapter\"><h3>\(title)</h3>"
+        html += "<div class=\"chapter-content\">\(diagnostics.html())</div>"
+        html += "</div>"
         return html
     }
 }

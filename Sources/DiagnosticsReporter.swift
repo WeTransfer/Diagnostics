@@ -20,10 +20,13 @@ public struct DiagnosticsChapter {
 public final class DiagnosticsReporter {
 
     public enum DefaultReporter: CaseIterable {
+        case generalInfo
         case appMetadata
 
         var reporter: DiagnosticsReporting.Type {
             switch self {
+            case .generalInfo:
+                return GeneralInfoReporter.self
             case .appMetadata:
                 return AppMetadataReporter.self
             }

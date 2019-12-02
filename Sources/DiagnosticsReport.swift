@@ -10,16 +10,16 @@ import Foundation
 
 /// The actual diagnostics report containing the compiled data of all reporters.
 public struct DiagnosticsReport {
-    enum MimeType: String {
+    public enum MimeType: String {
         case html = "text/html"
     }
 
     /// The file name to use for the report.
-    let filename: String
+    public let filename: String
 
     /// The MIME type of the report. Defaults to `html`.
-    let mimeType: MimeType = .html
+    public let mimeType: MimeType = .html
 
     /// The data representation of the diagnostics report.
-    let data: Data
+    public let data: Data
 }

@@ -25,4 +25,11 @@ final class HTMLGeneratingTests: XCTestCase {
         XCTAssertEqual(dict.html(), expectedHTML)
     }
 
+    /// It should correctly transform a String to HTML.
+    func testStringHTML() {
+        let value = "CONTENT"
+        let expectedHTML = "CONTENT"
+        XCTAssertEqual(value.html(), expectedHTML)
+    }
+
 }

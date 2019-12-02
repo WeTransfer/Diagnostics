@@ -20,20 +20,23 @@ class ViewController: UIViewController {
     @IBAction func sendDiagnostics(_ sender: UIButton) {
         print("Send diagnostics!")
 
-        if MFMailComposeViewController.canSendMail() {
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self
-            mail.setToRecipients(["someone@example.com"])
-            mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
+        let reporter = DiagnosticsReporter()
+        let reportGenerator = DiagnosticReportGenerator(reporter: reporter)
+        let report = reportGenerator.generate()
 
-            let reporter = DiagnosticsReporter()
-            let reportGenerator = DiagnosticReportGenerator(reporter: reporter)
-            mail.addDiagnosticReport(reportGenerator.generate())
-            
-            present(mail, animated: true)
-        } else {
-            // show failure alert
-        }
+        let path = "/Users/antoinevanderlee/Desktop/Diagnostics/\(report.filename)"
+        FileManager.default.createFile(atPath: path, contents: report.data, attributes: [FileAttributeKey.type: report.mimeType.rawValue])
+        print("Created diagnostics at \(path)")
+
+        guard MFMailComposeViewController.canSendMail() else { return }
+
+        let mail = MFMailComposeViewController()
+        mail.mailComposeDelegate = self
+        mail.setToRecipients(["someone@example.com"])
+        mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
+        mail.addDiagnosticReport(report)
+
+        present(mail, animated: true)
     }
 
 }
