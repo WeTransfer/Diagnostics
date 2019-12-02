@@ -14,7 +14,7 @@ public protocol HTMLGenerating {
     func html() -> HTML
 }
 
-extension Dictionary: HTMLGenerating where Key == String, Value == String {
+extension KeyValuePairs: HTMLGenerating where Key == String, Value == String {
     public func html() -> HTML {
         var html = "<ul>"
 

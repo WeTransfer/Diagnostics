@@ -15,13 +15,14 @@ open class GeneralInfoReporter: DiagnosticsReporting {
 
     open class var description: HTML {
         let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(identifier: "GMT")
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let dateString = dateFormatter.string(from: Date())
 
         return """
         <p>This diagnostics report can help our Support team to solve the issues you're experiencing. It includes information about your device, settings, logs, and specific user data that allows our engineers to find out what's going on.</p>
 
-        <p>This report was generated on \(dateString)</p>
+        <p>This report was generated on <i>\(dateString) GMT+0</i></p>
         """
     }
 

@@ -21,6 +21,7 @@
 		500B27B923955CAF00C304D4 /* GeneralInfoReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27B823955CAF00C304D4 /* GeneralInfoReporter.swift */; };
 		500B27BC239561A500C304D4 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27BB239561A500C304D4 /* BundleExtensions.swift */; };
 		500B27BE23956A8A00C304D4 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 500B27BD23956A8A00C304D4 /* style.css */; };
+		500B27C0239571FB00C304D4 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27BF239571FB00C304D4 /* UIDeviceExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		500B27B823955CAF00C304D4 /* GeneralInfoReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoReporter.swift; sourceTree = "<group>"; };
 		500B27BB239561A500C304D4 /* BundleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtensions.swift; sourceTree = "<group>"; };
 		500B27BD23956A8A00C304D4 /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		500B27BF239571FB00C304D4 /* UIDeviceExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				500B27BB239561A500C304D4 /* BundleExtensions.swift */,
+				500B27BF239571FB00C304D4 /* UIDeviceExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				500B27AA2395520300C304D4 /* DiagnosticsReport.swift in Sources */,
 				500B276823953E4100C304D4 /* DiagnosticsReporter.swift in Sources */,
 				500B27A22395413200C304D4 /* MFMailComposeVCExtensions.swift in Sources */,
+				500B27C0239571FB00C304D4 /* UIDeviceExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +430,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Diagnostics/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -452,6 +457,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Diagnostics/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
