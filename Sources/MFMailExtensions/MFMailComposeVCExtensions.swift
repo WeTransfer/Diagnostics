@@ -6,11 +6,12 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-import Foundation
 import MessageUI
 
 public extension MFMailComposeViewController {
 
+    /// Adds the given diagnostics report as an attachment to the composing mail.
+    /// - Parameter report: The report to add as an attachment.
     func addDiagnosticReport(_ report: DiagnosticsReport) {
         addAttachmentData(report.data, mimeType: report.mimeType.rawValue, fileName: report.filename)
     }

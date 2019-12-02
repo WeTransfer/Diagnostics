@@ -65,9 +65,9 @@
 		500B276B23953F8C00C304D4 = {
 			isa = PBXGroup;
 			children = (
-				500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */,
 				500B277623953F8C00C304D4 /* Diagnostics-Example */,
 				500B277523953F8C00C304D4 /* Products */,
+				500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};

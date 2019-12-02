@@ -8,34 +8,22 @@
 
 import Foundation
 
-public struct DiagnosticsReport {
-    enum MimeType: String {
-        case html = "text/html"
-    }
-
-    /// The URL pointing to the HTML file containing the report.
-    let url: URL
-
-    /// The file name to use for the report.
-    let filename: String
-
-    /// The MIME type of the report. Defaults to `html`.
-    let mimeType: MimeType = .html
-
-    /// The data representation of the diagnostics report.
-    let data: Data
-}
-
 public struct DiagnosticReportGenerator {
 
-    private let reporter: DiagnosticsReporter
+    private let reporters: [DiagnosticsReporting.Type]
 
     public init(reporter: DiagnosticsReporter) {
-        self.reporter = reporter
+        self.reporters = reporter.reporters
     }
 
     public func generate() -> DiagnosticsReport {
-        fatalError("This is not yet implemented")
-    }
+        var html = ""
 
+        reporters.forEach { (reporter) in
+            html += reporter.report().html()
+        }
+
+        let data = html.data(using: .utf8)!
+        return DiagnosticsReport(filename: "DiagnosticsReport.html", data: data)
+    }
 }

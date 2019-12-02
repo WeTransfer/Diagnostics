@@ -1,0 +1,42 @@
+//
+//  HTMLGenerating.swift
+//  Diagnostics
+//
+//  Created by Antoine van der Lee on 02/12/2019.
+//  Copyright © 2019 WeTransfer. All rights reserved.
+//
+
+import Foundation
+
+public typealias HTML = String
+
+public protocol HTMLGenerating {
+    func html() -> HTML
+}
+
+extension Dictionary: HTMLGenerating where Key == String, Value == String {
+    public func html() -> HTML {
+        var html = "<ul>"
+
+        for (key, value) in self {
+            html += "<li><b>\(key)</b>\(value)</li>"
+        }
+
+        html += "</ul>"
+
+        return html
+    }
+}
+extension String: HTMLGenerating {
+    public func html() -> HTML {
+        return self
+    }
+}
+
+extension DiagnosticsChapter: HTMLGenerating {
+    public func html() -> HTML {
+        var html = "<div><h3>\(title)</h3></div>"
+        html += "<div>\(diagnostics.html())</div>"
+        return html
+    }
+}

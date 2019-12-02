@@ -26,6 +26,10 @@ class ViewController: UIViewController {
             mail.setToRecipients(["someone@example.com"])
             mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
 
+            let reporter = DiagnosticsReporter()
+            let reportGenerator = DiagnosticReportGenerator(reporter: reporter)
+            mail.addDiagnosticReport(reportGenerator.generate())
+            
             present(mail, animated: true)
         } else {
             // show failure alert

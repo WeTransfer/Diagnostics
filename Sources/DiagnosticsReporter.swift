@@ -8,19 +8,35 @@
 
 import Foundation
 
-public protocol DiagnosticsReportable {
+public protocol DiagnosticsReporting {
+    static func report() -> DiagnosticsChapter
+}
 
+public struct DiagnosticsChapter {
+    public let title: String
+    public let diagnostics: Diagnostics
 }
 
 public final class DiagnosticsReporter {
 
-    private var reporters: [DiagnosticsReportable] = []
+    public enum DefaultReporter: CaseIterable {
+        case appMetadata
 
-    public func add(_ reporter: DiagnosticsReportable) {
-        reporters.append(reporter)
+        var reporter: DiagnosticsReporting.Type {
+            switch self {
+            case .appMetadata:
+                return AppMetadataReporter.self
+            }
+        }
+
+        public static var allReporters: [DiagnosticsReporting.Type] {
+            allCases.map { $0.reporter }
+        }
     }
 
+    let reporters: [DiagnosticsReporting.Type]
 
-
-
+    public init(reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters) {
+        self.reporters = reporters
+    }
 }

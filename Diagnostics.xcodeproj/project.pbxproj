@@ -8,11 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		500B2756239524E100C304D4 /* Diagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500B274C239524E100C304D4 /* Diagnostics.framework */; };
-		500B275B239524E100C304D4 /* DiagnosticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B275A239524E100C304D4 /* DiagnosticsTests.swift */; };
 		500B275D239524E100C304D4 /* Diagnostics.h in Headers */ = {isa = PBXBuildFile; fileRef = 500B274F239524E100C304D4 /* Diagnostics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		500B276823953E4100C304D4 /* DiagnosticsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B276723953E4100C304D4 /* DiagnosticsReporter.swift */; };
 		500B276A23953ED700C304D4 /* DiagnosticReportGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */; };
 		500B27A22395413200C304D4 /* MFMailComposeVCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27A12395413200C304D4 /* MFMailComposeVCExtensions.swift */; };
+		500B27A5239544F200C304D4 /* AppMetadataReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27A4239544F200C304D4 /* AppMetadataReporter.swift */; };
+		500B27AA2395520300C304D4 /* DiagnosticsReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27A92395520300C304D4 /* DiagnosticsReport.swift */; };
+		500B27AC2395523600C304D4 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27AB2395523600C304D4 /* Diagnostics.swift */; };
+		500B27AE2395528100C304D4 /* DiagnosticReportGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27AD2395528100C304D4 /* DiagnosticReportGeneratorTests.swift */; };
+		500B27B02395551200C304D4 /* HTMLGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27AF2395551200C304D4 /* HTMLGenerating.swift */; };
+		500B27B22395553000C304D4 /* HTMLGeneratingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27B12395553000C304D4 /* HTMLGeneratingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,11 +35,16 @@
 		500B274F239524E100C304D4 /* Diagnostics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diagnostics.h; sourceTree = "<group>"; };
 		500B2750239524E100C304D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		500B2755239524E100C304D4 /* DiagnosticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiagnosticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		500B275A239524E100C304D4 /* DiagnosticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsTests.swift; sourceTree = "<group>"; };
 		500B275C239524E100C304D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		500B276723953E4100C304D4 /* DiagnosticsReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsReporter.swift; sourceTree = "<group>"; };
 		500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticReportGenerator.swift; sourceTree = "<group>"; };
 		500B27A12395413200C304D4 /* MFMailComposeVCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFMailComposeVCExtensions.swift; sourceTree = "<group>"; };
+		500B27A4239544F200C304D4 /* AppMetadataReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetadataReporter.swift; sourceTree = "<group>"; };
+		500B27A92395520300C304D4 /* DiagnosticsReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsReport.swift; sourceTree = "<group>"; };
+		500B27AB2395523600C304D4 /* Diagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; };
+		500B27AD2395528100C304D4 /* DiagnosticReportGeneratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticReportGeneratorTests.swift; sourceTree = "<group>"; };
+		500B27AF2395551200C304D4 /* HTMLGenerating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLGenerating.swift; sourceTree = "<group>"; };
+		500B27B12395553000C304D4 /* HTMLGeneratingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLGeneratingTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +97,8 @@
 		500B2759239524E100C304D4 /* DiagnosticsTests */ = {
 			isa = PBXGroup;
 			children = (
-				500B275A239524E100C304D4 /* DiagnosticsTests.swift */,
+				500B27AD2395528100C304D4 /* DiagnosticReportGeneratorTests.swift */,
+				500B27B12395553000C304D4 /* HTMLGeneratingTests.swift */,
 				500B275C239524E100C304D4 /* Info.plist */,
 			);
 			path = DiagnosticsTests;
@@ -97,8 +108,12 @@
 			isa = PBXGroup;
 			children = (
 				500B27A02395412300C304D4 /* MFMailExtensions */,
-				500B276723953E4100C304D4 /* DiagnosticsReporter.swift */,
+				500B27A3239544DB00C304D4 /* Reporters */,
 				500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */,
+				500B27AB2395523600C304D4 /* Diagnostics.swift */,
+				500B27A92395520300C304D4 /* DiagnosticsReport.swift */,
+				500B276723953E4100C304D4 /* DiagnosticsReporter.swift */,
+				500B27AF2395551200C304D4 /* HTMLGenerating.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -109,6 +124,14 @@
 				500B27A12395413200C304D4 /* MFMailComposeVCExtensions.swift */,
 			);
 			path = MFMailExtensions;
+			sourceTree = "<group>";
+		};
+		500B27A3239544DB00C304D4 /* Reporters */ = {
+			isa = PBXGroup;
+			children = (
+				500B27A4239544F200C304D4 /* AppMetadataReporter.swift */,
+			);
+			path = Reporters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,6 +245,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				500B276A23953ED700C304D4 /* DiagnosticReportGenerator.swift in Sources */,
+				500B27AC2395523600C304D4 /* Diagnostics.swift in Sources */,
+				500B27A5239544F200C304D4 /* AppMetadataReporter.swift in Sources */,
+				500B27B02395551200C304D4 /* HTMLGenerating.swift in Sources */,
+				500B27AA2395520300C304D4 /* DiagnosticsReport.swift in Sources */,
 				500B276823953E4100C304D4 /* DiagnosticsReporter.swift in Sources */,
 				500B27A22395413200C304D4 /* MFMailComposeVCExtensions.swift in Sources */,
 			);
@@ -231,7 +258,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				500B275B239524E100C304D4 /* DiagnosticsTests.swift in Sources */,
+				500B27B22395553000C304D4 /* HTMLGeneratingTests.swift in Sources */,
+				500B27AE2395528100C304D4 /* DiagnosticReportGeneratorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
