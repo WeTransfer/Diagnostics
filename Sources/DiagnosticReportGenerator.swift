@@ -39,7 +39,15 @@ public struct DiagnosticReportGenerator {
     private func style() -> HTML {
         let bundle = Bundle(for: DiagnosticsReporter.self)
         let cssFile = bundle.url(forResource: "style", withExtension: "css")!
-        let css = try! String(contentsOf: cssFile, encoding: .utf8)
+        let css = try! String(contentsOf: cssFile, encoding: .utf8).minifiedCSS()
+
         return "<style>\(css)</style>"
+    }
+}
+
+private extension String {
+    func minifiedCSS() -> String {
+        let components = filter { !$0.isNewline }.components(separatedBy: .whitespacesAndNewlines)
+        return components.filter { !$0.isEmpty }.joined(separator: " ")
     }
 }
