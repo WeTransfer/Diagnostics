@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Creates a report chapter for all system and custom logs captured with the `DiagnosticsLogger`.
 struct LogsReporter: DiagnosticsReporting {
 
     static var title: String = "Logs"

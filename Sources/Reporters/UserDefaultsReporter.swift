@@ -6,15 +6,16 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-open class UserDefaultsReporter: DiagnosticsReporting {
+/// Generates a report from all the registered UserDefault keys.
+struct UserDefaultsReporter: DiagnosticsReporting {
 
-    public static func report() -> DiagnosticsChapter {
+    static func report() -> DiagnosticsChapter {
         let formattedDictionary = UserDefaults.standard.jsonRepresentation
         return DiagnosticsChapter(title: "UserDefaults", diagnostics: "<pre>\(formattedDictionary ?? "User Defaults could not be parsed")</pre>")
     }
 }
 
-extension UserDefaults {
+private extension UserDefaults {
     var jsonRepresentation: String? {
         let jsonCompatibleDictionary = dictionaryRepresentation().jsonCompatible
         guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonCompatibleDictionary, options: [.prettyPrinted, .sortedKeys, .fragmentsAllowed]) else { return nil }
@@ -22,7 +23,7 @@ extension UserDefaults {
     }
 }
 
-extension Dictionary where Key == String, Value == Any {
+private extension Dictionary where Key == String, Value == Any {
     var jsonCompatible: [String: Any] {
         return mapValues { value -> Any in
             if let dict = value as? [String: Any] {

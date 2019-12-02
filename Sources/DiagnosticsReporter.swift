@@ -21,7 +21,7 @@ public final class DiagnosticsReporter {
 
     public enum DefaultReporter: CaseIterable {
         case generalInfo
-        case appMetadata
+        case appSystemMetadata
         case logs
         case userDefaults
 
@@ -29,8 +29,8 @@ public final class DiagnosticsReporter {
             switch self {
             case .generalInfo:
                 return GeneralInfoReporter.self
-            case .appMetadata:
-                return AppMetadataReporter.self
+            case .appSystemMetadata:
+                return AppSystemMetadataReporter.self
             case .logs:
                 return LogsReporter.self
             case .userDefaults:

@@ -8,9 +8,10 @@
 
 import UIKit
 
-struct AppMetadataReporter: DiagnosticsReporting {
+/// Reports App and System specific metadata like OS and App version.
+struct AppSystemMetadataReporter: DiagnosticsReporting {
 
-    static var title: String = "App Details"
+    static var title: String = "App & System Details"
     static var diagnostics: KeyValuePairs<String, String> {
         var systemInfo = utsname()
         uname(&systemInfo)

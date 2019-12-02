@@ -124,13 +124,13 @@
 				500B27BA2395617A00C304D4 /* Extensions */,
 				500B27A02395412300C304D4 /* MFMailExtensions */,
 				500B27A3239544DB00C304D4 /* Reporters */,
-				500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */,
 				500B27AB2395523600C304D4 /* Diagnostics.swift */,
+				500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */,
 				500B27A92395520300C304D4 /* DiagnosticsReport.swift */,
 				500B276723953E4100C304D4 /* DiagnosticsReporter.swift */,
+				500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */,
 				500B27AF2395551200C304D4 /* HTMLGenerating.swift */,
 				500B27BD23956A8A00C304D4 /* style.css */,
-				500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";

@@ -6,11 +6,15 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
+/// Prints generic information in a separated chapter. Can be subclassed to change the default copy.
 open class GeneralInfoReporter: DiagnosticsReporting {
+
+    /// The title shown as introduction for the Diagnostics Report. Can be overwritten for a custom title.
     open class var title: String {
         return "\(Bundle.appName) - Diagnostics Report"
     }
 
+    /// The description shown as introduction for the Diagnostics Report. Can be overwritten for a custom description.
     open class var description: HTML {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(identifier: "GMT")
