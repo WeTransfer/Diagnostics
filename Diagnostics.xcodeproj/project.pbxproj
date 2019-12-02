@@ -10,6 +10,9 @@
 		500B2756239524E100C304D4 /* Diagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500B274C239524E100C304D4 /* Diagnostics.framework */; };
 		500B275B239524E100C304D4 /* DiagnosticsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B275A239524E100C304D4 /* DiagnosticsTests.swift */; };
 		500B275D239524E100C304D4 /* Diagnostics.h in Headers */ = {isa = PBXBuildFile; fileRef = 500B274F239524E100C304D4 /* Diagnostics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		500B276823953E4100C304D4 /* DiagnosticsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B276723953E4100C304D4 /* DiagnosticsReporter.swift */; };
+		500B276A23953ED700C304D4 /* DiagnosticReportGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */; };
+		500B27A22395413200C304D4 /* MFMailComposeVCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27A12395413200C304D4 /* MFMailComposeVCExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 		500B2755239524E100C304D4 /* DiagnosticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiagnosticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B275A239524E100C304D4 /* DiagnosticsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsTests.swift; sourceTree = "<group>"; };
 		500B275C239524E100C304D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		500B276723953E4100C304D4 /* DiagnosticsReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsReporter.swift; sourceTree = "<group>"; };
+		500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticReportGenerator.swift; sourceTree = "<group>"; };
+		500B27A12395413200C304D4 /* MFMailComposeVCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFMailComposeVCExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +62,7 @@
 				500B274E239524E100C304D4 /* Diagnostics */,
 				500B2759239524E100C304D4 /* DiagnosticsTests */,
 				500B274D239524E100C304D4 /* Products */,
+				500B276623953E2200C304D4 /* Sources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -84,6 +91,24 @@
 				500B275C239524E100C304D4 /* Info.plist */,
 			);
 			path = DiagnosticsTests;
+			sourceTree = "<group>";
+		};
+		500B276623953E2200C304D4 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				500B27A02395412300C304D4 /* MFMailExtensions */,
+				500B276723953E4100C304D4 /* DiagnosticsReporter.swift */,
+				500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		500B27A02395412300C304D4 /* MFMailExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				500B27A12395413200C304D4 /* MFMailComposeVCExtensions.swift */,
+			);
+			path = MFMailExtensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +173,7 @@
 				TargetAttributes = {
 					500B274B239524E100C304D4 = {
 						CreatedOnToolsVersion = 11.2.1;
+						LastSwiftMigration = 1120;
 					};
 					500B2754239524E100C304D4 = {
 						CreatedOnToolsVersion = 11.2.1;
@@ -195,6 +221,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				500B276A23953ED700C304D4 /* DiagnosticReportGenerator.swift in Sources */,
+				500B276823953E4100C304D4 /* DiagnosticsReporter.swift in Sources */,
+				500B27A22395413200C304D4 /* MFMailComposeVCExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +369,7 @@
 		500B2761239524E100C304D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HDE72H7JV2;
@@ -356,6 +386,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetransfer.Diagnostics;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -364,6 +395,7 @@
 		500B2762239524E100C304D4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = HDE72H7JV2;
@@ -388,6 +420,7 @@
 		500B2764239524E100C304D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HDE72H7JV2;
 				INFOPLIST_FILE = DiagnosticsTests/Info.plist;
@@ -406,6 +439,7 @@
 		500B2765239524E100C304D4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HDE72H7JV2;
 				INFOPLIST_FILE = DiagnosticsTests/Info.plist;
