@@ -10,17 +10,17 @@ import Foundation
 import UIKit
 
 extension ByteCountFormatter.Units {
-    typealias GB = String
+    typealias GigaBytes = String
     typealias Bytes = Int64
 }
 
 extension UIDevice {
 
-    var freeDiskSpace: ByteCountFormatter.Units.GB {
+    var freeDiskSpace: ByteCountFormatter.Units.GigaBytes {
         return ByteCountFormatter.string(fromByteCount: freeDiskSpaceInBytes, countStyle: ByteCountFormatter.CountStyle.decimal)
     }
 
-    var totalDiskSpace: ByteCountFormatter.Units.GB {
+    var totalDiskSpace: ByteCountFormatter.Units.GigaBytes {
         guard let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
             let space = (systemAttributes[FileAttributeKey.systemSize] as? NSNumber)?.int64Value else { return "UNKNOWN" }
 

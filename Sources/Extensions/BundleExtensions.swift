@@ -20,6 +20,4 @@ extension Bundle {
     static var appBuildNumber: String {
         return Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
     }
-
-
 }

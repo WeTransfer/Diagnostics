@@ -10,6 +10,8 @@ import Foundation
 
 public final class DiagnosticsLogger {
 
+    static let standard = DiagnosticsLogger()
+
     private let location: URL
 
     private var logSize: ByteCountFormatter.Units.Bytes
@@ -27,8 +29,6 @@ public final class DiagnosticsLogger {
         formatter.timeZone = TimeZone(identifier: "GMT")!
         return formatter
     }()
-
-    static let standard = DiagnosticsLogger()
 
     private init() {
         location = FileManager.default.documentsDirectory.appendingPathComponent("diagnostics_log.txt")
@@ -52,11 +52,17 @@ public final class DiagnosticsLogger {
         setupPipe()
     }
 
+    func readLog() -> Data? {
+        return queue.sync { try? Data(contentsOf: location) }
+    }
+    
     public static func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
         standard.log(message: message, file: file, function: function, line: line)
     }
+}
 
-    fileprivate func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
+extension DiagnosticsLogger {
+    private func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
         queue.async {
             let date = self.formatter.string(from: Date())
             let file = file.split(separator: "/").last.map(String.init) ?? file
@@ -65,7 +71,7 @@ public final class DiagnosticsLogger {
         }
     }
 
-    func log(_ output: String) {
+    private func log(_ output: String) {
         guard
             let data = output.data(using: .utf8),
             let fileHandle = (try? FileHandle(forWritingTo: location)) else {
@@ -78,7 +84,7 @@ public final class DiagnosticsLogger {
         trimLinesIfNecessary()
     }
 
-    func trimLinesIfNecessary() {
+    private func trimLinesIfNecessary() {
         guard logSize > maximumSize else { return }
 
         guard
@@ -100,10 +106,6 @@ public final class DiagnosticsLogger {
         guard (try? data.write(to: location, options: .atomic)) != nil else {
             return assertionFailure()
         }
-    }
-
-    func readLog() -> Data? {
-        return queue.sync { try? Data(contentsOf: location) }
     }
 }
 

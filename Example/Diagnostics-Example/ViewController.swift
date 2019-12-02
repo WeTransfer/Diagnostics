@@ -18,15 +18,12 @@ class ViewController: UIViewController {
     }
 
     @IBAction func sendDiagnostics(_ sender: UIButton) {
-        print("Send diagnostics!")
-
         let reporter = DiagnosticsReporter()
         let reportGenerator = DiagnosticReportGenerator(reporter: reporter)
         let report = reportGenerator.generate()
 
         let path = "/Users/antoinevanderlee/Desktop/Diagnostics/\(report.filename)"
         FileManager.default.createFile(atPath: path, contents: report.data, attributes: [FileAttributeKey.type: report.mimeType.rawValue])
-        print("Created diagnostics at \(path)")
 
         guard MFMailComposeViewController.canSendMail() else { return }
 
