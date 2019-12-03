@@ -46,6 +46,8 @@ public enum DiagnosticsReporter {
     /// The title that is used in the header of the web page of the report.
     static var reportTitle: String = "\(Bundle.appName) - Diagnostics Report"
 
+    /// Creates the report by making use of the given reporters.
+    /// - Parameter reporters: The reporters to use. Defaults to `DefaultReporter.allReporters`. Use this parameter if you'd like to exclude certain reports.
     public static func create(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters) -> DiagnosticsReport {
         var html = "<html>"
         html += header()
