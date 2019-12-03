@@ -44,7 +44,7 @@ extension KeyValuePairs: HTMLGenerating where Key == String, Value == String {
 
 extension String: HTMLGenerating {
     public func html() -> HTML {
-        return self//.replacingOccurrences(of: "\n", with: "<br/>")
+        return self
     }
 }
 

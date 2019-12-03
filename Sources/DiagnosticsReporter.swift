@@ -43,6 +43,9 @@ public enum DiagnosticsReporter {
         }
     }
 
+    /// The title that is used in the header of the web page of the report.
+    static var reportTitle: String = "\(Bundle.appName) - Diagnostics Report"
+
     public static func create(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters) -> DiagnosticsReport {
         var html = "<html>"
         html += header()
@@ -63,7 +66,7 @@ public enum DiagnosticsReporter {
         return html
     }
 
-    private static func style() -> HTML {
+    static func style() -> HTML {
         let bundle = Bundle(for: DiagnosticsLogger.self)
         let cssFile = bundle.url(forResource: "style", withExtension: "css")!
         let css = try! String(contentsOf: cssFile, encoding: .utf8).minifiedCSS()

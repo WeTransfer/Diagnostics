@@ -14,14 +14,21 @@ final class HTMLGeneratingTests: XCTestCase {
     /// It should generate HTML for diagnostic chapters correctly.
     func testDiagnosticsChapterHTML() {
         let chapter = DiagnosticsChapter(title: "TITLE", diagnostics: "CONTENT")
-        let expectedHTML = "<div><h3>\(chapter.title)</h3></div><div>\(chapter.diagnostics.html())</div>"
+        let expectedHTML = "<div class=\"chapter\"><h3>\(chapter.title)</h3><div class=\"chapter-content\">\(chapter.diagnostics.html())</div></div>"
         XCTAssertEqual(chapter.html(), expectedHTML)
     }
 
     /// It should correctly transform a Dictionary to HTML.
     func testDictionaryHTML() {
         let dict = ["App Name": "Collect by WeTransfer"]
-        let expectedHTML = "<ul><li><b>\(dict.keys.first!)</b>\(dict.values.first!)</li></ul>"
+        let expectedHTML = "<ul><li><b>\(dict.keys.first!)</b> \(dict.values.first!)</li></ul>"
+        XCTAssertEqual(dict.html(), expectedHTML)
+    }
+
+    /// It should correctly transform a Dictionary to HTML.
+    func testKeyValuePairsHTML() {
+        let dict: KeyValuePairs<String, String> = ["App Name": "Collect by WeTransfer"]
+        let expectedHTML = "<ul><li><b>\(dict.first!.key)</b> \(dict.first!.value)</li></ul>"
         XCTAssertEqual(dict.html(), expectedHTML)
     }
 
