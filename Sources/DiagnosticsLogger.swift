@@ -162,7 +162,7 @@ private extension DiagnosticsLogger {
 
         queue.async {
             string.enumerateLines(invoking: { (line, _) in
-                self.log(message: "SYSTEM: \(line)")
+                self.log("SYSTEM: \(line)")
             })
         }
     }
