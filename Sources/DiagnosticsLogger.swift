@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /// A Diagnostics Logger to log messages to which will end up in the Diagnostics Report if using the default `LogsReporter`.
 /// Will keep a `.txt` log in the documents directory with the latestlogs with a max size of 2 MB.
@@ -34,6 +35,7 @@ public final class DiagnosticsLogger {
     private var isSetup: Bool = false
 
     /// Sets up the logger to be ready for usage. This needs to be called before any log messages are reported.
+    /// This method also starts a new session.
     public static func setup() throws {
         try standard.setup()
     }
@@ -88,6 +90,24 @@ extension DiagnosticsLogger {
         logSize = Int64(fileHandle.offsetInFile)
         setupPipe()
         isSetup = true
+        startNewSession()
+    }
+
+    private func startNewSession() {
+        queue.async {
+            let date = self.formatter.string(from: Date())
+            let appVersion = "\(Bundle.appVersion) (\(Bundle.appBuildNumber))"
+            let system = "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"
+            let locale = Locale.preferredLanguages[0]
+
+            let message = date + "\n" + "System: \(system)\nLocale: \(locale)\nVersion: \(appVersion)\n\n"
+
+            if self.logSize == 0 {
+                self.log(message)
+            } else {
+                self.log("\n\n---\n\n\(message)")
+            }
+        }
     }
 
     private func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
