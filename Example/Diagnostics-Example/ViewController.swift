@@ -20,10 +20,10 @@ class ViewController: UIViewController {
     @IBAction func sendDiagnostics(_ sender: UIButton) {
         let report = DiagnosticsReporter.create()
 
-        let path = "/Users/antoinevanderlee/Desktop/Diagnostics/\(report.filename)"
-        FileManager.default.createFile(atPath: path, contents: report.data, attributes: [FileAttributeKey.type: report.mimeType.rawValue])
-
-        guard MFMailComposeViewController.canSendMail() else { return }
+        guard MFMailComposeViewController.canSendMail() else {
+            report.saveToDesktop()
+            return
+        }
 
         let mail = MFMailComposeViewController()
         mail.mailComposeDelegate = self

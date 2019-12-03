@@ -23,3 +23,14 @@ public struct DiagnosticsReport {
     /// The data representation of the diagnostics report.
     public let data: Data
 }
+
+public extension DiagnosticsReport {
+    /// This method can be used for debugging purposes to save the report to a `Diagnostics` folder on desktop.
+    func saveToDesktop() {
+        let simulatorPath = (NSSearchPathForDirectoriesInDomains(.desktopDirectory, .userDomainMask, true) as [String]).first!
+        let simulatorPathComponents = URL(string: simulatorPath)!.pathComponents.prefix(3).filter { $0 != "/" }
+        let userPath = simulatorPathComponents.joined(separator: "/")
+        let path = "/\(userPath)/Desktop/Diagnostics/\(filename)"
+        FileManager.default.createFile(atPath: path, contents: data, attributes: [FileAttributeKey.type: mimeType.rawValue])
+    }
+}
