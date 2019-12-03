@@ -28,7 +28,7 @@ extension Dictionary: HTMLGenerating where Key == String, Value == String {
     }
 }
 
-extension KeyValuePairs: HTMLGenerating where Key == String, Value == String {
+extension KeyValuePairs: HTMLGenerating where Value == String {
     public func html() -> HTML {
         var html = "<ul>"
 

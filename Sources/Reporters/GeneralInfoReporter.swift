@@ -11,14 +11,14 @@ open class GeneralInfoReporter: DiagnosticsReporting {
 
     /// The title shown as introduction for the Diagnostics Report. Can be overwritten for a custom title.
     open class var title: String {
-        return "\(Bundle.appName) - Diagnostics Report"
+        return DiagnosticsReporter.reportTitle
     }
 
     /// The description shown as introduction for the Diagnostics Report. Can be overwritten for a custom description.
     open class var description: HTML {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(identifier: "GMT")
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         let dateString = dateFormatter.string(from: Date())
 
         return """

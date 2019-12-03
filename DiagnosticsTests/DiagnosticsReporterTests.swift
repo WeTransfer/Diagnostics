@@ -23,14 +23,14 @@ final class DiagnosticsReporterTests: XCTestCase {
         XCTAssertTrue(html.contains(diagnosticsChapter.diagnostics as! String))
     }
 
-//    /// It should create a chapter for each reporter.
-//    func testReportingChapters() {
-//        let report = DiagnosticsReporter.create()
-//        let html = String(data: report.data, encoding: .utf8)!
-//        let expectedChaptersCount = DiagnosticsReporter.DefaultReporter.allCases.count
-//        let chaptersCount = html.components(separatedBy: "<div class=\"chapter\"").count - 1
-//        XCTAssertEqual(expectedChaptersCount, chaptersCount)
-//    }
+    /// It should create a chapter for each reporter.
+    func testReportingChapters() {
+        let report = DiagnosticsReporter.create()
+        let html = String(data: report.data, encoding: .utf8)!
+        let expectedChaptersCount = DiagnosticsReporter.DefaultReporter.allCases.count
+        let chaptersCount = html.components(separatedBy: "<div class=\"chapter\"").count - 1
+        XCTAssertEqual(expectedChaptersCount, chaptersCount)
+    }
 
     /// It should correctly generate the header.
     func testHeaderGeneration() {

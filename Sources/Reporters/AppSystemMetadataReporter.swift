@@ -1,5 +1,5 @@
 //
-//  AppMetadataReporter.swift
+//  AppSystemMetadataReporter.swift
 //  Diagnostics
 //
 //  Created by Antoine van der Lee on 02/12/2019.
@@ -11,8 +11,18 @@ import UIKit
 /// Reports App and System specific metadata like OS and App version.
 struct AppSystemMetadataReporter: DiagnosticsReporting {
 
+    enum MetadataKey: String, CaseIterable {
+        case appName = "App name"
+        case appVersion = "App version"
+        case device = "Device"
+        case system = "System"
+        case freeSpace = "Free space"
+        case deviceLanguage = "Device Language"
+        case appLanguage = "App Language"
+    }
+
     static var title: String = "App & System Details"
-    static var diagnostics: KeyValuePairs<String, String> {
+    static var diagnostics: KeyValuePairs<MetadataKey, String> {
         var systemInfo = utsname()
         uname(&systemInfo)
         let hardware = Mirror(reflecting: systemInfo.machine).children.reduce("") { identifier, element in
@@ -22,15 +32,16 @@ struct AppSystemMetadataReporter: DiagnosticsReporting {
 
         let system = "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"
 
-        return [
-            "App name": Bundle.appName,
-            "App version": "\(Bundle.appVersion) (\(Bundle.appBuildNumber))",
-            "Device": hardware,
-            "System": system,
-            "Free space": "\(UIDevice.current.freeDiskSpace) of \(UIDevice.current.totalDiskSpace)",
-            "Device Language": Locale.current.languageCode ?? "Unknown",
-            "App Language": Locale.preferredLanguages[0]
+        let metadata: KeyValuePairs<MetadataKey, String> = [
+            .appName: Bundle.appName,
+            .appVersion: "\(Bundle.appVersion) (\(Bundle.appBuildNumber))",
+            .device: hardware,
+            .system: system,
+            .freeSpace: "\(UIDevice.current.freeDiskSpace) of \(UIDevice.current.totalDiskSpace)",
+            .deviceLanguage: Locale.current.languageCode ?? "Unknown",
+            .appLanguage: Locale.preferredLanguages[0]
             ]
+        return metadata
     }
 
     static func report() -> DiagnosticsChapter {
