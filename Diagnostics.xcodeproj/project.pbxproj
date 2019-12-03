@@ -10,7 +10,6 @@
 		500B2756239524E100C304D4 /* Diagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500B274C239524E100C304D4 /* Diagnostics.framework */; };
 		500B275D239524E100C304D4 /* Diagnostics.h in Headers */ = {isa = PBXBuildFile; fileRef = 500B274F239524E100C304D4 /* Diagnostics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		500B276823953E4100C304D4 /* DiagnosticsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B276723953E4100C304D4 /* DiagnosticsReporter.swift */; };
-		500B276A23953ED700C304D4 /* DiagnosticReportGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */; };
 		500B27A22395413200C304D4 /* MFMailComposeVCExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27A12395413200C304D4 /* MFMailComposeVCExtensions.swift */; };
 		500B27A5239544F200C304D4 /* AppMetadataReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27A4239544F200C304D4 /* AppMetadataReporter.swift */; };
 		500B27AA2395520300C304D4 /* DiagnosticsReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27A92395520300C304D4 /* DiagnosticsReport.swift */; };
@@ -44,7 +43,6 @@
 		500B2755239524E100C304D4 /* DiagnosticsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiagnosticsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B275C239524E100C304D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		500B276723953E4100C304D4 /* DiagnosticsReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsReporter.swift; sourceTree = "<group>"; };
-		500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticReportGenerator.swift; sourceTree = "<group>"; };
 		500B27A12395413200C304D4 /* MFMailComposeVCExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFMailComposeVCExtensions.swift; sourceTree = "<group>"; };
 		500B27A4239544F200C304D4 /* AppMetadataReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetadataReporter.swift; sourceTree = "<group>"; };
 		500B27A92395520300C304D4 /* DiagnosticsReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsReport.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 				500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */,
 				500B27A92395520300C304D4 /* DiagnosticsReport.swift */,
 				500B276723953E4100C304D4 /* DiagnosticsReporter.swift */,
-				500B276923953ED700C304D4 /* DiagnosticReportGenerator.swift */,
 				500B27AF2395551200C304D4 /* HTMLGenerating.swift */,
 				500B27BD23956A8A00C304D4 /* style.css */,
 			);
@@ -297,7 +294,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				500B27BC239561A500C304D4 /* BundleExtensions.swift in Sources */,
-				500B276A23953ED700C304D4 /* DiagnosticReportGenerator.swift in Sources */,
 				500B27C4239590E100C304D4 /* DiagnosticsLogger.swift in Sources */,
 				500B27B923955CAF00C304D4 /* GeneralInfoReporter.swift in Sources */,
 				500B27C22395777C00C304D4 /* UserDefaultsReporter.swift in Sources */,

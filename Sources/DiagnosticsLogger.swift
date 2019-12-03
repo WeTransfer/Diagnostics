@@ -66,6 +66,17 @@ public final class DiagnosticsLogger {
     public static func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
         standard.log(message: message, file: file, function: function, line: line)
     }
+
+    /// Logs the given message for the diagnostics report.
+    /// - Parameters:
+    ///   - message: The message to log.
+    ///   - file: The file from which the log is send. Defaults to `#file`.
+    ///   - function: The functino from which the log is send. Defaults to `#function`.
+    ///   - line: The line from which the log is send. Defaults to `#line`.
+    public static func log(error: Error, file: String = #file, function: String = #function, line: UInt = #line) {
+        let message = (error as? LocalizedError)?.localizedDescription ?? "\(error)"
+        standard.log(message: message, file: file, function: function, line: line)
+    }
 }
 
 extension DiagnosticsLogger {
