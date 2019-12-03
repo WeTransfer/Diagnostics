@@ -18,8 +18,8 @@ extension Dictionary: HTMLGenerating where Key == String, Value == String {
     public func html() -> HTML {
         var html = "<ul>"
 
-        for (key, value) in self {
-            html += "<li><b>\(key)</b> \(value)</li>"
+        for (key, value) in self.sorted(by: { $0.0 < $1.0 }) {
+            html += "<li><b>\(key.description)</b> \(value)</li>"
         }
 
         html += "</ul>"
@@ -28,7 +28,7 @@ extension Dictionary: HTMLGenerating where Key == String, Value == String {
     }
 }
 
-extension KeyValuePairs: HTMLGenerating where Value == String {
+extension KeyValuePairs: HTMLGenerating where Key == String, Value == String {
     public func html() -> HTML {
         var html = "<ul>"
 

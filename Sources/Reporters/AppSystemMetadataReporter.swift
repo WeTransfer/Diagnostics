@@ -22,7 +22,7 @@ struct AppSystemMetadataReporter: DiagnosticsReporting {
     }
 
     static var title: String = "App & System Details"
-    static var diagnostics: KeyValuePairs<MetadataKey, String> {
+    static var diagnostics: KeyValuePairs<String, String> {
         var systemInfo = utsname()
         uname(&systemInfo)
         let hardware = Mirror(reflecting: systemInfo.machine).children.reduce("") { identifier, element in
@@ -32,14 +32,14 @@ struct AppSystemMetadataReporter: DiagnosticsReporting {
 
         let system = "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"
 
-        let metadata: KeyValuePairs<MetadataKey, String> = [
-            .appName: Bundle.appName,
-            .appVersion: "\(Bundle.appVersion) (\(Bundle.appBuildNumber))",
-            .device: hardware,
-            .system: system,
-            .freeSpace: "\(UIDevice.current.freeDiskSpace) of \(UIDevice.current.totalDiskSpace)",
-            .deviceLanguage: Locale.current.languageCode ?? "Unknown",
-            .appLanguage: Locale.preferredLanguages[0]
+        let metadata: KeyValuePairs<String, String> = [
+            MetadataKey.appName.rawValue: Bundle.appName,
+            MetadataKey.appVersion.rawValue: "\(Bundle.appVersion) (\(Bundle.appBuildNumber))",
+            MetadataKey.device.rawValue: hardware,
+            MetadataKey.system.rawValue: system,
+            MetadataKey.freeSpace.rawValue: "\(UIDevice.current.freeDiskSpace) of \(UIDevice.current.totalDiskSpace)",
+            MetadataKey.deviceLanguage.rawValue: Locale.current.languageCode ?? "Unknown",
+            MetadataKey.appLanguage.rawValue: Locale.preferredLanguages[0]
             ]
         return metadata
     }

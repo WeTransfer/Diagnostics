@@ -15,6 +15,11 @@ public protocol DiagnosticsReporting {
 public struct DiagnosticsChapter {
     public let title: String
     public let diagnostics: Diagnostics
+
+    public init(title: String, diagnostics: Diagnostics) {
+        self.title = title
+        self.diagnostics = diagnostics
+    }
 }
 
 public enum DiagnosticsReporter {

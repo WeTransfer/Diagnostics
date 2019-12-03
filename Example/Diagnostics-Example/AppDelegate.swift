@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        try! DiagnosticsLogger.setup()
         DiagnosticsLogger.log(message: "Application started")
         DiagnosticsLogger.log(error: ExampleError.missingData)
         DiagnosticsLogger.log(error: ExampleLocalizedError.missingLocalizedData)
