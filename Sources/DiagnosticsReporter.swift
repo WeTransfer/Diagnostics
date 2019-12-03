@@ -57,7 +57,7 @@ public enum DiagnosticsReporter {
         }
 
         let data = html.data(using: .utf8)!
-        return DiagnosticsReport(filename: "DiagnosticsReport.html", data: data)
+        return DiagnosticsReport(filename: "Diagnostics-Report.html", data: data)
     }
 
     private static func header() -> HTML {
