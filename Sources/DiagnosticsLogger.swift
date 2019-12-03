@@ -74,8 +74,8 @@ public final class DiagnosticsLogger {
     ///   - function: The functino from which the log is send. Defaults to `#function`.
     ///   - line: The line from which the log is send. Defaults to `#line`.
     public static func log(error: Error, file: String = #file, function: String = #function, line: UInt = #line) {
-        let message = (error as? LocalizedError)?.localizedDescription ?? "\(error)"
-        standard.log(message: message, file: file, function: function, line: line)
+        let message = "\(error) | \(error.localizedDescription)"
+        standard.log(message: "ERROR: \(message)", file: file, function: function, line: line)
     }
 }
 

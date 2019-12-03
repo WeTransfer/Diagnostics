@@ -12,8 +12,22 @@ import Diagnostics
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    enum ExampleError: Error {
+        case missingData
+    }
+
+    enum ExampleLocalizedError: LocalizedError {
+        case missingLocalizedData
+
+        var localizedDescription: String {
+            return "Missing localized data"
+        }
+    }
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         DiagnosticsLogger.log(message: "Application started")
+        DiagnosticsLogger.log(error: ExampleError.missingData)
+        DiagnosticsLogger.log(error: ExampleLocalizedError.missingLocalizedData)
         // Override point for customization after application launch.
         return true
     }
