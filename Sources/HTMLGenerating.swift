@@ -50,7 +50,9 @@ extension String: HTMLGenerating {
 
 extension DiagnosticsChapter: HTMLGenerating {
     public func html() -> HTML {
-        var html = "<div class=\"chapter\"><h3>\(title)</h3>"
+        var html = "<div class=\"chapter\">"
+        html += "<span class=\"anchor\" id=\"\(title.anchor)\"></span>"
+        html += "<h3>\(title)</h3>"
         html += "<div class=\"chapter-content\">\(diagnostics.html())</div>"
         html += "</div>"
         return html

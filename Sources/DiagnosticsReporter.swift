@@ -56,10 +56,16 @@ public enum DiagnosticsReporter {
     public static func create(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters) -> DiagnosticsReport {
         var html = "<html>"
         html += header()
+        html += "<body>"
+        html += "<main class=\"container\">"
 
-        reporters.forEach { (reporter) in
-            html += reporter.report().html()
-        }
+        let reportChapters = reporters.map { $0.report() }
+
+        html += menu(using: reportChapters)
+        html += mainContent(using: reportChapters)
+
+        html += "</main>"
+        html += "</body>"
 
         let data = html.data(using: .utf8)!
         return DiagnosticsReport(filename: "Diagnostics-Report.html", data: data)
@@ -69,6 +75,7 @@ public enum DiagnosticsReporter {
         var html = "<head>"
         html += "<title>\(Bundle.appName) - Diagnostics Report</title>"
         html += style()
+        html += "<link href=\"https://fonts.googleapis.com/css?family=Roboto&display=swap\" rel=\"stylesheet\">"
         html += "</head>"
         return html
     }
@@ -80,9 +87,32 @@ public enum DiagnosticsReporter {
 
         return "<style>\(css)</style>"
     }
+
+    static func menu(using chapters: [DiagnosticsChapter]) -> HTML {
+        var html = "<aside class=\"nav-container\"><nav><ul>"
+        chapters.forEach { chapter in
+            html += "<li><a href=\"#\(chapter.title.anchor)\">\(chapter.title)</a></li>"
+        }
+        html += "</ul></nav></aside>"
+        return html
+    }
+
+    static func mainContent(using chapters: [DiagnosticsChapter]) -> HTML {
+        var html = "<div class=\"main-content\">"
+        html += "<header><h1>\(reportTitle)</h1></header>"
+        chapters.forEach { chapter in
+            html += chapter.html()
+        }
+        html += "</div>"
+        return html
+    }
 }
 
-private extension String {
+extension String {
+    var anchor: String {
+        return lowercased().replacingOccurrences(of: " ", with: "-")
+    }
+
     func minifiedCSS() -> String {
         let components = filter { !$0.isNewline }.components(separatedBy: .whitespacesAndNewlines)
         return components.filter { !$0.isEmpty }.joined(separator: " ")
