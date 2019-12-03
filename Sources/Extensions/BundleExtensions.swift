@@ -13,6 +13,10 @@ extension Bundle {
         return Bundle.main.infoDictionary?["CFBundleName"] as? String ?? ""
     }
 
+    static var appDisplayName: String {
+        return Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? ""
+    }
+
     static var appVersion: String {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }

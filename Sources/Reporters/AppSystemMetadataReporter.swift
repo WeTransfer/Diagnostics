@@ -13,6 +13,7 @@ struct AppSystemMetadataReporter: DiagnosticsReporting {
 
     enum MetadataKey: String, CaseIterable {
         case appName = "App name"
+        case appDisplayName = "App Display Name"
         case appVersion = "App version"
         case device = "Device"
         case system = "System"
@@ -34,6 +35,7 @@ struct AppSystemMetadataReporter: DiagnosticsReporting {
 
         let metadata: KeyValuePairs<String, String> = [
             MetadataKey.appName.rawValue: Bundle.appName,
+            MetadataKey.appDisplayName.rawValue: Bundle.appDisplayName,
             MetadataKey.appVersion.rawValue: "\(Bundle.appVersion) (\(Bundle.appBuildNumber))",
             MetadataKey.device.rawValue: hardware,
             MetadataKey.system.rawValue: system,
