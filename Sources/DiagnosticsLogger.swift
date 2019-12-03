@@ -14,11 +14,11 @@ public final class DiagnosticsLogger {
 
     static let standard = DiagnosticsLogger()
 
-    private let location: URL
-    private let pipe: Pipe
+    private lazy var location: URL = FileManager.default.documentsDirectory.appendingPathComponent("diagnostics_log.txt")
+    private let pipe: Pipe = Pipe()
     private let queue: DispatchQueue = DispatchQueue(label: "com.wetransfer.diagnostics.logger", qos: .utility, target: .global(qos: .utility))
 
-    private var logSize: ByteCountFormatter.Units.Bytes
+    private var logSize: ByteCountFormatter.Units.Bytes!
     private let maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
     private let trimSize: ByteCountFormatter.Units.Bytes = 100 * 1024 // 100 KB
 
@@ -30,31 +30,12 @@ public final class DiagnosticsLogger {
         return formatter
     }()
 
-    private init() {
-        location = FileManager.default.documentsDirectory.appendingPathComponent("diagnostics_log.txt")
+    /// Whether the logger is setup and ready to use.
+    private var isSetup: Bool = false
 
-        do {
-            if !FileManager.default.fileExistsAndIsFile(atPath: location.path) {
-                try? FileManager.default.removeItem(at: location)
-                try "".write(to: location, atomically: true, encoding: .utf8)
-            }
-
-            let fileHandle = try FileHandle(forReadingFrom: location)
-            fileHandle.seekToEndOfFile()
-            logSize = Int64(fileHandle.offsetInFile)
-
-        } catch {
-            assertionFailure("Failed setting up DiagnosticsLogger")
-            logSize = -1
-        }
-
-        pipe = Pipe()
-        setupPipe()
-    }
-
-    /// Reads the log and converts it to a `Data` object.
-    func readLog() -> Data? {
-        return queue.sync { try? Data(contentsOf: location) }
+    /// Sets up the logger to be ready for usage. This needs to be called before any log messages are reported.
+    public static func setup() throws {
+        try standard.setup()
     }
 
     /// Logs the given message for the diagnostics report.
@@ -67,20 +48,51 @@ public final class DiagnosticsLogger {
         standard.log(message: message, file: file, function: function, line: line)
     }
 
-    /// Logs the given message for the diagnostics report.
+    /// Logs the given error for the diagnostics report.
     /// - Parameters:
-    ///   - message: The message to log.
+    ///   - error: The error to log.
+    ///   - description: An optional description parameter to add extra info about the error.
     ///   - file: The file from which the log is send. Defaults to `#file`.
     ///   - function: The functino from which the log is send. Defaults to `#function`.
     ///   - line: The line from which the log is send. Defaults to `#line`.
-    public static func log(error: Error, file: String = #file, function: String = #function, line: UInt = #line) {
-        let message = "\(error) | \(error.localizedDescription)"
+    public static func log(error: Error, description: String? = nil, file: String = #file, function: String = #function, line: UInt = #line) {
+        var message = "\(error) | \(error.localizedDescription)"
+
+        if let description = description {
+            message += " | \(description)"
+        }
+
         standard.log(message: "ERROR: \(message)", file: file, function: function, line: line)
     }
 }
 
 extension DiagnosticsLogger {
+    /// Reads the log and converts it to a `Data` object.
+    func readLog() -> Data? {
+        guard isSetup else {
+            assertionFailure()
+            return nil
+        }
+
+        return queue.sync { try? Data(contentsOf: location) }
+    }
+
+    private func setup() throws {
+        if !FileManager.default.fileExistsAndIsFile(atPath: location.path) {
+            try? FileManager.default.removeItem(at: location)
+            try "".write(to: location, atomically: true, encoding: .utf8)
+        }
+
+        let fileHandle = try FileHandle(forReadingFrom: location)
+        fileHandle.seekToEndOfFile()
+        logSize = Int64(fileHandle.offsetInFile)
+        setupPipe()
+        isSetup = true
+    }
+
     private func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
+        guard isSetup else { return assertionFailure() }
+
         queue.async {
             let date = self.formatter.string(from: Date())
             let file = file.split(separator: "/").last.map(String.init) ?? file
@@ -162,7 +174,7 @@ private extension DiagnosticsLogger {
 
         queue.async {
             string.enumerateLines(invoking: { (line, _) in
-                self.log("SYSTEM: \(line)")
+                self.log("SYSTEM: \(line)\n")
             })
         }
     }
