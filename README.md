@@ -47,7 +47,7 @@ The default report already contains a lot of valuable information and could be e
 
 Make sure to set up the `DiagnosticsLogger` as early as possible to catch all the system logs, for example in the `didLaunchWithOptions`:
 
-```
+```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     do {
         try DiagnosticsLogger.setup()
@@ -60,7 +60,7 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 Then, simply show the `MFMailComposeViewController` using the following code:
 
-```
+```swift
 import UIKit
 import MessageUI
 import Diagnostics
@@ -102,7 +102,7 @@ extension ViewController: MFMailComposeViewControllerDelegate {
 ### Adding your own custom logs
 To make your own logs appear in the logs diagnostics you need to make use of the `DiagnosticsLogger`. 
 
-```
+```swift
 /// Support logging simple `String` messages.
 DiagnosticsLogger.log(message: "Application started")
 
@@ -115,7 +115,7 @@ The error logger will make use of the localized description if available which y
 ### Adding your own custom report
 To add your own report you need to make use of the `DiagnosticsReporting` protocol.
 
-```
+```swift
 /// An example Custom Reporter.
 struct CustomReporter: DiagnosticsReporting {
     static func report() -> DiagnosticsChapter {
@@ -130,7 +130,7 @@ struct CustomReporter: DiagnosticsReporting {
 
 You can then add this report to the creation method:
 
-```
+```swift
 var reporters = DiagnosticsReporter.DefaultReporter.allReporters
 reporters.insert(CustomReporter.self, at: 1)
 let report = DiagnosticsReporter.create(using: reporters)
