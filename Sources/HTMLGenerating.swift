@@ -30,13 +30,13 @@ extension Dictionary: HTMLGenerating where Key == String, Value == String {
 
 extension KeyValuePairs: HTMLGenerating where Key == String, Value == String {
     public func html() -> HTML {
-        var html = "<ul>"
+        var html = "<table>"
 
         for (key, value) in self {
-            html += "<li><b>\(key)</b> \(value)</li>"
+            html += "<tr><th>\(key)</th><td>\(value)</td></tr>"
         }
 
-        html += "</ul>"
+        html += "</table>"
 
         return html
     }

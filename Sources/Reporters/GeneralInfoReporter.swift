@@ -9,9 +9,9 @@
 /// Prints generic information in a separated chapter. Can be subclassed to change the default copy.
 open class GeneralInfoReporter: DiagnosticsReporting {
 
-    /// The title shown as introduction for the Diagnostics Report. Can be overwritten for a custom title. Defaults to report title.
+    /// The title shown as introduction for the Diagnostics Report. Can be overwritten for a custom title. Defaults to "Information".
     open class var title: String {
-        return DiagnosticsReporter.reportTitle
+        return "Information"
     }
 
     /// The description shown as introduction for the Diagnostics Report. Can be overwritten for a custom description.
