@@ -24,7 +24,7 @@ public final class DiagnosticsLogger {
     private let trimSize: ByteCountFormatter.Units.Bytes = 100 * 1024 // 100 KB
 
     private var isRunningTests: Bool {
-        return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+        return ProcessInfo.processInfo.arguments.contains("-UNITTEST")
     }
 
     private lazy var formatter: DateFormatter = {
