@@ -29,7 +29,11 @@ lane :test do |options|
     UI.important("Tests failed for #{ex}")
   end
 
-  trainer(output_directory: "build/reports/", fail_build: false)
+  begin
+    trainer(path: "build/reports/", output_directory: "build/reports/", extension: ".xml", fail_build: false)
+  rescue => ex
+    UI.important("Trainer report generation failed #{ex}")
+  end
 
   validate_changes(project_name: options[:project_name])
 end

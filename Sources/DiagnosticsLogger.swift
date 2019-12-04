@@ -23,6 +23,10 @@ public final class DiagnosticsLogger {
     private let maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
     private let trimSize: ByteCountFormatter.Units.Bytes = 100 * 1024 // 100 KB
 
+    private var isRunningTests: Bool {
+        return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
+    }
+
     private lazy var formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
@@ -162,6 +166,8 @@ extension DiagnosticsLogger {
 private extension DiagnosticsLogger {
 
     func setupPipe() {
+        guard !isRunningTests else { return }
+        
         // Send all output (STDOUT and STDERR) to our `Pipe`.
         dup2(pipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
         dup2(pipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO)

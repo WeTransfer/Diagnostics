@@ -28,7 +28,7 @@ final class HTMLGeneratingTests: XCTestCase {
     /// It should correctly transform a Dictionary to HTML.
     func testKeyValuePairsHTML() {
         let dict: KeyValuePairs<String, String> = ["App Name": "Collect by WeTransfer"]
-        let expectedHTML = "<ul><li><b>\(dict.first!.key)</b> \(dict.first!.value)</li></ul>"
+        let expectedHTML = "<table><tr><th>\(dict.first!.key)</th><td>\(dict.first!.value)</td></tr></table>"
         XCTAssertEqual(dict.html(), expectedHTML)
     }
 

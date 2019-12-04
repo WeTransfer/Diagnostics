@@ -9,7 +9,7 @@
 import Foundation
 import Diagnostics
 
-struct Session {
+enum Session {
     /// A fake property to demonstrate the custom reporter.
     static var isLoggedIn: Bool = false
 }

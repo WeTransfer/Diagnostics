@@ -13,7 +13,7 @@ final class GeneralInfoReporterTests: XCTestCase {
 
     /// It should include the title in the report.
     func testTitle() {
-        XCTAssertEqual(GeneralInfoReporter.report().title, DiagnosticsReporter.reportTitle)
+        XCTAssertEqual(GeneralInfoReporter.report().title, "Information")
     }
 
     func testDescription() {

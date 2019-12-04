@@ -14,7 +14,6 @@
 		500B27A5239544F200C304D4 /* AppSystemMetadataReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27A4239544F200C304D4 /* AppSystemMetadataReporter.swift */; };
 		500B27AA2395520300C304D4 /* DiagnosticsReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27A92395520300C304D4 /* DiagnosticsReport.swift */; };
 		500B27AC2395523600C304D4 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27AB2395523600C304D4 /* Diagnostics.swift */; };
-		500B27AE2395528100C304D4 /* DiagnosticsReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27AD2395528100C304D4 /* DiagnosticsReporterTests.swift */; };
 		500B27B02395551200C304D4 /* HTMLGenerating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27AF2395551200C304D4 /* HTMLGenerating.swift */; };
 		500B27B22395553000C304D4 /* HTMLGeneratingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27B12395553000C304D4 /* HTMLGeneratingTests.swift */; };
 		500B27B923955CAF00C304D4 /* GeneralInfoReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27B823955CAF00C304D4 /* GeneralInfoReporter.swift */; };
@@ -30,6 +29,7 @@
 		509F59392396973F006AD8D1 /* UserDefaultsReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F59382396973F006AD8D1 /* UserDefaultsReporterTests.swift */; };
 		509F593B2396980A006AD8D1 /* GeneralInfoReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F593A2396980A006AD8D1 /* GeneralInfoReporterTests.swift */; };
 		509F594023969C2A006AD8D1 /* AppSystemMetadataReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F593F23969C2A006AD8D1 /* AppSystemMetadataReporterTests.swift */; };
+		509F59D12397BD3A006AD8D1 /* DiagnosticsReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27AD2395528100C304D4 /* DiagnosticsReporterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +69,7 @@
 		509F59382396973F006AD8D1 /* UserDefaultsReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsReporterTests.swift; sourceTree = "<group>"; };
 		509F593A2396980A006AD8D1 /* GeneralInfoReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralInfoReporterTests.swift; sourceTree = "<group>"; };
 		509F593F23969C2A006AD8D1 /* AppSystemMetadataReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSystemMetadataReporterTests.swift; sourceTree = "<group>"; };
+		509F59D02397B77F006AD8D1 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +94,7 @@
 		500B2742239524E100C304D4 = {
 			isa = PBXGroup;
 			children = (
+				509F59D02397B77F006AD8D1 /* Package.swift */,
 				500B274E239524E100C304D4 /* Diagnostics */,
 				500B2759239524E100C304D4 /* DiagnosticsTests */,
 				500B274D239524E100C304D4 /* Products */,
@@ -348,12 +350,12 @@
 			files = (
 				500B27B22395553000C304D4 /* HTMLGeneratingTests.swift in Sources */,
 				509F59392396973F006AD8D1 /* UserDefaultsReporterTests.swift in Sources */,
-				500B27AE2395528100C304D4 /* DiagnosticsReporterTests.swift in Sources */,
 				500B27CA23968CA900C304D4 /* Mocks.swift in Sources */,
 				509F594023969C2A006AD8D1 /* AppSystemMetadataReporterTests.swift in Sources */,
 				509F593B2396980A006AD8D1 /* GeneralInfoReporterTests.swift in Sources */,
 				509F5937239694C1006AD8D1 /* LogsReporterTests.swift in Sources */,
 				509F59342396921A006AD8D1 /* MFMailComposeViewControllerTests.swift in Sources */,
+				509F59D12397BD3A006AD8D1 /* DiagnosticsReporterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
