@@ -9,7 +9,7 @@
 /// Prints generic information in a separated chapter. Can be subclassed to change the default copy.
 open class GeneralInfoReporter: DiagnosticsReporting {
 
-    /// The title shown as introduction for the Diagnostics Report. Can be overwritten for a custom title.
+    /// The title shown as introduction for the Diagnostics Report. Can be overwritten for a custom title. Defaults to report title.
     open class var title: String {
         return DiagnosticsReporter.reportTitle
     }
@@ -29,6 +29,6 @@ open class GeneralInfoReporter: DiagnosticsReporting {
     }
 
     public static func report() -> DiagnosticsChapter {
-        return DiagnosticsChapter(title: title, diagnostics: description)
+        return DiagnosticsChapter(title: title, diagnostics: description, shouldShowTitle: false)
     }
 }

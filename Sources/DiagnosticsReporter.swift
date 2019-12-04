@@ -12,13 +12,22 @@ public protocol DiagnosticsReporting {
     static func report() -> DiagnosticsChapter
 }
 
+/// Defines a Diagnostics Chapter which will end up in the report as HTML.
 public struct DiagnosticsChapter {
+
+    /// The title of the diagnostics report which will also be used as HTML anchor.
     public let title: String
+
+    /// The `Diagnostics` to show in the chapter.
     public let diagnostics: Diagnostics
 
-    public init(title: String, diagnostics: Diagnostics) {
+    /// Whether the title should be visibly shown.
+    public let shouldShowTitle: Bool
+
+    public init(title: String, diagnostics: Diagnostics, shouldShowTitle: Bool = true) {
         self.title = title
         self.diagnostics = diagnostics
+        self.shouldShowTitle = shouldShowTitle
     }
 }
 
