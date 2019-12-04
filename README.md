@@ -1,5 +1,5 @@
 <p align="center">
-    <img width="900px" src="Assets/artwork.jpg">
+    <img width="900px" src="Assets/banner.jpg">
 </p>
 
 <p align="center">
@@ -225,6 +225,17 @@ If you prefer not to use any of the aforementioned dependency managers, you can 
 ## Release Notes
 
 See [CHANGELOG.md](https://github.com/WeTransfer/Diagnostics/blob/master/Changelog.md) for a list of changes.
+
+## Authors
+This library is created as part of the [WeTransfer](https://www.wetransfer.com) Hackathon. Process has been reported on [Twitter](https://twitter.com/twannl/status/1201474263200550917?s=20). 
+
+Thanks to:
+
+- ["Offie"](https://twitter.com/offinga) for the HTML report
+- [Casper](https://twitter.com/_casperlourens) for the awesome logo
+- [Antoine](https://www.twiter.com/twannl) for the Swift Library
+
+Also, a little shoutout to [1Password](https://www.1password.com) for [inspiring us](https://twitter.com/twannl/status/1200167786749874176?s=20) to create this library.
 
 ## License
 
