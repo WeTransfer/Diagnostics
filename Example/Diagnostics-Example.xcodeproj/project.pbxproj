@@ -15,6 +15,7 @@
 		500B278423953F8E00C304D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 500B278223953F8E00C304D4 /* LaunchScreen.storyboard */; };
 		500B27B523955AD400C304D4 /* Diagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500B279B23953FCA00C304D4 /* Diagnostics.framework */; };
 		500B27B623955AD400C304D4 /* Diagnostics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 500B279B23953FCA00C304D4 /* Diagnostics.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		509F59CE2397AD0D006AD8D1 /* CustomReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F59CD2397AD0D006AD8D1 /* CustomReporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		500B278323953F8E00C304D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		500B278523953F8E00C304D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Diagnostics.xcodeproj; path = ../Diagnostics.xcodeproj; sourceTree = "<group>"; };
+		509F59CD2397AD0D006AD8D1 /* CustomReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomReporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 				500B278023953F8E00C304D4 /* Assets.xcassets */,
 				500B278223953F8E00C304D4 /* LaunchScreen.storyboard */,
 				500B278523953F8E00C304D4 /* Info.plist */,
+				509F59CD2397AD0D006AD8D1 /* CustomReporter.swift */,
 			);
 			path = "Diagnostics-Example";
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				500B277C23953F8C00C304D4 /* ViewController.swift in Sources */,
+				509F59CE2397AD0D006AD8D1 /* CustomReporter.swift in Sources */,
 				500B277823953F8C00C304D4 /* AppDelegate.swift in Sources */,
 				500B277A23953F8C00C304D4 /* SceneDelegate.swift in Sources */,
 			);

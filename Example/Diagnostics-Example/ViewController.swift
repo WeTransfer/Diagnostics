@@ -12,23 +12,26 @@ import Diagnostics
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view.
-    }
-
     @IBAction func sendDiagnostics(_ sender: UIButton) {
-        let report = DiagnosticsReporter.create()
+        /// Create the report.
+        var reporters = DiagnosticsReporter.DefaultReporter.allReporters
+        reporters.insert(CustomReporter.self, at: 1)
+        let report = DiagnosticsReporter.create(using: reporters)
 
         guard MFMailComposeViewController.canSendMail() else {
+            /// For debugging purposes you can save the report to desktop when testing on the simulator.
+            /// This allows you to iterate fast on your report.
             report.saveToDesktop()
             return
         }
 
         let mail = MFMailComposeViewController()
         mail.mailComposeDelegate = self
-        mail.setToRecipients(["someone@example.com"])
-        mail.setMessageBody("<p>You're so awesome!</p>", isHTML: true)
+        mail.setToRecipients(["support@yourcompany.com"])
+        mail.setSubject("Diagnostics Report")
+        mail.setMessageBody("An issue in the app is making me crazy, help!", isHTML: false)
+
+        /// Add the Diagnostics Report as an attachment.
         mail.addDiagnosticReport(report)
 
         present(mail, animated: true)

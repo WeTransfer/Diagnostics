@@ -1,0 +1,26 @@
+//
+//  CustomReporter.swift
+//  Diagnostics-Example
+//
+//  Created by Antoine van der Lee on 04/12/2019.
+//  Copyright © 2019 WeTransfer. All rights reserved.
+//
+
+import Foundation
+import Diagnostics
+
+struct Session {
+    /// A fake property to demonstrate the custom reporter.
+    static var isLoggedIn: Bool = false
+}
+
+/// An example Custom Reporter.
+struct CustomReporter: DiagnosticsReporting {
+    static func report() -> DiagnosticsChapter {
+        let diagnostics: [String: String] = [
+            "Logged In": Session.isLoggedIn.description
+        ]
+
+        return DiagnosticsChapter(title: "My custom report", diagnostics: diagnostics)
+    }
+}
