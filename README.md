@@ -28,6 +28,7 @@ Diagnostics is a library written in Swift which makes it really easy to share Di
 | Example mail composer | Example Report |
 | --- | --- |
 | ![](Assets/example_composed_email.png) | ![](Assets/example_report.png) |
+
 The library allows to easily attach the Diagnostics Report as an attachment to the `MFMailComposeViewController`.
 
 - [x] Integrated with the `MFMailComposeViewController`
