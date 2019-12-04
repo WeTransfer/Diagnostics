@@ -181,7 +181,7 @@ $ brew update
 $ brew install carthage
 ```
 
-To integrate Mocker into your Xcode project using Carthage, specify it in your `Cartfile`:
+To integrate Diagnostics into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
 github "WeTransfer/Diagnostics" ~> 1.00
@@ -191,7 +191,7 @@ Run `carthage update` to build the framework and drag the built `Diagnostics.fra
 
 ### Manually
 
-If you prefer not to use any of the aforementioned dependency managers, you can integrate Mocker into your project manually.
+If you prefer not to use any of the aforementioned dependency managers, you can integrate Diagnostics into your project manually.
 
 #### Embedded Framework
 
