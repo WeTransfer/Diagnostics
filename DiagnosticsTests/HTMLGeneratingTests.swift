@@ -14,7 +14,7 @@ final class HTMLGeneratingTests: XCTestCase {
     /// It should generate HTML for diagnostic chapters correctly.
     func testDiagnosticsChapterHTML() {
         let chapter = DiagnosticsChapter(title: "TITLE", diagnostics: "CONTENT")
-        let expectedHTML = "<div class=\"chapter\"><h3>\(chapter.title)</h3><div class=\"chapter-content\">\(chapter.diagnostics.html())</div></div>"
+        let expectedHTML = "<div class=\"chapter\"><span class=\"anchor\" id=\"\(chapter.title.lowercased())\"></span><h3>\(chapter.title)</h3><div class=\"chapter-content\">\(chapter.diagnostics.html())</div></div>"
         XCTAssertEqual(chapter.html(), expectedHTML)
     }
 

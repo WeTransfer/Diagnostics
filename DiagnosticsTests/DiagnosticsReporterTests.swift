@@ -11,6 +11,11 @@ import XCTest
 
 final class DiagnosticsReporterTests: XCTestCase {
 
+    override func setUp() {
+        super.setUp()
+        try! DiagnosticsLogger.setup()
+    }
+
     /// It should correctly generate HTML from the reporters.
     func testHTMLGeneration() {
         let diagnosticsChapter = DiagnosticsChapter(title: UUID().uuidString, diagnostics: UUID().uuidString)
