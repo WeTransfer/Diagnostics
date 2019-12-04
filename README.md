@@ -12,6 +12,10 @@
 <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=flat"/>
 </p>
 
+| Example mail composer | Example Report |
+| --- | --- |
+| ![](Assets/example_composed_email.png) | ![](Assets/example_report.png) |
+
 Diagnostics is a library written in Swift which makes it really easy to share Diagnostics Reports to your support team.
 
 - [Features](#features)
@@ -25,9 +29,6 @@ Diagnostics is a library written in Swift which makes it really easy to share Di
 - [License](#license)
 
 ## Features
-| Example mail composer | Example Report |
-| --- | --- |
-| ![](Assets/example_composed_email.png) | ![](Assets/example_report.png) |
 
 The library allows to easily attach the Diagnostics Report as an attachment to the `MFMailComposeViewController`.
 
