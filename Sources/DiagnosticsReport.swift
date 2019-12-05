@@ -32,6 +32,7 @@ public extension DiagnosticsReport {
         let userPath = simulatorPathComponents.joined(separator: "/")
         let path = "/\(userPath)/Desktop/Diagnostics/\(filename)"
         guard true == FileManager.default.createFile(atPath: path, contents: data, attributes: [FileAttributeKey.type: mimeType.rawValue]) else {
+            // swiftlint:disable nslog_prohibited
             print("Diagnostics Report could not be saved to: \(path)")
             return
         }
