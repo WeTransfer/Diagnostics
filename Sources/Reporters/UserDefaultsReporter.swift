@@ -6,6 +6,8 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
+import Foundation
+
 /// Generates a report from all the registered UserDefault keys.
 struct UserDefaultsReporter: DiagnosticsReporting {
 

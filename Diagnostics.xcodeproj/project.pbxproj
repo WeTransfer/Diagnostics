@@ -64,6 +64,7 @@
 		500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsLogger.swift; sourceTree = "<group>"; };
 		500B27C52395967200C304D4 /* LogsReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsReporter.swift; sourceTree = "<group>"; };
 		500B27C923968CA900C304D4 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		5050002423993D0300EADD27 /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
 		509F59332396921A006AD8D1 /* MFMailComposeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFMailComposeViewControllerTests.swift; sourceTree = "<group>"; };
 		509F5936239694C1006AD8D1 /* LogsReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsReporterTests.swift; sourceTree = "<group>"; };
 		509F59382396973F006AD8D1 /* UserDefaultsReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsReporterTests.swift; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				509F59D02397B77F006AD8D1 /* Package.swift */,
+				5050002423993D0300EADD27 /* Changelog.md */,
 				500B274E239524E100C304D4 /* Diagnostics */,
 				500B2759239524E100C304D4 /* DiagnosticsTests */,
 				500B274D239524E100C304D4 /* Products */,
@@ -508,6 +510,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetransfer.Diagnostics;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -535,6 +538,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.wetransfer.Diagnostics;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

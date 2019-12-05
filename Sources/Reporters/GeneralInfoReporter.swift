@@ -6,6 +6,8 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
+import Foundation
+
 /// Prints generic information in a separated chapter. Can be subclassed to change the default copy.
 open class GeneralInfoReporter: DiagnosticsReporting {
 
