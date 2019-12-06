@@ -36,7 +36,7 @@ The library allows to easily attach the Diagnostics Report as an attachment to t
 - [x] Default reporters include:
     - App metadata
     - System metadata
-    - System logs devided per session
+    - System logs divided per session
     - UserDefaults
 - [x] A custom `DiagnosticsLogger` to add your own logs
 - [x] Flexible setup to add your own custom diagnostics
