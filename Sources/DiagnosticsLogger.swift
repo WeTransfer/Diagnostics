@@ -83,9 +83,19 @@ extension DiagnosticsLogger {
         return queue.sync { try? Data(contentsOf: location) }
     }
 
+    /// Removes the log file.
+    func deleteLogs() throws {
+        guard FileManager.default.fileExists(atPath: location.path) else { return }
+        try? FileManager.default.removeItem(atPath: location.path)
+    }
+
     private func setup() throws {
         if !FileManager.default.fileExists(atPath: location.path) {
-            FileManager.default.createFile(atPath: location.path, contents: nil, attributes: nil)
+            try FileManager.default.createDirectory(atPath: FileManager.default.documentsDirectory.path, withIntermediateDirectories: true, attributes: nil)
+            guard FileManager.default.createFile(atPath: location.path, contents: nil, attributes: nil) else {
+                assertionFailure("Unable to create the log file")
+                return
+            }
         }
 
         let fileHandle = try FileHandle(forReadingFrom: location)

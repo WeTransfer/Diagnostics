@@ -11,6 +11,16 @@ import XCTest
 
 final class LogsReporterTests: XCTestCase {
 
+    override func setUp() {
+        super.setUp()
+        try! DiagnosticsLogger.setup()
+    }
+
+    override class func tearDown() {
+        try! DiagnosticsLogger.standard.deleteLogs()
+        super.tearDown()
+    }
+    
     /// It should show logged messages.
     func testMessagesLog() {
         let message = UUID().uuidString
