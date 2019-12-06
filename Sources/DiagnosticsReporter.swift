@@ -105,7 +105,11 @@ public enum DiagnosticsReporter {
     static func style() -> HTML {
         let bundle = Bundle(for: DiagnosticsLogger.self)
         let cssFile = bundle.url(forResource: "style", withExtension: "css")!
-        let css = try! String(contentsOf: cssFile, encoding: .utf8).minifiedCSS()
+        guard let css = try? String(contentsOf: cssFile, encoding: .utf8).minifiedCSS() else {
+            // swiftlint:disable nslog_prohibited
+            print("CSS generation failed.")
+            return ""
+        }
 
         return "<style>\(css)</style>"
     }
