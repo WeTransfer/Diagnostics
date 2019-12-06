@@ -30,7 +30,18 @@ public extension DiagnosticsReport {
         let simulatorPath = (NSSearchPathForDirectoriesInDomains(.desktopDirectory, .userDomainMask, true) as [String]).first!
         let simulatorPathComponents = URL(string: simulatorPath)!.pathComponents.prefix(3).filter { $0 != "/" }
         let userPath = simulatorPathComponents.joined(separator: "/")
-        let path = "/\(userPath)/Desktop/Diagnostics/\(filename)"
+        let path = "/\(userPath)/Desktop"
+        let directoryPath = "\(path)/Diagnostics"
+        do {
+            try FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: false, attributes: nil)
+            save(path: "\(directoryPath)/\(filename)")
+        } catch {
+            save(path: "\(path)/\(filename)")
+        }
+    }
+    
+    
+    func save(path: String) {
         guard FileManager.default.createFile(atPath: path, contents: data, attributes: [FileAttributeKey.type: mimeType.rawValue]) else {
             // swiftlint:disable nslog_prohibited
             print("Diagnostics Report could not be saved to: \(path)")
