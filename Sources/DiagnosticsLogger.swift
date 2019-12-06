@@ -72,6 +72,7 @@ public final class DiagnosticsLogger {
     }
 }
 
+// MARK: - Setup & Logging
 extension DiagnosticsLogger {
     /// Reads the log and converts it to a `Data` object.
     func readLog() -> Data? {
@@ -172,6 +173,7 @@ extension DiagnosticsLogger {
     }
 }
 
+// MARK: - System logs
 private extension DiagnosticsLogger {
 
     func setupPipe() {
