@@ -84,9 +84,8 @@ extension DiagnosticsLogger {
     }
 
     private func setup() throws {
-        if !FileManager.default.fileExistsAndIsFile(atPath: location.path) {
-            try? FileManager.default.removeItem(at: location)
-            try "".write(to: location, atomically: true, encoding: .utf8)
+        if !FileManager.default.fileExists(atPath: location.path) {
+            FileManager.default.createFile(atPath: location.path, contents: nil, attributes: nil)
         }
 
         let fileHandle = try FileHandle(forReadingFrom: location)
