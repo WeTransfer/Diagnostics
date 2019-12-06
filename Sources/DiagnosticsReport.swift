@@ -25,6 +25,13 @@ public struct DiagnosticsReport {
 }
 
 public extension DiagnosticsReport {
+    
+    private func isDirectory(atPath path: String) -> Bool {
+        var directory: ObjCBool = true
+        let exists = FileManager.default.fileExists(atPath: path, isDirectory: &directory)
+        return exists && directory.boolValue
+    }
+    
     /// This method can be used for debugging purposes to save the report to a `Diagnostics` folder on desktop.
     func saveToDesktop() {
         let simulatorPath = (NSSearchPathForDirectoriesInDomains(.desktopDirectory, .userDomainMask, true) as [String]).first!
@@ -32,6 +39,11 @@ public extension DiagnosticsReport {
         let userPath = simulatorPathComponents.joined(separator: "/")
         let path = "/\(userPath)/Desktop"
         let directoryPath = "\(path)/Diagnostics"
+        
+        if isDirectory(atPath: directoryPath) {
+            save(path: "\(directoryPath)/\(filename)")
+            return
+        }
         do {
             try FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: false, attributes: nil)
             save(path: "\(directoryPath)/\(filename)")
@@ -39,7 +51,6 @@ public extension DiagnosticsReport {
             save(path: "\(path)/\(filename)")
         }
     }
-    
     
     func save(path: String) {
         guard FileManager.default.createFile(atPath: path, contents: data, attributes: [FileAttributeKey.type: mimeType.rawValue]) else {
