@@ -16,6 +16,11 @@ final class DiagnosticsReporterTests: XCTestCase {
         try! DiagnosticsLogger.setup()
     }
 
+    override class func tearDown() {
+        try! DiagnosticsLogger.standard.deleteLogs()
+        super.tearDown()
+    }
+
     /// It should correctly generate HTML from the reporters.
     func testHTMLGeneration() {
         let diagnosticsChapter = DiagnosticsChapter(title: UUID().uuidString, diagnostics: UUID().uuidString)

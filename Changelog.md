@@ -1,6 +1,9 @@
 ## Changelog
 
 ### Next
+- Tests are no longer failing on CI (#18)
+
+### 1.0.1
 - Fixed SPM build errors (#15)
 - Fixed CocoaPods build errors by including CSS file (#21)
 

@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-<img src="https://api.travis-ci.org/WeTransfer/Diagnostics.svg?branch=master"/>
+<img src="https://app.bitrise.io/app/93c4448b37e42816.svg?token=iHe2fyIwNXWEIh3BshG8oQ"/>
 <img src="https://img.shields.io/cocoapods/v/Diagnostics.svg?style=flat"/>
 <img src="https://img.shields.io/cocoapods/l/Diagnostics.svg?style=flat"/>
 <img src="https://img.shields.io/cocoapods/p/Diagnostics.svg?style=flat"/>

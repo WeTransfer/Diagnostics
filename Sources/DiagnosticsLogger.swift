@@ -72,6 +72,7 @@ public final class DiagnosticsLogger {
     }
 }
 
+// MARK: - Setup & Logging
 extension DiagnosticsLogger {
     /// Reads the log and converts it to a `Data` object.
     func readLog() -> Data? {
@@ -83,10 +84,19 @@ extension DiagnosticsLogger {
         return queue.sync { try? Data(contentsOf: location) }
     }
 
+    /// Removes the log file.
+    func deleteLogs() throws {
+        guard FileManager.default.fileExists(atPath: location.path) else { return }
+        try? FileManager.default.removeItem(atPath: location.path)
+    }
+
     private func setup() throws {
-        if !FileManager.default.fileExistsAndIsFile(atPath: location.path) {
-            try? FileManager.default.removeItem(at: location)
-            try "".write(to: location, atomically: true, encoding: .utf8)
+        if !FileManager.default.fileExists(atPath: location.path) {
+            try FileManager.default.createDirectory(atPath: FileManager.default.documentsDirectory.path, withIntermediateDirectories: true, attributes: nil)
+            guard FileManager.default.createFile(atPath: location.path, contents: nil, attributes: nil) else {
+                assertionFailure("Unable to create the log file")
+                return
+            }
         }
 
         let fileHandle = try FileHandle(forReadingFrom: location)
@@ -163,6 +173,7 @@ extension DiagnosticsLogger {
     }
 }
 
+// MARK: - System logs
 private extension DiagnosticsLogger {
 
     func setupPipe() {
