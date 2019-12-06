@@ -30,7 +30,11 @@ extension UIDevice {
     var freeDiskSpaceInBytes: ByteCountFormatter.Units.Bytes {
         if #available(iOS 11.0, *) {
             if let space = try? URL(fileURLWithPath: NSHomeDirectory() as String).resourceValues(forKeys: [URLResourceKey.volumeAvailableCapacityForImportantUsageKey]).volumeAvailableCapacityForImportantUsage {
-                return space
+                #if swift(>=5)
+                    return space
+                #else
+                    return space ?? 0
+                #endif
             } else {
                 return 0
             }
