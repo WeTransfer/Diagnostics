@@ -40,6 +40,6 @@ public extension DiagnosticsReport {
         }
 
         // swiftlint:disable nslog_prohibited
-        print("Diagnostics Report saved to: \(path)")
+        print("Diagnostics Report saved to: \(filePath)")
     }
 }
