@@ -3,6 +3,7 @@
 ### Next
 - Tests are no longer failing on CI (#18)
 - Remove the CSS resource file for SPM support (#28)
+- Saving to desktop makes sure the folder exists
 
 ### 1.0.1
 - Fixed SPM build errors (#15)
