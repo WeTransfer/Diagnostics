@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'Diagnostics'
-  spec.version          = '1.0.1'
+  spec.version          = '1.0.2'
   spec.summary          = 'Create easy Diagnostics Reports and let user send them to your support team.'
   spec.description      = 'Diagnostics is a library written in Swift which makes it really easy to share Diagnostics Reports to your support team.'
 
