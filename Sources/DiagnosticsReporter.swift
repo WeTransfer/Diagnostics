@@ -133,9 +133,4 @@ extension String {
     var anchor: String {
         return lowercased().replacingOccurrences(of: " ", with: "-")
     }
-
-    func minifiedCSS() -> String {
-        let components = filter { !$0.isNewline }.components(separatedBy: .whitespacesAndNewlines)
-        return components.filter { !$0.isEmpty }.joined(separator: " ")
-    }
 }
