@@ -14,6 +14,5 @@ Pod::Spec.new do |spec|
 
   spec.ios.deployment_target = '11.0'
   spec.source_files     = 'Sources/**/*'
-  spec.resources        = 'Sources/*.css'
   spec.swift_version    = '5.1'
 end

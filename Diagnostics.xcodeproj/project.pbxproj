@@ -18,7 +18,6 @@
 		500B27B22395553000C304D4 /* HTMLGeneratingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27B12395553000C304D4 /* HTMLGeneratingTests.swift */; };
 		500B27B923955CAF00C304D4 /* GeneralInfoReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27B823955CAF00C304D4 /* GeneralInfoReporter.swift */; };
 		500B27BC239561A500C304D4 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27BB239561A500C304D4 /* BundleExtensions.swift */; };
-		500B27BE23956A8A00C304D4 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 500B27BD23956A8A00C304D4 /* style.css */; };
 		500B27C0239571FB00C304D4 /* UIDeviceExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27BF239571FB00C304D4 /* UIDeviceExtensions.swift */; };
 		500B27C22395777C00C304D4 /* UserDefaultsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27C12395777C00C304D4 /* UserDefaultsReporter.swift */; };
 		500B27C4239590E100C304D4 /* DiagnosticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */; };
@@ -292,7 +291,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				500B27BE23956A8A00C304D4 /* style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
