@@ -1,3 +1,8 @@
+/*
+ This CSS file is only used for active developing on the report. The CSS is eventually copied over to make sure we support Swift Package Manager as packages can't contain resources.
+ We make use of https://cssminifier.com/ to minify the CSS, which we copy over into the HTMLGenerating.swift.
+ */
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
