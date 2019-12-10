@@ -46,7 +46,7 @@ public enum DiagnosticsReporter {
     /// - Parameters:
     ///   - reporters: The reporters to use. Defaults to `DefaultReporter.allReporters`. Use this parameter if you'd like to exclude certain reports.
     ///   - filters: The filters to use for the generated diagnostics. Should conform to the `DiagnosticsReportFilter` protocol.
-    public static func create<T: DiagnosticsReportFilter>(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters, filters: [T.Type]? = nil) -> DiagnosticsReport {
+    public static func create(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters, filters: [DiagnosticsReportFilter.Type]? = nil) -> DiagnosticsReport {
         let reportChapters = reporters.map { reporter -> DiagnosticsChapter in
             var chapter = reporter.report()
             if let filters = filters, !filters.isEmpty {

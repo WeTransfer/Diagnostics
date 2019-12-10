@@ -10,11 +10,11 @@ import Foundation
 import Diagnostics
 
 struct DiagnosticsDictionaryFilter: DiagnosticsReportFilter {
-    typealias DiagnosticsType = [String: Any]
 
     // This demonstrates how a filter can be used to filter out sensible data.
-    static func filter(_ diagnostics: [String: Any]) -> [String: Any] {
-        return diagnostics.filter { keyValue -> Bool in
+    static func filter(_ diagnostics: Diagnostics) -> Diagnostics {
+        guard let dictionary = diagnostics as? [String: Any] else { return diagnostics }
+        return dictionary.filter { keyValue -> Bool in
             if keyValue.key == "App Display Name" {
                 // Filter out the key with the value "App Display Name"
                 return false
@@ -24,5 +24,13 @@ struct DiagnosticsDictionaryFilter: DiagnosticsReportFilter {
             }
             return true
         }
+    }
+}
+
+struct DiagnosticsStringFilter: DiagnosticsReportFilter {
+    static func filter(_ diagnostics: Diagnostics) -> Diagnostics {
+        guard let string = diagnostics as? String else { return diagnostics }
+        /// This filter just demonstrates the fact that you can replace sensible values from a `String`.
+        return string.replacingOccurrences(of: "Support team", with: "Amazing Support team")
     }
 }

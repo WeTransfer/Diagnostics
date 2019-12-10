@@ -32,14 +32,12 @@ public struct DiagnosticsChapter {
 }
 
 public protocol DiagnosticsReportFilter {
-    associatedtype DiagnosticsType: Diagnostics
-    static func filter(_ diagnostics: DiagnosticsType) -> DiagnosticsType
+    static func filter(_ diagnostics: Diagnostics) -> Diagnostics
 }
 
 extension DiagnosticsChapter {
-    mutating func applyingFilters<T: DiagnosticsReportFilter>(_ filters: [T.Type]) {
+    mutating func applyingFilters(_ filters: [DiagnosticsReportFilter.Type]) {
         filters.forEach { reportFilter in
-            guard let diagnostics = diagnostics as? T.DiagnosticsType else { return }
             self.diagnostics = reportFilter.filter(diagnostics)
         }
     }
