@@ -21,6 +21,7 @@ Diagnostics is a library written in Swift which makes it really easy to share Di
 - [Features](#features)
 - [Requirements](#requirements)
 - [Usage](#usage)
+	- [Using a custom UserDefaults type](#using-a-custom-userdefaults-type) 
 	- [Filtering out sensitive data](#filtering-out-sensitive-data) 
 	- [Adding your own custom logs](#adding-your-own-custom-logs)
 	- [Adding your own custom report](#adding-your-own-custom-report)
@@ -99,6 +100,13 @@ extension ViewController: MFMailComposeViewControllerDelegate {
         controller.dismiss(animated: true)
     }
 }
+```
+
+### Using a custom UserDefaults type
+Simply set your user defaults instance by making use of:
+
+```swift
+UserDefaultsReporter.userDefaults = ..
 ```
 
 ### Filtering out sensitive data
