@@ -9,16 +9,21 @@
 import Foundation
 
 /// Generates a report from all the registered UserDefault keys.
-struct UserDefaultsReporter: DiagnosticsReporting {
+open class UserDefaultsReporter: DiagnosticsReporting {
 
-    static func report() -> DiagnosticsChapter {
+    /// Defaults to `standard`. Can be used to override and return a different user defaults.
+    class var userDefaults: UserDefaults {
+        return .standard
+    }
+
+    public static func report() -> DiagnosticsChapter {
         let userDefaults = UserDefaults.standard.dictionaryRepresentation()
         return DiagnosticsChapter(title: "UserDefaults", diagnostics: userDefaults, formatter: self)
     }
 }
 
 extension UserDefaultsReporter: HTMLFormatting {
-    static func format(_ diagnostics: Diagnostics) -> HTML {
+    public static func format(_ diagnostics: Diagnostics) -> HTML {
         guard let userDefaultsDict = diagnostics as? [String: Any] else { return diagnostics.html() }
         return "<pre>\(userDefaultsDict.jsonRepresentation ?? "Could not parse User Defaults")</pre>"
     }
