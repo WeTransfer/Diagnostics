@@ -13,15 +13,14 @@ final class AppSystemMetadataReporterTests: XCTestCase {
 
     /// It should correctly add the metadata.
     func testMetadata() {
-        let metadata = AppSystemMetadataReporter.report().diagnostics as! KeyValuePairs<String, String>
-        let dict: [String: String] = Dictionary(uniqueKeysWithValues: metadata.map { $0 })
+        let metadata = AppSystemMetadataReporter.report().diagnostics as! [String: String]
 
-        XCTAssertEqual(dict[AppSystemMetadataReporter.MetadataKey.appName.rawValue], Bundle.appName)
-        XCTAssertEqual(dict[AppSystemMetadataReporter.MetadataKey.appVersion.rawValue], "\(Bundle.appVersion) (\(Bundle.appBuildNumber))")
-        XCTAssertEqual(dict[AppSystemMetadataReporter.MetadataKey.appLanguage.rawValue], "en")
+        XCTAssertEqual(metadata[AppSystemMetadataReporter.MetadataKey.appName.rawValue], Bundle.appName)
+        XCTAssertEqual(metadata[AppSystemMetadataReporter.MetadataKey.appVersion.rawValue], "\(Bundle.appVersion) (\(Bundle.appBuildNumber))")
+        XCTAssertEqual(metadata[AppSystemMetadataReporter.MetadataKey.appLanguage.rawValue], "en")
 
         AppSystemMetadataReporter.MetadataKey.allCases.forEach { key in
-            XCTAssertNotNil(dict[key.rawValue])
+            XCTAssertNotNil(metadata[key.rawValue])
         }
     }
 }
