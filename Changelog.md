@@ -3,6 +3,8 @@
 ### Next
 - Added an `HTMLFormatting` type for custom formatting HTML inside reports
 - Added a `DiagnosticsReportFilter` type to filter out senstive data (#17, #19)
+- Dictionaries are now shown as Tables in the HTML report
+- You can now set a custom UserDefaults for the report by using `UserDefaultsReporter.userDefaults = ..`
 
 ### 1.0.2
 - Tests are no longer failing on CI (#18)
