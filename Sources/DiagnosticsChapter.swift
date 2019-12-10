@@ -20,10 +20,14 @@ public struct DiagnosticsChapter {
     /// Whether the title should be visibly shown.
     public let shouldShowTitle: Bool
 
-    public init(title: String, diagnostics: Diagnostics, shouldShowTitle: Bool = true) {
+    /// An optional HTML formatter to customize the HTML format. `diagnostics.html()` will be used if this formatter is set to `nil`,
+    public let formatter: HTMLFormatting.Type?
+
+    public init(title: String, diagnostics: Diagnostics, shouldShowTitle: Bool = true, formatter: HTMLFormatting.Type? = nil) {
         self.title = title
         self.diagnostics = diagnostics
         self.shouldShowTitle = shouldShowTitle
+        self.formatter = formatter
     }
 }
 

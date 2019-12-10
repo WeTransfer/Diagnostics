@@ -9,6 +9,7 @@
 import Foundation
 
 public protocol DiagnosticsReporting {
+    /// Creates the report chapter.
     static func report() -> DiagnosticsChapter
 }
 

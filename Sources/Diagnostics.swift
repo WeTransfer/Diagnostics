@@ -10,6 +10,6 @@ import Foundation
 
 /// Defines supported `Diagnostics` to generate a report from.
 public protocol Diagnostics: HTMLGenerating { }
-extension Dictionary: Diagnostics where Key == String, Value == String { }
+extension Dictionary: Diagnostics where Key == String { }
 extension KeyValuePairs: Diagnostics where Key == String, Value == String { }
 extension String: Diagnostics { }

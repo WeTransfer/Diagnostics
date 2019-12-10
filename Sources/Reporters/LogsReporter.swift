@@ -17,10 +17,16 @@ struct LogsReporter: DiagnosticsReporting {
             return "Parsing the log failed"
         }
 
-        return "<pre>\(logs)</pre>"
+        return logs
     }
 
     static func report() -> DiagnosticsChapter {
-        return DiagnosticsChapter(title: "Logs", diagnostics: diagnostics)
+        return DiagnosticsChapter(title: "Logs", diagnostics: diagnostics, formatter: self)
+    }
+}
+
+extension LogsReporter: HTMLFormatting {
+    static func format(_ diagnostics: Diagnostics) -> HTML {
+        return "<pre>\(diagnostics)</pre>"
     }
 }
