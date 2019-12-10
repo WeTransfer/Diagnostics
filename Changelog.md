@@ -1,6 +1,8 @@
 ## Changelog
 
 ### Next
+- Added an `HTMLFormatting` type for custom formatting HTML inside reports
+- Added a `DiagnosticsReportFilter` type to filter out senstive data (#17, #19)
 
 ### 1.0.2
 - Tests are no longer failing on CI (#18)
