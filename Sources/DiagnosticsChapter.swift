@@ -31,14 +31,10 @@ public struct DiagnosticsChapter {
     }
 }
 
-public protocol DiagnosticsReportFilter {
-    static func filter(_ diagnostics: Diagnostics) -> Diagnostics
-}
-
 extension DiagnosticsChapter {
     mutating func applyingFilters(_ filters: [DiagnosticsReportFilter.Type]) {
         filters.forEach { reportFilter in
-            self.diagnostics = reportFilter.filter(diagnostics)
+            diagnostics = reportFilter.filter(diagnostics)
         }
     }
 }

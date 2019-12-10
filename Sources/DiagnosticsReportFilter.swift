@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+public protocol DiagnosticsReportFilter {
+    static func filter(_ diagnostics: Diagnostics) -> Diagnostics
+}
