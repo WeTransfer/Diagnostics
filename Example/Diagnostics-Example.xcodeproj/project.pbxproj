@@ -10,7 +10,7 @@
 		500B277C23953F8C00C304D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B277B23953F8C00C304D4 /* ViewController.swift */; };
 		500B27B523955AD400C304D4 /* Diagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500B279B23953FCA00C304D4 /* Diagnostics.framework */; };
 		500B27B623955AD400C304D4 /* Diagnostics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 500B279B23953FCA00C304D4 /* Diagnostics.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		505000F2239FA4AB00EADD27 /* CustomFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505000F1239FA4AB00EADD27 /* CustomFilter.swift */; };
+		505000F2239FA4AB00EADD27 /* CustomFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505000F1239FA4AB00EADD27 /* CustomFilters.swift */; };
 		505000FD239FA4CB00EADD27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 505000F5239FA4CA00EADD27 /* Assets.xcassets */; };
 		505000FE239FA4CB00EADD27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 505000F6239FA4CA00EADD27 /* LaunchScreen.storyboard */; };
 		505000FF239FA4CB00EADD27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 505000F8239FA4CA00EADD27 /* Main.storyboard */; };
@@ -61,7 +61,7 @@
 		500B277423953F8C00C304D4 /* Diagnostics-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Diagnostics-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B277B23953F8C00C304D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Diagnostics.xcodeproj; path = ../Diagnostics.xcodeproj; sourceTree = "<group>"; };
-		505000F1239FA4AB00EADD27 /* CustomFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilter.swift; sourceTree = "<group>"; };
+		505000F1239FA4AB00EADD27 /* CustomFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilters.swift; sourceTree = "<group>"; };
 		505000F5239FA4CA00EADD27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		505000F7239FA4CA00EADD27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		505000F9239FA4CA00EADD27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 				505000F4239FA4CA00EADD27 /* Supporting Files */,
 				500B277B23953F8C00C304D4 /* ViewController.swift */,
 				509F59CD2397AD0D006AD8D1 /* CustomReporter.swift */,
-				505000F1239FA4AB00EADD27 /* CustomFilter.swift */,
+				505000F1239FA4AB00EADD27 /* CustomFilters.swift */,
 			);
 			path = "Diagnostics-Example";
 			sourceTree = "<group>";
@@ -241,7 +241,7 @@
 				50500102239FA4CB00EADD27 /* SceneDelegate.swift in Sources */,
 				500B277C23953F8C00C304D4 /* ViewController.swift in Sources */,
 				509F59CE2397AD0D006AD8D1 /* CustomReporter.swift in Sources */,
-				505000F2239FA4AB00EADD27 /* CustomFilter.swift in Sources */,
+				505000F2239FA4AB00EADD27 /* CustomFilters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,14 +10,13 @@ import Foundation
 import Diagnostics
 
 struct DiagnosticsDictionaryFilter: DiagnosticsReportFilter {
-    typealias DiagnosticsType = KeyValuePairs<String, String>
+    typealias DiagnosticsType = [String: String]
 
     // Filter out the key with the value "App Display Name"
     // This demonstrates how a filter can be used to filter out sensible data.
-    static func filter(_ diagnostics: KeyValuePairs<String, String>) -> KeyValuePairs<String, String> {
-        let filteredKeyValuePairs: (String, String) = diagnostics.filter { (keyValue) -> Bool in
+    static func filter(_ diagnostics: [String: String]) -> [String: String] {
+        return diagnostics.filter { keyValue -> Bool in
             return keyValue.key != "App Display Name"
-        }.map { ($0.key, $0.value) }
-        return KeyValuePairs<String, String>(dictionaryLiteral: filteredKeyValuePairs)
+        }
     }
 }

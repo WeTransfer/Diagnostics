@@ -9,9 +9,9 @@
 import UIKit
 
 /// Reports App and System specific metadata like OS and App version.
-struct AppSystemMetadataReporter: DiagnosticsReporting {
+public struct AppSystemMetadataReporter: DiagnosticsReporting {
 
-    enum MetadataKey: String, CaseIterable {
+    public enum MetadataKey: String, CaseIterable {
         case appName = "App name"
         case appDisplayName = "App Display Name"
         case appVersion = "App version"
@@ -23,7 +23,7 @@ struct AppSystemMetadataReporter: DiagnosticsReporting {
     }
 
     static var title: String = "App & System Details"
-    static var diagnostics: KeyValuePairs<String, String> {
+    static var diagnostics: [String: String] {
         var systemInfo = utsname()
         uname(&systemInfo)
         let hardware = Mirror(reflecting: systemInfo.machine).children.reduce("") { identifier, element in
@@ -33,7 +33,7 @@ struct AppSystemMetadataReporter: DiagnosticsReporting {
 
         let system = "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"
 
-        let metadata: KeyValuePairs<String, String> = [
+        let metadata: [String: String] = [
             MetadataKey.appName.rawValue: Bundle.appName,
             MetadataKey.appDisplayName.rawValue: Bundle.appDisplayName,
             MetadataKey.appVersion.rawValue: "\(Bundle.appVersion) (\(Bundle.appBuildNumber))",
@@ -46,7 +46,7 @@ struct AppSystemMetadataReporter: DiagnosticsReporting {
         return metadata
     }
 
-    static func report() -> DiagnosticsChapter {
+    public static func report() -> DiagnosticsChapter {
         return DiagnosticsChapter(title: title, diagnostics: diagnostics)
     }
 }

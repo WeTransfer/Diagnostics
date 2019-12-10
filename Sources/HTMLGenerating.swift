@@ -16,13 +16,13 @@ public protocol HTMLGenerating {
 
 extension Dictionary: HTMLGenerating where Key == String, Value == String {
     public func html() -> HTML {
-        var html = "<ul>"
+        var html = "<table>"
 
         for (key, value) in self.sorted(by: { $0.0 < $1.0 }) {
-            html += "<li><b>\(key.description)</b> \(value)</li>"
+            html += "<tr><th>\(key.description)</th><td>\(value)</td></tr>"
         }
 
-        html += "</ul>"
+        html += "</table>"
 
         return html
     }
