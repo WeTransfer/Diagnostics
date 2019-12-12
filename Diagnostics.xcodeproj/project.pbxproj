@@ -23,6 +23,8 @@
 		500B27C4239590E100C304D4 /* DiagnosticsLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */; };
 		500B27C62395967200C304D4 /* LogsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27C52395967200C304D4 /* LogsReporter.swift */; };
 		500B27CA23968CA900C304D4 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B27C923968CA900C304D4 /* Mocks.swift */; };
+		505000EE239FA22400EADD27 /* DiagnosticsReportFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505000ED239FA22400EADD27 /* DiagnosticsReportFilter.swift */; };
+		505000F0239FA2A300EADD27 /* DiagnosticsChapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505000EF239FA2A300EADD27 /* DiagnosticsChapter.swift */; };
 		509F59342396921A006AD8D1 /* MFMailComposeViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F59332396921A006AD8D1 /* MFMailComposeViewControllerTests.swift */; };
 		509F5937239694C1006AD8D1 /* LogsReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F5936239694C1006AD8D1 /* LogsReporterTests.swift */; };
 		509F59392396973F006AD8D1 /* UserDefaultsReporterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F59382396973F006AD8D1 /* UserDefaultsReporterTests.swift */; };
@@ -64,6 +66,8 @@
 		500B27C52395967200C304D4 /* LogsReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsReporter.swift; sourceTree = "<group>"; };
 		500B27C923968CA900C304D4 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		5050002423993D0300EADD27 /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
+		505000ED239FA22400EADD27 /* DiagnosticsReportFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsReportFilter.swift; sourceTree = "<group>"; };
+		505000EF239FA2A300EADD27 /* DiagnosticsChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsChapter.swift; sourceTree = "<group>"; };
 		509F59332396921A006AD8D1 /* MFMailComposeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFMailComposeViewControllerTests.swift; sourceTree = "<group>"; };
 		509F5936239694C1006AD8D1 /* LogsReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsReporterTests.swift; sourceTree = "<group>"; };
 		509F59382396973F006AD8D1 /* UserDefaultsReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsReporterTests.swift; sourceTree = "<group>"; };
@@ -141,8 +145,10 @@
 				500B27A02395412300C304D4 /* MFMailExtensions */,
 				500B27A3239544DB00C304D4 /* Reporters */,
 				500B27AB2395523600C304D4 /* Diagnostics.swift */,
+				505000EF239FA2A300EADD27 /* DiagnosticsChapter.swift */,
 				500B27C3239590E100C304D4 /* DiagnosticsLogger.swift */,
 				500B27A92395520300C304D4 /* DiagnosticsReport.swift */,
+				505000ED239FA22400EADD27 /* DiagnosticsReportFilter.swift */,
 				500B276723953E4100C304D4 /* DiagnosticsReporter.swift */,
 				500B27AF2395551200C304D4 /* HTMLGenerating.swift */,
 				500B27BD23956A8A00C304D4 /* style.css */,
@@ -339,7 +345,9 @@
 				500B27AA2395520300C304D4 /* DiagnosticsReport.swift in Sources */,
 				500B276823953E4100C304D4 /* DiagnosticsReporter.swift in Sources */,
 				500B27A22395413200C304D4 /* MFMailComposeVCExtensions.swift in Sources */,
+				505000EE239FA22400EADD27 /* DiagnosticsReportFilter.swift in Sources */,
 				500B27C62395967200C304D4 /* LogsReporter.swift in Sources */,
+				505000F0239FA2A300EADD27 /* DiagnosticsChapter.swift in Sources */,
 				500B27C0239571FB00C304D4 /* UIDeviceExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,23 +9,30 @@
 import Foundation
 
 /// Generates a report from all the registered UserDefault keys.
-struct UserDefaultsReporter: DiagnosticsReporting {
+public final class UserDefaultsReporter: DiagnosticsReporting {
 
-    static func report() -> DiagnosticsChapter {
-        let formattedDictionary = UserDefaults.standard.jsonRepresentation
-        return DiagnosticsChapter(title: "UserDefaults", diagnostics: "<pre>\(formattedDictionary ?? "User Defaults could not be parsed")</pre>")
+    /// Defaults to `standard`. Can be used to override and return a different user defaults.
+    public static var userDefaults: UserDefaults = .standard
+
+    public static func report() -> DiagnosticsChapter {
+        let userDefaults = self.userDefaults.dictionaryRepresentation()
+        return DiagnosticsChapter(title: "UserDefaults", diagnostics: userDefaults, formatter: self)
     }
 }
 
-private extension UserDefaults {
-    var jsonRepresentation: String? {
-        let jsonCompatibleDictionary = dictionaryRepresentation().jsonCompatible
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonCompatibleDictionary, options: [.prettyPrinted, .sortedKeys, .fragmentsAllowed]) else { return nil }
-        return String(data: jsonData, encoding: .utf8)
+extension UserDefaultsReporter: HTMLFormatting {
+    public static func format(_ diagnostics: Diagnostics) -> HTML {
+        guard let userDefaultsDict = diagnostics as? [String: Any] else { return diagnostics.html() }
+        return "<pre>\(userDefaultsDict.jsonRepresentation ?? "Could not parse User Defaults")</pre>"
     }
 }
 
 private extension Dictionary where Key == String, Value == Any {
+    var jsonRepresentation: String? {
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonCompatible, options: [.prettyPrinted, .sortedKeys, .fragmentsAllowed]) else { return nil }
+        return String(data: jsonData, encoding: .utf8)
+    }
+
     var jsonCompatible: [String: Any] {
         return mapValues { value -> Any in
             if let dict = value as? [String: Any] {

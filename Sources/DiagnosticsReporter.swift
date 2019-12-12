@@ -9,26 +9,8 @@
 import Foundation
 
 public protocol DiagnosticsReporting {
+    /// Creates the report chapter.
     static func report() -> DiagnosticsChapter
-}
-
-/// Defines a Diagnostics Chapter which will end up in the report as HTML.
-public struct DiagnosticsChapter {
-
-    /// The title of the diagnostics report which will also be used as HTML anchor.
-    public let title: String
-
-    /// The `Diagnostics` to show in the chapter.
-    public let diagnostics: Diagnostics
-
-    /// Whether the title should be visibly shown.
-    public let shouldShowTitle: Bool
-
-    public init(title: String, diagnostics: Diagnostics, shouldShowTitle: Bool = true) {
-        self.title = title
-        self.diagnostics = diagnostics
-        self.shouldShowTitle = shouldShowTitle
-    }
 }
 
 public enum DiagnosticsReporter {
@@ -61,14 +43,31 @@ public enum DiagnosticsReporter {
     static var reportTitle: String = "\(Bundle.appName) - Diagnostics Report"
 
     /// Creates the report by making use of the given reporters.
-    /// - Parameter reporters: The reporters to use. Defaults to `DefaultReporter.allReporters`. Use this parameter if you'd like to exclude certain reports.
-    public static func create(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters) -> DiagnosticsReport {
+    /// - Parameters:
+    ///   - reporters: The reporters to use. Defaults to `DefaultReporter.allReporters`. Use this parameter if you'd like to exclude certain reports.
+    ///   - filters: The filters to use for the generated diagnostics. Should conform to the `DiagnosticsReportFilter` protocol.
+    public static func create(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters, filters: [DiagnosticsReportFilter.Type]? = nil) -> DiagnosticsReport {
+        let reportChapters = reporters.map { reporter -> DiagnosticsChapter in
+            var chapter = reporter.report()
+            if let filters = filters, !filters.isEmpty {
+                chapter.applyingFilters(filters)
+            }
+            return chapter
+        }
+        
+        let html = generateHTML(using: reportChapters)
+        let data = html.data(using: .utf8)!
+        return DiagnosticsReport(filename: "Diagnostics-Report.html", data: data)
+    }
+}
+
+// MARK: - HTML Report Generation
+extension DiagnosticsReporter {
+    private static func generateHTML(using reportChapters: [DiagnosticsChapter]) -> HTML {
         var html = "<html>"
         html += header()
         html += "<body>"
         html += "<main class=\"container\">"
-
-        let reportChapters = reporters.map { $0.report() }
 
         html += menu(using: reportChapters)
         html += mainContent(using: reportChapters)
@@ -76,9 +75,7 @@ public enum DiagnosticsReporter {
         html += "</main>"
         html += footer()
         html += "</body>"
-
-        let data = html.data(using: .utf8)!
-        return DiagnosticsReport(filename: "Diagnostics-Report.html", data: data)
+        return html
     }
 
     private static func header() -> HTML {
@@ -99,7 +96,7 @@ public enum DiagnosticsReporter {
           </svg>
         </a>
         </footer>
-"""
+        """
     }
 
     static func style() -> HTML {

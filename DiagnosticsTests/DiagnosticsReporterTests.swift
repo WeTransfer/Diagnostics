@@ -42,6 +42,16 @@ final class DiagnosticsReporterTests: XCTestCase {
         XCTAssertEqual(expectedChaptersCount, chaptersCount)
     }
 
+    /// It should filter using passed filters.
+    func testFilters() {
+        let keyToFilter = UUID().uuidString
+        MockedReport.diagnostics = [keyToFilter: UUID().uuidString]
+        let report = DiagnosticsReporter.create(using: [MockedReport.self], filters: [MockedFilter.self])
+        let html = String(data: report.data, encoding: .utf8)!
+        XCTAssertFalse(html.contains(keyToFilter))
+        XCTAssertTrue(html.contains("FILTERED"))
+    }
+
     /// It should correctly generate the header.
     func testHeaderGeneration() {
         let report = DiagnosticsReporter.create(using: [])
@@ -60,4 +70,17 @@ final class DiagnosticsReporterTests: XCTestCase {
         XCTAssertFalse(style.contains("  "), "It should not contain double spaces")
     }
 
+}
+
+struct MockedReport: DiagnosticsReporting {
+    static var diagnostics: Diagnostics = [:]
+    static func report() -> DiagnosticsChapter {
+        return DiagnosticsChapter(title: UUID().uuidString, diagnostics: diagnostics)
+    }
+}
+
+struct MockedFilter: DiagnosticsReportFilter {
+    static func filter(_ diagnostics: Diagnostics) -> Diagnostics {
+        return "FILTERED"
+    }
 }

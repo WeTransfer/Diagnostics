@@ -14,15 +14,19 @@ public protocol HTMLGenerating {
     func html() -> HTML
 }
 
-extension Dictionary: HTMLGenerating where Key == String, Value == String {
+public protocol HTMLFormatting {
+    static func format(_ diagnostics: Diagnostics) -> HTML
+}
+
+extension Dictionary: HTMLGenerating where Key == String {
     public func html() -> HTML {
-        var html = "<ul>"
+        var html = "<table>"
 
         for (key, value) in self.sorted(by: { $0.0 < $1.0 }) {
-            html += "<li><b>\(key.description)</b> \(value)</li>"
+            html += "<tr><th>\(key.description)</th><td>\(value)</td></tr>"
         }
 
-        html += "</ul>"
+        html += "</table>"
 
         return html
     }
@@ -57,8 +61,15 @@ extension DiagnosticsChapter: HTMLGenerating {
             html += "<h3>\(title)</h3>"
         }
         
-        html += "<div class=\"chapter-content\">\(diagnostics.html())</div>"
-        html += "</div>"
+        html += "<div class=\"chapter-content\">"
+
+        if let formatter = formatter {
+            html += formatter.format(diagnostics)
+        } else {
+            html += diagnostics.html()
+        }
+
+        html += "</div></div>"
         return html
     }
 }

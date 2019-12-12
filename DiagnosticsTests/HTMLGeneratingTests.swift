@@ -21,7 +21,7 @@ final class HTMLGeneratingTests: XCTestCase {
     /// It should correctly transform a Dictionary to HTML.
     func testDictionaryHTML() {
         let dict = ["App Name": "Collect by WeTransfer"]
-        let expectedHTML = "<ul><li><b>\(dict.keys.first!)</b> \(dict.values.first!)</li></ul>"
+        let expectedHTML = "<table><tr><th>\(dict.keys.first!)</th><td>\(dict.values.first!)</td></tr></table>"
         XCTAssertEqual(dict.html(), expectedHTML)
     }
 
@@ -39,4 +39,16 @@ final class HTMLGeneratingTests: XCTestCase {
         XCTAssertEqual(value.html(), expectedHTML)
     }
 
+    /// It should use a custom formatter if set.
+    func testCustomFormatter() {
+        let chapter = DiagnosticsChapter(title: UUID().uuidString, diagnostics: UUID().uuidString, formatter: MockHTMLFormatter.self)
+        XCTAssertTrue(chapter.html().contains("MOCKED"))
+    }
+
+}
+
+struct MockHTMLFormatter: HTMLFormatting {
+    static func format(_ diagnostics: Diagnostics) -> HTML {
+        return "MOCKED"
+    }
 }

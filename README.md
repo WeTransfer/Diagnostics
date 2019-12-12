@@ -21,8 +21,10 @@ Diagnostics is a library written in Swift which makes it really easy to share Di
 - [Features](#features)
 - [Requirements](#requirements)
 - [Usage](#usage)
-    - [Adding your own custom logs](#adding-your-own-custom-logs)
-    - [Adding your own custom report](#adding-your-own-custom-report)
+	- [Using a custom UserDefaults type](#using-a-custom-userdefaults-type) 
+	- [Filtering out sensitive data](#filtering-out-sensitive-data) 
+	- [Adding your own custom logs](#adding-your-own-custom-logs)
+	- [Adding your own custom report](#adding-your-own-custom-report)
 - [Communication](#communication)
 - [Installation](#installation)
 - [Release Notes](#release-notes)
@@ -38,6 +40,7 @@ The library allows to easily attach the Diagnostics Report as an attachment to t
     - System metadata
     - System logs divided per session
     - UserDefaults
+- [x] Possibility to filter out sensitive data using a `DiagnosticsReportFilter`
 - [x] A custom `DiagnosticsLogger` to add your own logs
 - [x] Flexible setup to add your own custom diagnostics
 
@@ -99,6 +102,44 @@ extension ViewController: MFMailComposeViewControllerDelegate {
 }
 ```
 
+### Using a custom UserDefaults type
+Simply set your user defaults instance by making use of:
+
+```swift
+UserDefaultsReporter.userDefaults = ..
+```
+
+### Filtering out sensitive data
+It could be that your report is containing sensitive data. You can filter this out by creating a `DiagnosticsReportFilter`.
+
+The example project contains an example of this:
+
+```swift
+struct DiagnosticsDictionaryFilter: DiagnosticsReportFilter {
+
+    // This demonstrates how a filter can be used to filter out sensible data.
+    static func filter(_ diagnostics: Diagnostics) -> Diagnostics {
+        guard let dictionary = diagnostics as? [String: Any] else { return diagnostics }
+        return dictionary.filter { keyValue -> Bool in
+            if keyValue.key == "App Display Name" {
+                // Filter out the key with the value "App Display Name"
+                return false
+            } else if keyValue.key == "AppleLanguages" {
+                // Filter out a user defaults key.
+                return false
+            }
+            return true
+        }
+    }
+}
+```
+
+Which can be used by passing in the filter into the `create(..)` method:
+
+```swift
+let report = DiagnosticsReporter.create(using: reporters, filters: [DiagnosticsDictionaryFilter.self])
+```
+
 ### Adding your own custom logs
 To make your own logs appear in the logs diagnostics you need to make use of the `DiagnosticsLogger`. 
 
@@ -134,6 +175,15 @@ You can then add this report to the creation method:
 var reporters = DiagnosticsReporter.DefaultReporter.allReporters
 reporters.insert(CustomReporter.self, at: 1)
 let report = DiagnosticsReporter.create(using: reporters)
+```
+
+#### Creating a custom HTML formatter for your report
+You can make use of the `HTMLFormatting` protocol to customize the way the HTML is reported. 
+
+Simply pass in the formatter into the `DiagnosticsChapter` initialiser:
+
+```swift
+DiagnosticsChapter(title: "UserDefaults", diagnostics: userDefaults, formatter: <#HTMLFormatting.Type#>)
 ```
 
 ## Communication
