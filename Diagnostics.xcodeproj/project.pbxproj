@@ -68,6 +68,7 @@
 		5050002423993D0300EADD27 /* Changelog.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Changelog.md; sourceTree = "<group>"; };
 		505000ED239FA22400EADD27 /* DiagnosticsReportFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsReportFilter.swift; sourceTree = "<group>"; };
 		505000EF239FA2A300EADD27 /* DiagnosticsChapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsChapter.swift; sourceTree = "<group>"; };
+		5068CEAC23A250D400CB78BE /* Diagnostics.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = Diagnostics.podspec; sourceTree = "<group>"; };
 		509F59332396921A006AD8D1 /* MFMailComposeViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFMailComposeViewControllerTests.swift; sourceTree = "<group>"; };
 		509F5936239694C1006AD8D1 /* LogsReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogsReporterTests.swift; sourceTree = "<group>"; };
 		509F59382396973F006AD8D1 /* UserDefaultsReporterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsReporterTests.swift; sourceTree = "<group>"; };
@@ -98,8 +99,9 @@
 		500B2742239524E100C304D4 = {
 			isa = PBXGroup;
 			children = (
-				509F59D02397B77F006AD8D1 /* Package.swift */,
 				5050002423993D0300EADD27 /* Changelog.md */,
+				5068CEAC23A250D400CB78BE /* Diagnostics.podspec */,
+				509F59D02397B77F006AD8D1 /* Package.swift */,
 				500B274E239524E100C304D4 /* Diagnostics */,
 				500B2759239524E100C304D4 /* DiagnosticsTests */,
 				500B274D239524E100C304D4 /* Products */,
