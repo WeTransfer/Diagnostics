@@ -178,22 +178,27 @@ private extension DiagnosticsLogger {
 
     func setupPipe() {
         guard !isRunningTests else { return }
-        
-        // Send all output (STDOUT and STDERR) to our `Pipe`.
-        dup2(pipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
-        dup2(pipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO)
 
-        // Observe notifications from our `Pipe`.
-        let readHandle = pipe.fileHandleForReading
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handlePipeNotification(_:)),
-            name: FileHandle.readCompletionNotification,
-            object: readHandle
-        )
+        #if targetEnvironment(simulator) || DEBUG
+            // Disable capturing logs on the simulator and during debug to get logs during debugging and running tests.
+            return
+        #else
+            // Send all output (STDOUT and STDERR) to our `Pipe`.
+            dup2(pipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
+            dup2(pipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO)
 
-        // Start asynchronously monitoring our `Pipe`.
-        readHandle.readInBackgroundAndNotify()
+            // Observe notifications from our `Pipe`.
+            let readHandle = pipe.fileHandleForReading
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handlePipeNotification(_:)),
+                name: FileHandle.readCompletionNotification,
+                object: readHandle
+            )
+
+            // Start asynchronously monitoring our `Pipe`.
+            readHandle.readInBackgroundAndNotify()
+        #endif
     }
 
     @objc func handlePipeNotification(_ notification: Notification) {
