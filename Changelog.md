@@ -1,6 +1,7 @@
 ## Changelog
 
 ### Next
+- Make sure that the DiagnosticsLogger is not running during tests 
 
 ### 1.1.0
 - Added an `HTMLFormatting` type for custom formatting HTML inside reports

@@ -16,7 +16,8 @@ public final class DiagnosticsLogger {
     static let standard = DiagnosticsLogger()
 
     private lazy var location: URL = FileManager.default.documentsDirectory.appendingPathComponent("diagnostics_log.txt")
-    private let pipe: Pipe = Pipe()
+    private let inputPipe: Pipe = Pipe()
+    private let outputPipe: Pipe = Pipe()
     private let queue: DispatchQueue = DispatchQueue(label: "com.wetransfer.diagnostics.logger", qos: .utility, target: .global(qos: .utility))
 
     private var logSize: ByteCountFormatter.Units.Bytes!
@@ -24,7 +25,7 @@ public final class DiagnosticsLogger {
     private let trimSize: ByteCountFormatter.Units.Bytes = 100 * 1024 // 100 KB
 
     private var isRunningTests: Bool {
-        return ProcessInfo.processInfo.arguments.contains("-UNITTEST")
+        return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
     }
 
     private lazy var formatter: DateFormatter = {
@@ -178,28 +179,33 @@ private extension DiagnosticsLogger {
 
     func setupPipe() {
         guard !isRunningTests else { return }
-        
-        // Send all output (STDOUT and STDERR) to our `Pipe`.
-        dup2(pipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
-        dup2(pipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO)
 
-        // Observe notifications from our `Pipe`.
-        let readHandle = pipe.fileHandleForReading
+        let pipeReadHandle = inputPipe.fileHandleForReading
+
+        // Copy the STDOUT file descriptor into our output pipe's file descriptor
+        // So we can write the strings back to STDOUT and it shows up again in the Xcode console.
+        dup2(STDOUT_FILENO, outputPipe.fileHandleForWriting.fileDescriptor)
+
+        // Send all output (STDOUT and STDERR) to our `Pipe`.
+        dup2(inputPipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
+        dup2(inputPipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO)
+
+        // Observe notifications from our input `Pipe`.
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handlePipeNotification(_:)),
             name: FileHandle.readCompletionNotification,
-            object: readHandle
+            object: pipeReadHandle
         )
 
         // Start asynchronously monitoring our `Pipe`.
-        readHandle.readInBackgroundAndNotify()
+        pipeReadHandle.readInBackgroundAndNotify()
     }
 
     @objc func handlePipeNotification(_ notification: Notification) {
         defer {
             // You have to call this again to continuously receive notifications.
-            pipe.fileHandleForReading.readInBackgroundAndNotify()
+            inputPipe.fileHandleForReading.readInBackgroundAndNotify()
         }
 
         guard
@@ -208,6 +214,8 @@ private extension DiagnosticsLogger {
                 assertionFailure()
                 return
         }
+
+        outputPipe.fileHandleForWriting.write(data)
 
         queue.async {
             string.enumerateLines(invoking: { (line, _) in
