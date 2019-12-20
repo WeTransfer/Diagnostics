@@ -1,6 +1,7 @@
 ## Changelog
 
 ### Next
+- Make sure to check whether there's enough space left to save new logs (#37)
 
 ### 1.2.0
 - Forward the output of the DiagnosticsLogger to not disable default logging
