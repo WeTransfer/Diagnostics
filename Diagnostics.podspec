@@ -12,7 +12,7 @@ Pod::Spec.new do |spec|
   spec.source           = { :git => 'https://github.com/WeTransfer/Diagnostics.git', :tag => spec.version.to_s }
   spec.social_media_url = 'https://twitter.com/WeTransfer'
 
-  spec.ios.deployment_target = '11.0'
+  spec.ios.deployment_target = '10.0'
   spec.source_files     = 'Sources/**/*'
   spec.swift_version    = '5.1'
 end
