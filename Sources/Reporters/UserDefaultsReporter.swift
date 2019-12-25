@@ -29,7 +29,13 @@ extension UserDefaultsReporter: HTMLFormatting {
 
 private extension Dictionary where Key == String, Value == Any {
     var jsonRepresentation: String? {
-        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonCompatible, options: [.prettyPrinted, .sortedKeys, .fragmentsAllowed]) else { return nil }
+        let options: JSONSerialization.WritingOptions
+        if #available(iOS 11.0, *) {
+            options = [.prettyPrinted, .sortedKeys, .fragmentsAllowed]
+        } else {
+            options = [.prettyPrinted, .fragmentsAllowed]
+        }
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: jsonCompatible, options: options) else { return nil }
         return String(data: jsonData, encoding: .utf8)
     }
 

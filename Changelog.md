@@ -1,6 +1,7 @@
 ## Changelog
 
 ### Next
+- Support for iOS 10.0. #42
 
 ### 1.2.0
 - Forward the output of the DiagnosticsLogger to not disable default logging
