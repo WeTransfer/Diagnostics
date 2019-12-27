@@ -1,6 +1,7 @@
 ## Changelog
 
 ### Next
+- Added public static method  `DiagnosticsLogger.isSetUp()` (#41)
 - Support for iOS 10.0. #42
 
 ### 1.2.0
