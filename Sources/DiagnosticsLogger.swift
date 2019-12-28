@@ -39,6 +39,11 @@ public final class DiagnosticsLogger {
     /// Whether the logger is setup and ready to use.
     private var isSetup: Bool = false
 
+    /// Whether the logger is setup and ready to use.
+    public static func isSetUp() -> Bool {
+        return standard.isSetup
+    }
+
     /// Sets up the logger to be ready for usage. This needs to be called before any log messages are reported.
     /// This method also starts a new session.
     public static func setup() throws {

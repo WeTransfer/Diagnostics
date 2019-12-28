@@ -1,6 +1,7 @@
 ## Changelog
 
 ### Next
+- Added public static method  `DiagnosticsLogger.isSetUp()` (#41)
 - Changed log times to use 24H clock (#40)
 - Support for iOS 10.0. #42
 
