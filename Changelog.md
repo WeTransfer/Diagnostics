@@ -1,7 +1,7 @@
 ## Changelog
 
 ### Next
-- Support for iOS 10.0 and update package.swift & Diaggnostics.podspec to minimum deployment target iOS 10.0. #42
+- Support for iOS 10.0 and update package.swift & Diagnostics.podspec to minimum deployment target iOS 10.0. #42
 
 ### 1.2.0
 - Forward the output of the DiagnosticsLogger to not disable default logging
