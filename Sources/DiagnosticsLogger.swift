@@ -31,7 +31,7 @@ public final class DiagnosticsLogger {
 
     private lazy var formatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         formatter.locale = Locale(identifier: "en_US")
         formatter.timeZone = TimeZone(identifier: "GMT")!
         return formatter
@@ -39,6 +39,11 @@ public final class DiagnosticsLogger {
 
     /// Whether the logger is setup and ready to use.
     private var isSetup: Bool = false
+
+    /// Whether the logger is setup and ready to use.
+    public static func isSetUp() -> Bool {
+        return standard.isSetup
+    }
 
     /// Sets up the logger to be ready for usage. This needs to be called before any log messages are reported.
     /// This method also starts a new session.
