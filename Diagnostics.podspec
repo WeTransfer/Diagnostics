@@ -13,6 +13,6 @@ Pod::Spec.new do |spec|
   spec.social_media_url = 'https://twitter.com/WeTransfer'
 
   spec.ios.deployment_target = '10.0'
-  spec.source_files     = 'Sources/**/*'
+  spec.source_files     = 'Sources/**/*.swift'
   spec.swift_version    = '5.1'
 end
