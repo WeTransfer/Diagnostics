@@ -143,7 +143,7 @@ extension DiagnosticsLogger {
                 return assertionFailure()
         }
 
-        // Make sure we have more then 500MB space left
+        // Make sure we have more than 500MB space left
         guard UIDevice.current.freeDiskSpaceInBytes > (500 * 1024) else { return }
 
         fileHandle.seekToEndOfFile()
