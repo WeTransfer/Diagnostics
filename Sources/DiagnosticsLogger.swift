@@ -149,7 +149,7 @@ extension DiagnosticsLogger {
                 return assertionFailure()
         }
 
-        // Make sure we enough disk space left. This prevents a crash due to a lack of space.
+        // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
         guard UIDevice.current.freeDiskSpaceInBytes > minimumRequiredDiskSpace else { return }
 
         fileHandle.seekToEndOfFile()
