@@ -1,6 +1,7 @@
 ## Changelog
 
 ### Next
+- Make sure to check whether there's enough space left to save new logs (#37)
 - Added public static method  `DiagnosticsLogger.isSetUp()` (#41)
 - Changed log times to use 24H clock (#40)
 - Support for iOS 10.0 and update package.swift & Diagnostics.podspec to minimum deployment target iOS 10.0. #42 #47

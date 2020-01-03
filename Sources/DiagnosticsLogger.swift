@@ -23,6 +23,7 @@ public final class DiagnosticsLogger {
     private var logSize: ByteCountFormatter.Units.Bytes!
     private let maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
     private let trimSize: ByteCountFormatter.Units.Bytes = 100 * 1024 // 100 KB
+    private let minimumRequiredDiskSpace: ByteCountFormatter.Units.Bytes = 500 * 1024 * 1024 // 500 MB
 
     private var isRunningTests: Bool {
         return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
@@ -147,6 +148,9 @@ extension DiagnosticsLogger {
             let fileHandle = (try? FileHandle(forWritingTo: location)) else {
                 return assertionFailure()
         }
+
+        // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
+        guard UIDevice.current.freeDiskSpaceInBytes > minimumRequiredDiskSpace else { return }
 
         fileHandle.seekToEndOfFile()
         fileHandle.write(data)
