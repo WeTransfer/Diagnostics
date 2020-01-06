@@ -82,6 +82,7 @@ extension DiagnosticsReporter {
         var html = "<head>"
         html += "<title>\(Bundle.appName) - Diagnostics Report</title>"
         html += style()
+        html += "<meta charset=\"utf-8\">"
         html += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
         html += "</head>"
         return html

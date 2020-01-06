@@ -1,6 +1,7 @@
 ## Changelog
 
 ### Next
+- Add charset utf-8 to html head
 
 ### 1.3.0
 - Make sure to check whether there's enough space left to save new logs (#37)
