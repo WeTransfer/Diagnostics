@@ -1,3 +1,8 @@
+### 1.4.0
+
+- Migrate to Bitrise & Danger-Swift ([#52](https://github.com/WeTransfer/Diagnostics/pull/52)) via @AvdLee
+- Add charset utf-8 to html head ([#50](https://github.com/WeTransfer/Diagnostics/pull/50)) via @AvdLee
+
 ### 1.3.0
 - Make sure to check whether there's enough space left to save new logs (#37)
 - Added public static method  `DiagnosticsLogger.isSetUp()` (#41)
