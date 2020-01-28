@@ -1,39 +1,11 @@
 # Fastlane requirements
 fastlane_version "1.109.0"
-generated_fastfile_id "0121e253-f9e2-40ac-b489-f17f36e24ec6"
 
 import "./../Submodules/WeTransfer-iOS-CI/Fastlane/Fastfile"
 
-desc "Clean the derived data, run tests validate the changes"
+desc "Run the tests and prepare for Danger"
 lane :test do |options|
-  # Set timeout to prevent xcodebuild -list -project to take to much retries.
-  ENV["FASTLANE_XCODE_LIST_TIMEOUT"] = "120"
-  
-  begin
-    ENV["XCPRETTY_JSON_FILE_OUTPUT"] = "build/reports/#{options[:scheme]}_Tests.json"
-    scan(
-      scheme: options[:project_name],
-      project: "#{options[:project_name]}.xcodeproj",
-      device: "iPhone 11",
-      code_coverage: true,
-      disable_concurrent_testing: true,
-      fail_build: false,
-      skip_slack: true,
-      clean: true,
-      formatter: "xcpretty-json-formatter",
-      xcargs: "-UseNewBuildSystem=YES CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO",
-      result_bundle: true,
-      output_directory: "build/reports/"
-    )
-  rescue => ex
-    UI.important("Tests failed for #{ex}")
-  end
-
-  begin
-    trainer(path: "build/reports/", output_directory: "build/reports/", extension: ".xml", fail_build: false)
-  rescue => ex
-    UI.important("Trainer report generation failed #{ex}")
-  end
-
-  validate_changes(project_name: options[:project_name])
+  test_project(
+    project_name: "Diagnostics", 
+    scheme: "Diagnostics")
 end

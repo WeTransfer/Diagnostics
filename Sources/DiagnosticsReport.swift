@@ -34,12 +34,10 @@ public extension DiagnosticsReport {
         let filePath = folderPath + filename
         try? FileManager.default.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
         guard FileManager.default.createFile(atPath: filePath, contents: data, attributes: [FileAttributeKey.type: mimeType.rawValue]) else {
-            // swiftlint:disable nslog_prohibited
             print("Diagnostics Report could not be saved to: \(filePath)")
             return
         }
 
-        // swiftlint:disable nslog_prohibited
         print("Diagnostics Report saved to: \(filePath)")
     }
 }

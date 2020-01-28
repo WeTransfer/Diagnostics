@@ -10,7 +10,7 @@ import UIKit
 import Diagnostics
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     enum ExampleError: Error {
         case missingData
@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             try DiagnosticsLogger.setup()
         } catch {
-            // swiftlint:disable nslog_prohibited
             print("Failed to setup the Diagnostics Logger")
         }
         
