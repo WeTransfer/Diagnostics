@@ -10,7 +10,7 @@ import UIKit
 import Diagnostics
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     enum ExampleError: Error {
         case missingData
