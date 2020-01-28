@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         do {
             try DiagnosticsLogger.setup()
         } catch {
-            // swiftlint:disable nslog_prohibited
             print("Failed to setup the Diagnostics Logger")
         }
         

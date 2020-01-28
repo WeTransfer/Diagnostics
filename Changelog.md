@@ -1,7 +1,3 @@
-## Changelog
-
-### Next
-
 ### 1.3.0
 - Make sure to check whether there's enough space left to save new logs (#37)
 - Added public static method  `DiagnosticsLogger.isSetUp()` (#41)
