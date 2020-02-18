@@ -114,7 +114,7 @@ extension DiagnosticsLogger {
         startNewSession()
     }
 
-    private func startNewSession() {
+    internal func startNewSession() {
         queue.async {
             let date = self.formatter.string(from: Date())
             let appVersion = "\(Bundle.appVersion) (\(Bundle.appBuildNumber))"

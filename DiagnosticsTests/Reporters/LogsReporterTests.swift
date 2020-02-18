@@ -40,4 +40,15 @@ final class LogsReporterTests: XCTestCase {
         XCTAssertTrue(diagnostics.contains("testCase"))
     }
 
+    /// It should reverse the order of sessions to have the most recent session on top.
+    func testReverseSessions() {
+        DiagnosticsLogger.log(message: "first")
+        DiagnosticsLogger.standard.startNewSession()
+        DiagnosticsLogger.log(message: "second")
+        let diagnostics = LogsReporter.report().diagnostics as! String
+        let firstIndex = diagnostics.range(of: "first")!.lowerBound
+        let secondIndex = diagnostics.range(of: "second")!.lowerBound
+        XCTAssertTrue(firstIndex > secondIndex)
+    }
+
 }
