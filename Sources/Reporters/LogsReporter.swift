@@ -17,7 +17,8 @@ struct LogsReporter: DiagnosticsReporting {
             return "Parsing the log failed"
         }
 
-        return logs
+        let sessions = logs.components(separatedBy: "\n\n---\n\n")
+        return sessions.reversed().joined(separator: "\n\n---\n\n")
     }
 
     static func report() -> DiagnosticsChapter {
