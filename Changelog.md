@@ -1,3 +1,7 @@
+### 1.5.0
+- Change the order of reported sessions ([#54](https://github.com/WeTransfer/Diagnostics/issues/54)) via @AvdLee
+- Merge release 1.4.0 into master ([#53](https://github.com/WeTransfer/Diagnostics/pull/53))
+
 ### 1.4.0
 
 - Migrate to Bitrise & Danger-Swift ([#52](https://github.com/WeTransfer/Diagnostics/pull/52)) via @AvdLee
