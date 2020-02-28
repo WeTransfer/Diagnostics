@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol HTMLEncoding {
+protocol HTMLEncoding {
     func addingHTMLEncoding() -> HTML
 }
 
