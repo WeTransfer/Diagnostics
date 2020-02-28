@@ -1,6 +1,3 @@
-### Next Version
-- Added HTML encoding to entities in logs when final report is created ([#51](https://github.com/WeTransfer/Diagnostics/issues/51))
-
 ### 1.5.0
 - Change the order of reported sessions ([#54](https://github.com/WeTransfer/Diagnostics/issues/54)) via @AvdLee
 - Merge release 1.4.0 into master ([#53](https://github.com/WeTransfer/Diagnostics/pull/53))
