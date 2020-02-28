@@ -12,6 +12,7 @@ import Foundation
 struct LogsReporter: DiagnosticsReporting {
 
     static var title: String = "Logs"
+
     static var diagnostics: String {
         guard let data = DiagnosticsLogger.standard.readLog(), let logs = String(data: data, encoding: .utf8) else {
             return "Parsing the log failed"
@@ -22,7 +23,7 @@ struct LogsReporter: DiagnosticsReporting {
     }
 
     static func report() -> DiagnosticsChapter {
-        return DiagnosticsChapter(title: "Logs", diagnostics: diagnostics, formatter: self)
+        return DiagnosticsChapter(title: title, diagnostics: diagnostics, formatter: self)
     }
 }
 
