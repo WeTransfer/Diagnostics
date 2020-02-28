@@ -16,7 +16,7 @@ extension String: HTMLEncoding {
     
     /// Encodes entities to be displayed correctly in the final HTML report.
     func addingHTMLEncoding() -> HTML {
-        return self.replacingOccurrences(of: "<", with: "&lt;")
+        return replacingOccurrences(of: "<", with: "&lt;")
                    .replacingOccurrences(of: ">", with: "&gt;")
     }
 }
