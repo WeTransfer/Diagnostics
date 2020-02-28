@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		416CE0182406D85F00698E0A /* HTMLEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 416CE0172406D85F00698E0A /* HTMLEncoding.swift */; };
 		500B2756239524E100C304D4 /* Diagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500B274C239524E100C304D4 /* Diagnostics.framework */; };
 		500B275D239524E100C304D4 /* Diagnostics.h in Headers */ = {isa = PBXBuildFile; fileRef = 500B274F239524E100C304D4 /* Diagnostics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		500B276823953E4100C304D4 /* DiagnosticsReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B276723953E4100C304D4 /* DiagnosticsReporter.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		416CE0172406D85F00698E0A /* HTMLEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLEncoding.swift; sourceTree = "<group>"; };
 		500B274C239524E100C304D4 /* Diagnostics.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Diagnostics.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B274F239524E100C304D4 /* Diagnostics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Diagnostics.h; sourceTree = "<group>"; };
 		500B2750239524E100C304D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				500B27A92395520300C304D4 /* DiagnosticsReport.swift */,
 				505000ED239FA22400EADD27 /* DiagnosticsReportFilter.swift */,
 				500B276723953E4100C304D4 /* DiagnosticsReporter.swift */,
+				416CE0172406D85F00698E0A /* HTMLEncoding.swift */,
 				500B27AF2395551200C304D4 /* HTMLGenerating.swift */,
 				500B27BD23956A8A00C304D4 /* style.css */,
 			);
@@ -349,6 +352,7 @@
 				500B27A22395413200C304D4 /* MFMailComposeVCExtensions.swift in Sources */,
 				505000EE239FA22400EADD27 /* DiagnosticsReportFilter.swift in Sources */,
 				500B27C62395967200C304D4 /* LogsReporter.swift in Sources */,
+				416CE0182406D85F00698E0A /* HTMLEncoding.swift in Sources */,
 				505000F0239FA2A300EADD27 /* DiagnosticsChapter.swift in Sources */,
 				500B27C0239571FB00C304D4 /* UIDeviceExtensions.swift in Sources */,
 			);

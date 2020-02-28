@@ -18,7 +18,7 @@ struct LogsReporter: DiagnosticsReporting {
             return "Parsing the log failed"
         }
 
-        let sessions = logs.components(separatedBy: "\n\n---\n\n")
+        let sessions = logs.addingHTMLEncoding().components(separatedBy: "\n\n---\n\n")
         return sessions.reversed().joined(separator: "\n\n---\n\n")
     }
 
