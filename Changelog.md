@@ -1,3 +1,9 @@
+### 1.6.0
+- Include device product names ([#60](https://github.com/WeTransfer/Diagnostics/issues/60))
+- Encode Logging for HTML so object descriptions are visible ([#51](https://github.com/WeTransfer/Diagnostics/issues/51))
+- Trivial title fix. ([#59](https://github.com/WeTransfer/Diagnostics/pull/59))
+- Merge release 1.5.0 into master ([#56](https://github.com/WeTransfer/Diagnostics/pull/56))
+
 ### 1.5.0
 - Change the order of reported sessions ([#54](https://github.com/WeTransfer/Diagnostics/issues/54)) via @AvdLee
 - Merge release 1.4.0 into master ([#53](https://github.com/WeTransfer/Diagnostics/pull/53))
