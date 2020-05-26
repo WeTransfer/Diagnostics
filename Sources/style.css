@@ -44,7 +44,6 @@ pre {
   display: flex;
   justify-content: space-between;
   flex-direction: row-reverse;
-  max-width: 960px;
   margin: 0 auto;
 }
 
