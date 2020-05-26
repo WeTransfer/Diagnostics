@@ -104,50 +104,25 @@ extension DiagnosticsLogger {
 
     private func setupCrashMonitoring() {
         NSSetUncaughtExceptionHandler { exception in
-            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: exception, description: "Uncaught Exception", code: nil)
-        }
-
-        signal(SIGABRT) { exception in
-            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGABRT", code: exception)
-        }
-
-        signal(SIGILL) { exception in
-            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGILL", code: exception)
-        }
-
-        signal(SIGSEGV) { exception in
-            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGSEGV", code: exception)
-        }
-
-        signal(SIGFPE) { exception in
-            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGFPE", code: exception)
-        }
-
-        signal(SIGBUS) { exception in
-            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGBUS", code: exception)
-        }
-
-        signal(SIGPIPE) { exception in
-            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGPIPE", code: exception)
+            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception, description: "Uncaught Exception")
         }
     }
 
     /// Creates a new log section with the current thread call stack symbols.
-    private static func logExceptionUsingCallStackSymbols(exception: NSException?, description: String, code: Int32?) {
+    private static func logExceptionUsingCallStackSymbols(_ exception: NSException, description: String) {
         let message = """
 
         ---
 
         🚨 CRASH:
         Description: \(description)
-        Code: \(code ?? -1)
-        Exception name: \(exception?.name.rawValue ?? "nil")
-        Reason: \(exception?.reason ?? "nil")
+        Exception name: \(exception.name.rawValue)
+        Reason: \(exception.reason ?? "nil")
 
             \(Thread.callStackSymbols.joined(separator: "\n"))
 
         ---
-        
+
         """
         standard.log(message)
     }
