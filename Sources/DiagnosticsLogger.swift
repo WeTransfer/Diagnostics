@@ -82,24 +82,8 @@ public final class DiagnosticsLogger {
     }
 }
 
-// MARK: - Setup & Logging
+// MARK: - Setup
 extension DiagnosticsLogger {
-    /// Reads the log and converts it to a `Data` object.
-    func readLog() -> Data? {
-        guard isSetup else {
-            assertionFailure()
-            return nil
-        }
-
-        return queue.sync { try? Data(contentsOf: logFileLocation) }
-    }
-
-    /// Removes the log file. Should only be used for testing purposes.
-    func deleteLogs() throws {
-        guard FileManager.default.fileExists(atPath: logFileLocation.path) else { return }
-        try? FileManager.default.removeItem(atPath: logFileLocation.path)
-    }
-
     private func setup() throws {
         if !FileManager.default.fileExists(atPath: logFileLocation.path) {
             try FileManager.default.createDirectory(atPath: FileManager.default.documentsDirectory.path, withIntermediateDirectories: true, attributes: nil)
@@ -113,11 +97,67 @@ extension DiagnosticsLogger {
         logFileHandle!.seekToEndOfFile()
         logSize = Int64(logFileHandle!.offsetInFile)
         setupPipe()
+        setupCrashMonitoring()
         isSetup = true
         startNewSession()
     }
 
-    internal func startNewSession() {
+    private func setupCrashMonitoring() {
+        NSSetUncaughtExceptionHandler { exception in
+            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: exception, description: "Uncaught Exception", code: nil)
+        }
+
+        signal(SIGABRT) { exception in
+            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGABRT", code: exception)
+        }
+
+        signal(SIGILL) { exception in
+            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGILL", code: exception)
+        }
+
+        signal(SIGSEGV) { exception in
+            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGSEGV", code: exception)
+        }
+
+        signal(SIGFPE) { exception in
+            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGFPE", code: exception)
+        }
+
+        signal(SIGBUS) { exception in
+            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGBUS", code: exception)
+        }
+
+        signal(SIGPIPE) { exception in
+            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception: nil, description: "SIGPIPE", code: exception)
+        }
+    }
+
+    /// Creates a new log section with the current thread call stack symbols.
+    private static func logExceptionUsingCallStackSymbols(exception: NSException?, description: String, code: Int32?) {
+        let message = """
+
+        ---
+
+        🚨 CRASH:
+        Description: \(description)
+        Code: \(code ?? -1)
+        Exception name: \(exception?.name.rawValue ?? "nil")
+        Reason: \(exception?.reason ?? "nil")
+
+            \(Thread.callStackSymbols.joined(separator: "\n"))
+
+        ---
+        
+        """
+        standard.log(message)
+    }
+}
+
+// MARK: - Setup & Logging
+extension DiagnosticsLogger {
+
+    /// Creates a new section in the overall logs with data about the session start and system information.
+    func startNewSession() {
         queue.async { [unowned self] in
             let date = self.formatter.string(from: Date())
             let appVersion = "\(Bundle.appVersion) (\(Bundle.appBuildNumber))"
@@ -132,6 +172,22 @@ extension DiagnosticsLogger {
                 self.log("\n\n---\n\n\(message)")
             }
         }
+    }
+
+    /// Reads the log and converts it to a `Data` object.
+    func readLog() -> Data? {
+        guard isSetup else {
+            assertionFailure()
+            return nil
+        }
+
+        return queue.sync { try? Data(contentsOf: logFileLocation) }
+    }
+
+    /// Removes the log file. Should only be used for testing purposes.
+    func deleteLogs() throws {
+        guard FileManager.default.fileExists(atPath: logFileLocation.path) else { return }
+        try? FileManager.default.removeItem(atPath: logFileLocation.path)
     }
 
     private func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
