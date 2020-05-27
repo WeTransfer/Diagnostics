@@ -10,9 +10,9 @@ import UIKit
 import MessageUI
 import Diagnostics
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
-    @IBAction func sendDiagnostics(_ sender: UIButton) {
+    @IBAction private func sendDiagnostics(_ sender: UIButton) {
         /// Create the report.
         var reporters = DiagnosticsReporter.DefaultReporter.allReporters
         reporters.insert(CustomReporter.self, at: 1)
@@ -37,6 +37,11 @@ class ViewController: UIViewController {
         present(mail, animated: true)
     }
 
+    @IBAction private func crashTriggerButtonTapped(_ sender: Any) {
+        /// Swift exceptions can't be catched yet, unfortunately.
+        let array = NSArray(array: ["Antoine", "Boris", "Kaira"])
+        print(array.object(at: 4)) // Classic index out of bounds crash
+    }
 }
 
 extension ViewController: MFMailComposeViewControllerDelegate {
