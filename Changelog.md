@@ -1,3 +1,9 @@
+### 1.7.0
+- Add crashes to our logs ([#63](https://github.com/WeTransfer/Diagnostics/issues/63)) via [@AvdLee](https://github.com/AvdLee)
+- Memory leaks in DiagnosticsLogger.handlePipeNotification ([#65](https://github.com/WeTransfer/Diagnostics/issues/65)) via [@AvdLee](https://github.com/AvdLee)
+- Add unit test for HTML encoding. ([#64](https://github.com/WeTransfer/Diagnostics/pull/64)) via [@davidsteppenbeck](https://github.com/davidsteppenbeck)
+- Merge release 1.6.0 into master ([#62](https://github.com/WeTransfer/Diagnostics/pull/62)) via [@WeTransferBot](https://github.com/WeTransferBot)
+
 ### 1.6.0
 - Include device product names ([#60](https://github.com/WeTransfer/Diagnostics/issues/60))
 - Encode Logging for HTML so object descriptions are visible ([#51](https://github.com/WeTransfer/Diagnostics/issues/51))
