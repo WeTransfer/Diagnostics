@@ -84,6 +84,7 @@ public final class DiagnosticsLogger {
 
 // MARK: - Setup
 extension DiagnosticsLogger {
+
     private func setup() throws {
         if !FileManager.default.fileExists(atPath: logFileLocation.path) {
             try FileManager.default.createDirectory(atPath: FileManager.default.documentsDirectory.path, withIntermediateDirectories: true, attributes: nil)
@@ -152,7 +153,7 @@ extension DiagnosticsLogger {
     /// Reads the log and converts it to a `Data` object.
     func readLog() -> Data? {
         guard isSetup else {
-            assertionFailure()
+            assertionFailure("Trying to read the log while not set up")
             return nil
         }
 
@@ -166,7 +167,7 @@ extension DiagnosticsLogger {
     }
 
     private func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
-        guard isSetup else { return assertionFailure() }
+        guard isSetup else { return assertionFailure("Trying to log a message while not set up") }
 
         self.queue.async { [unowned self] in
             let date = self.formatter.string(from: Date())
@@ -180,7 +181,7 @@ extension DiagnosticsLogger {
         guard
             let data = output.data(using: .utf8),
             let fileHandle = logFileHandle else {
-                return assertionFailure()
+                return assertionFailure("Missing file handle or invalid output logged")
         }
 
         // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
@@ -199,7 +200,7 @@ extension DiagnosticsLogger {
             var data = try? Data(contentsOf: self.logFileLocation, options: .mappedIfSafe),
             !data.isEmpty,
             let newline = "\n".data(using: .utf8) else {
-                return assertionFailure()
+                return assertionFailure("Trimming the current log file failed")
         }
 
         var position: Int = 0
@@ -212,7 +213,7 @@ extension DiagnosticsLogger {
         data.removeSubrange(0 ..< position)
 
         guard (try? data.write(to: logFileLocation, options: .atomic)) != nil else {
-            return assertionFailure()
+            return assertionFailure("Could not write trimmed log to target file location: \(logFileLocation)")
         }
     }
 }
@@ -243,7 +244,7 @@ private extension DiagnosticsLogger {
         outputPipe.fileHandleForWriting.write(data)
 
         guard let string = String(data: data, encoding: .utf8) else {
-            return assertionFailure()
+            return assertionFailure("Invalid data is logged")
         }
 
         string.enumerateLines(invoking: { [weak self] (line, _) in
