@@ -15,10 +15,13 @@ public final class DiagnosticsLogger {
 
     static let standard = DiagnosticsLogger()
 
-    private lazy var location: URL = FileManager.default.documentsDirectory.appendingPathComponent("diagnostics_log.txt")
+    private lazy var logFileLocation: URL = FileManager.default.documentsDirectory.appendingPathComponent("diagnostics_log.txt")
+    private var logFileHandle: FileHandle?
+
     private let inputPipe: Pipe = Pipe()
     private let outputPipe: Pipe = Pipe()
-    private let queue: DispatchQueue = DispatchQueue(label: "com.wetransfer.diagnostics.logger", qos: .utility, target: .global(qos: .utility))
+
+    private let queue: DispatchQueue = DispatchQueue(label: "com.wetransfer.diagnostics.logger", qos: .utility, autoreleaseFrequency: .workItem, target: .global(qos: .utility))
 
     private var logSize: ByteCountFormatter.Units.Bytes!
     private let maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
@@ -84,38 +87,38 @@ extension DiagnosticsLogger {
     /// Reads the log and converts it to a `Data` object.
     func readLog() -> Data? {
         guard isSetup else {
-            assertionFailure()
+            assertionFailure("Trying to read the log while not set up")
             return nil
         }
 
-        return queue.sync { try? Data(contentsOf: location) }
+        return queue.sync { try? Data(contentsOf: logFileLocation) }
     }
 
-    /// Removes the log file.
+    /// Removes the log file. Should only be used for testing purposes.
     func deleteLogs() throws {
-        guard FileManager.default.fileExists(atPath: location.path) else { return }
-        try? FileManager.default.removeItem(atPath: location.path)
+        guard FileManager.default.fileExists(atPath: logFileLocation.path) else { return }
+        try? FileManager.default.removeItem(atPath: logFileLocation.path)
     }
 
     private func setup() throws {
-        if !FileManager.default.fileExists(atPath: location.path) {
+        if !FileManager.default.fileExists(atPath: logFileLocation.path) {
             try FileManager.default.createDirectory(atPath: FileManager.default.documentsDirectory.path, withIntermediateDirectories: true, attributes: nil)
-            guard FileManager.default.createFile(atPath: location.path, contents: nil, attributes: nil) else {
+            guard FileManager.default.createFile(atPath: logFileLocation.path, contents: nil, attributes: nil) else {
                 assertionFailure("Unable to create the log file")
                 return
             }
         }
 
-        let fileHandle = try FileHandle(forReadingFrom: location)
-        fileHandle.seekToEndOfFile()
-        logSize = Int64(fileHandle.offsetInFile)
+        logFileHandle = try FileHandle(forWritingTo: logFileLocation)
+        logFileHandle!.seekToEndOfFile()
+        logSize = Int64(logFileHandle!.offsetInFile)
         setupPipe()
         isSetup = true
         startNewSession()
     }
 
     internal func startNewSession() {
-        queue.async {
+        queue.async { [unowned self] in
             let date = self.formatter.string(from: Date())
             let appVersion = "\(Bundle.appVersion) (\(Bundle.appBuildNumber))"
             let system = "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"
@@ -132,9 +135,9 @@ extension DiagnosticsLogger {
     }
 
     private func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
-        guard isSetup else { return assertionFailure() }
+        guard isSetup else { return assertionFailure("Trying to log a message while not set up") }
 
-        queue.async {
+        self.queue.async { [unowned self] in
             let date = self.formatter.string(from: Date())
             let file = file.split(separator: "/").last.map(String.init) ?? file
             let output = String(format: "%@ | %@:L%@ | %@\n", date, file, String(line), message)
@@ -145,8 +148,8 @@ extension DiagnosticsLogger {
     private func log(_ output: String) {
         guard
             let data = output.data(using: .utf8),
-            let fileHandle = (try? FileHandle(forWritingTo: location)) else {
-                return assertionFailure()
+            let fileHandle = logFileHandle else {
+                return assertionFailure("Missing file handle or invalid output logged")
         }
 
         // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
@@ -162,10 +165,10 @@ extension DiagnosticsLogger {
         guard logSize > maximumSize else { return }
 
         guard
-            var data = try? Data(contentsOf: self.location, options: .mappedIfSafe),
+            var data = try? Data(contentsOf: self.logFileLocation, options: .mappedIfSafe),
             !data.isEmpty,
             let newline = "\n".data(using: .utf8) else {
-                return assertionFailure()
+                return assertionFailure("Trimming the current log file failed")
         }
 
         var position: Int = 0
@@ -177,8 +180,8 @@ extension DiagnosticsLogger {
         logSize -= Int64(position)
         data.removeSubrange(0 ..< position)
 
-        guard (try? data.write(to: location, options: .atomic)) != nil else {
-            return assertionFailure()
+        guard (try? data.write(to: logFileLocation, options: .atomic)) != nil else {
+            return assertionFailure("Could not write trimmed log to target file location: \(logFileLocation)")
         }
     }
 }
@@ -189,7 +192,12 @@ private extension DiagnosticsLogger {
     func setupPipe() {
         guard !isRunningTests else { return }
 
-        let pipeReadHandle = inputPipe.fileHandleForReading
+        inputPipe.fileHandleForReading.readabilityHandler = { [weak self] handle in
+            let data = handle.availableData
+            self?.queue.async {
+                self?.handleLoggedData(data)
+            }
+        }
 
         // Copy the STDOUT file descriptor into our output pipe's file descriptor
         // So we can write the strings back to STDOUT and it shows up again in the Xcode console.
@@ -198,39 +206,18 @@ private extension DiagnosticsLogger {
         // Send all output (STDOUT and STDERR) to our `Pipe`.
         dup2(inputPipe.fileHandleForWriting.fileDescriptor, STDOUT_FILENO)
         dup2(inputPipe.fileHandleForWriting.fileDescriptor, STDERR_FILENO)
-
-        // Observe notifications from our input `Pipe`.
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handlePipeNotification(_:)),
-            name: FileHandle.readCompletionNotification,
-            object: pipeReadHandle
-        )
-
-        // Start asynchronously monitoring our `Pipe`.
-        pipeReadHandle.readInBackgroundAndNotify()
     }
 
-    @objc func handlePipeNotification(_ notification: Notification) {
-        defer {
-            // You have to call this again to continuously receive notifications.
-            inputPipe.fileHandleForReading.readInBackgroundAndNotify()
-        }
-
-        guard
-            let data = notification.userInfo?[NSFileHandleNotificationDataItem] as? Data,
-            let string = String(data: data, encoding: .utf8) else {
-                assertionFailure()
-                return
-        }
-
+    private func handleLoggedData(_ data: Data) {
         outputPipe.fileHandleForWriting.write(data)
 
-        queue.async {
-            string.enumerateLines(invoking: { (line, _) in
-                self.log("SYSTEM: \(line)\n")
-            })
+        guard let string = String(data: data, encoding: .utf8) else {
+            return assertionFailure("Invalid data is logged")
         }
+
+        string.enumerateLines(invoking: { [weak self] (line, _) in
+            self?.log("SYSTEM: \(line)\n")
+        })
     }
 }
 
