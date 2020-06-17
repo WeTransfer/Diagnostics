@@ -13,7 +13,12 @@ final class DiagnosticsReporterTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        try! DiagnosticsLogger.setup()
+        
+        let configuration = DiagnosticsConfiguration(
+            maximumSize: 1 * 1024 * 1024, // 1MB
+            maximumNumberOfSession: 10)
+        
+        try! DiagnosticsLogger.setup(configuration: configuration)
     }
 
     override class func tearDown() {
