@@ -18,8 +18,12 @@ struct LogsReporter: DiagnosticsReporting {
             return "Parsing the log failed"
         }
 
-        let sessions = logs.addingHTMLEncoding().components(separatedBy: "\n\n---\n\n")
-        return sessions.reversed().joined(separator: "\n\n---\n\n")
+        var sessions = logs.addingHTMLEncoding().components(separatedBy: "\n\n---\n\n")
+        sessions = sessions.reversed()
+        if let maximumNumberOfSession = DiagnosticsLogger.standard.configuration.maximumNumberOfSession {
+            sessions = Array(sessions[0...maximumNumberOfSession])
+        }
+        return sessions.joined(separator: "\n\n---\n\n")
     }
 
     static func report() -> DiagnosticsChapter {

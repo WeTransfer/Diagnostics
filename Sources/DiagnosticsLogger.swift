@@ -9,9 +9,21 @@
 import Foundation
 import UIKit
 
+
 /// A Diagnostics Logger to log messages to which will end up in the Diagnostics Report if using the default `LogsReporter`.
 /// Will keep a `.txt` log in the documents directory with the latestlogs with a max size of 2 MB.
 public final class DiagnosticsLogger {
+    
+    // Struct holding any property that we want configurable by the user
+    public struct DiagnosticsConfiguration {
+        var maximumSize: ByteCountFormatter.Units.Bytes
+        var maximumNumberOfSession : Int?
+        public init(maximumSize:ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024,
+             maximumNumberOfSession: Int? = nil){
+            self.maximumSize = maximumSize
+            self.maximumNumberOfSession = maximumNumberOfSession
+        }
+    }
 
     static let standard = DiagnosticsLogger()
 
@@ -23,8 +35,9 @@ public final class DiagnosticsLogger {
 
     private let queue: DispatchQueue = DispatchQueue(label: "com.wetransfer.diagnostics.logger", qos: .utility, autoreleaseFrequency: .workItem, target: .global(qos: .utility))
 
+    
     private var logSize: ByteCountFormatter.Units.Bytes!
-    private let maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
+    private var maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
     private let trimSize: ByteCountFormatter.Units.Bytes = 100 * 1024 // 100 KB
     private let minimumRequiredDiskSpace: ByteCountFormatter.Units.Bytes = 500 * 1024 * 1024 // 500 MB
 
@@ -42,6 +55,9 @@ public final class DiagnosticsLogger {
 
     /// Whether the logger is setup and ready to use.
     private var isSetup: Bool = false
+    
+    // Public Configuration
+    public var configuration : DiagnosticsConfiguration = DiagnosticsConfiguration()
 
     /// Whether the logger is setup and ready to use.
     public static func isSetUp() -> Bool {
@@ -50,8 +66,9 @@ public final class DiagnosticsLogger {
 
     /// Sets up the logger to be ready for usage. This needs to be called before any log messages are reported.
     /// This method also starts a new session.
-    public static func setup() throws {
+    public static func setup(configuration: DiagnosticsConfiguration = DiagnosticsConfiguration()) throws {
         try standard.setup()
+        standard.configuration = configuration
     }
 
     /// Logs the given message for the diagnostics report.

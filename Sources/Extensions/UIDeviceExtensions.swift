@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension ByteCountFormatter.Units {
+public extension ByteCountFormatter.Units {
     typealias GigaBytes = String
     typealias Bytes = Int64
 }
