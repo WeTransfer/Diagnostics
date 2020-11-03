@@ -1,5 +1,5 @@
 //
-//  UIDeviceExtensions.swift
+//  Device.swift
 //  Diagnostics
 //
 //  Created by Antoine van der Lee on 02/12/2019.
@@ -7,27 +7,41 @@
 //
 
 import Foundation
+#if os(macOS)
+import AppKit
+#else
 import UIKit
+#endif
 
-extension ByteCountFormatter.Units {
-    typealias GigaBytes = String
-    typealias Bytes = Int64
-}
-
-extension UIDevice {
-
-    var freeDiskSpace: ByteCountFormatter.Units.GigaBytes {
+enum Device {
+    static var systemName: String {
+        #if os(macOS)
+        return ProcessInfo().hostName
+        #else
+        return UIDevice.current.systemName
+        #endif
+    }
+    
+    static var systemVersion: String {
+        #if os(macOS)
+        return ProcessInfo().operatingSystemVersionString
+        #else
+        return UIDevice.current.systemVersion
+        #endif
+    }
+    
+    static var freeDiskSpace: ByteCountFormatter.Units.GigaBytes {
         return ByteCountFormatter.string(fromByteCount: freeDiskSpaceInBytes, countStyle: ByteCountFormatter.CountStyle.decimal)
     }
 
-    var totalDiskSpace: ByteCountFormatter.Units.GigaBytes {
+    static var totalDiskSpace: ByteCountFormatter.Units.GigaBytes {
         guard let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
             let space = (systemAttributes[FileAttributeKey.systemSize] as? NSNumber)?.int64Value else { return "UNKNOWN" }
 
         return ByteCountFormatter.string(fromByteCount: space, countStyle: ByteCountFormatter.CountStyle.decimal)
     }
 
-    var freeDiskSpaceInBytes: ByteCountFormatter.Units.Bytes {
+    static var freeDiskSpaceInBytes: ByteCountFormatter.Units.Bytes {
         if #available(iOS 11.0, *) {
             if let space = try? URL(fileURLWithPath: NSHomeDirectory() as String).resourceValues(forKeys: [URLResourceKey.volumeAvailableCapacityForImportantUsageKey]).volumeAvailableCapacityForImportantUsage {
                 #if swift(>=5)

@@ -6,7 +6,7 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 /// Reports App and System specific metadata like OS and App version.
 public struct AppSystemMetadataReporter: DiagnosticsReporting {
@@ -60,7 +60,7 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
             hardware += " (\(hardwareName))"
         }
 
-        let system = "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"
+        let system = "\(Device.systemName) \(Device.systemVersion)"
 
         let metadata: [String: String] = [
             MetadataKey.appName.rawValue: Bundle.appName,
@@ -68,7 +68,7 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
             MetadataKey.appVersion.rawValue: "\(Bundle.appVersion) (\(Bundle.appBuildNumber))",
             MetadataKey.device.rawValue: hardware,
             MetadataKey.system.rawValue: system,
-            MetadataKey.freeSpace.rawValue: "\(UIDevice.current.freeDiskSpace) of \(UIDevice.current.totalDiskSpace)",
+            MetadataKey.freeSpace.rawValue: "\(Device.freeDiskSpace) of \(Device.totalDiskSpace)",
             MetadataKey.deviceLanguage.rawValue: Locale.current.languageCode ?? "Unknown",
             MetadataKey.appLanguage.rawValue: Locale.preferredLanguages[0]
             ]
