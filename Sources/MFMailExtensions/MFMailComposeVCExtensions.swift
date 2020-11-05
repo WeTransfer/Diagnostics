@@ -6,6 +6,7 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
+#if canImport(MessageUI)
 import MessageUI
 
 public extension MFMailComposeViewController {
@@ -17,3 +18,4 @@ public extension MFMailComposeViewController {
     }
 
 }
+#endif

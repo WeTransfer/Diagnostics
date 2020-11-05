@@ -1,5 +1,5 @@
 //
-//  UIApplicationExtensions.swift
+//  BundleExtensions.swift
 //  Diagnostics
 //
 //  Created by Antoine van der Lee on 02/12/2019.

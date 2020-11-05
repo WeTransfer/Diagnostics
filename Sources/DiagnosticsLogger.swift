@@ -7,7 +7,11 @@
 //
 
 import Foundation
+#if os(macOS)
+import AppKit
+#else
 import UIKit
+#endif
 
 /// A Diagnostics Logger to log messages to which will end up in the Diagnostics Report if using the default `LogsReporter`.
 /// Will keep a `.txt` log in the documents directory with the latestlogs with a max size of 2 MB.
@@ -137,7 +141,7 @@ extension DiagnosticsLogger {
         queue.async { [unowned self] in
             let date = self.formatter.string(from: Date())
             let appVersion = "\(Bundle.appVersion) (\(Bundle.appBuildNumber))"
-            let system = "\(UIDevice.current.systemName) \(UIDevice.current.systemVersion)"
+            let system = "\(Device.systemName) \(Device.systemVersion)"
             let locale = Locale.preferredLanguages[0]
 
             let message = date + "\n" + "System: \(system)\nLocale: \(locale)\nVersion: \(appVersion)\n\n"
@@ -185,7 +189,7 @@ extension DiagnosticsLogger {
         }
 
         // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
-        guard UIDevice.current.freeDiskSpaceInBytes > minimumRequiredDiskSpace else { return }
+        guard Device.freeDiskSpaceInBytes > minimumRequiredDiskSpace else { return }
 
         fileHandle.seekToEndOfFile()
         fileHandle.write(data)

@@ -43,6 +43,7 @@ The library allows to easily attach the Diagnostics Report as an attachment to t
 - [x] Possibility to filter out sensitive data using a `DiagnosticsReportFilter`
 - [x] A custom `DiagnosticsLogger` to add your own logs
 - [x] Flexible setup to add your own custom diagnostics
+- [x] Native cross-platform support, e.g. iOS, iPadOS and macOS
 
 ## Usage
 
@@ -99,6 +100,32 @@ extension ViewController: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
+}
+```
+
+On macOS you could send the report by using the `NSSharingService`:
+
+```swift
+import AppKit
+import Diagnostics
+
+func send(report: DiagnosticsReport) {
+    let service = NSSharingService(named: NSSharingService.Name.composeEmail)!
+    service.recipients = ["support@yourcompany.com"]
+    service.subject = "Diagnostics Report"
+            
+    let url = URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent("Diagnostics-Report.html")
+    
+    // remove previous report
+    try? FileManager.default.removeItem(at: url)
+
+    do {
+        try report.data.write(to: url)
+    } catch {
+        print("Failed with error: \(error)")
+    }
+
+    service.perform(withItems: [url])
 }
 ```
 
