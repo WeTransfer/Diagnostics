@@ -1,3 +1,8 @@
+### 1.8.0
+- Xcode-fix ([#76](https://github.com/WeTransfer/Diagnostics/pull/76)) via [@JulianKahnert](https://github.com/JulianKahnert)
+- Native (aka non-catalyst) macOS support added ([#75](https://github.com/WeTransfer/Diagnostics/pull/75)) via [@JulianKahnert](https://github.com/JulianKahnert)
+- Merge release 1.7.0 into master ([#70](https://github.com/WeTransfer/Diagnostics/pull/70)) via [@ghost](https://github.com/ghost)
+
 ### 1.7.0
 - Add crashes to our logs ([#63](https://github.com/WeTransfer/Diagnostics/issues/63)) via [@AvdLee](https://github.com/AvdLee)
 - Memory leaks in DiagnosticsLogger.handlePipeNotification ([#65](https://github.com/WeTransfer/Diagnostics/issues/65)) via [@AvdLee](https://github.com/AvdLee)
