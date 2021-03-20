@@ -21,7 +21,7 @@ public enum DiagnosticsReporter {
         case logs
         case userDefaults
 
-        var reporter: DiagnosticsReporting.Type {
+        public var reporter: DiagnosticsReporting.Type {
             switch self {
             case .generalInfo:
                 return GeneralInfoReporter.self
