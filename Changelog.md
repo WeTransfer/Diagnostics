@@ -1,3 +1,6 @@
+### 1.8.1
+- Merge release 1.8.0 into master ([#77](https://github.com/WeTransfer/Diagnostics/pull/77)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 1.8.0
 - Xcode-fix ([#76](https://github.com/WeTransfer/Diagnostics/pull/76)) via [@JulianKahnert](https://github.com/JulianKahnert)
 - Native (aka non-catalyst) macOS support added ([#75](https://github.com/WeTransfer/Diagnostics/pull/75)) via [@JulianKahnert](https://github.com/JulianKahnert)
