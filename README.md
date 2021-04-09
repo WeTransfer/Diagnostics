@@ -221,6 +221,40 @@ DiagnosticsChapter(title: "UserDefaults", diagnostics: userDefaults, formatter: 
 
 ## Installation
 
+### Swift Package Manager
+
+The [Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
+
+#### Manifest File
+
+Add Diagnostics as a package to your `Package.swift` file and then specify it as a dependency of the Target in which you wish to use it.
+
+```swift
+import PackageDescription
+
+let package = Package(
+    name: "MyProject",
+    platforms: [
+       .macOS(.v10_15)
+    ],
+    dependencies: [
+        .package(url: "https://github.com/WeTransfer/Diagnostics.git", .upToNextMajor(from: "1.8.0"))
+    ],
+    targets: [
+        .target(
+            name: "MyProject",
+            dependencies: ["Diagnostics"]),
+        .testTarget(
+            name: "MyProjectTests",
+            dependencies: ["MyProject"]),
+    ]
+)
+```
+
+#### Xcode
+
+To add Diagnostics as a [dependency](https://developer.apple.com/documentation/xcode/adding_package_dependencies_to_your_app) to your Xcode project, select *File > Swift Packages > Add Package Dependency* and enter the repository URL: `https://github.com/WeTransfer/Diagnostics.git`.
+
 ### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
