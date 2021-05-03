@@ -20,7 +20,6 @@ public final class DiagnosticsLogger {
     static let standard = DiagnosticsLogger()
 
     private lazy var logFileLocation: URL = FileManager.default.documentsDirectory.appendingPathComponent("diagnostics_log.txt")
-    private var logFileHandle: FileHandle?
 
     private let inputPipe: Pipe = Pipe()
     private let outputPipe: Pipe = Pipe()
@@ -55,6 +54,9 @@ public final class DiagnosticsLogger {
     /// Sets up the logger to be ready for usage. This needs to be called before any log messages are reported.
     /// This method also starts a new session.
     public static func setup() throws {
+        guard !isSetUp() else {
+            return
+        }
         try standard.setup()
     }
 
@@ -98,9 +100,9 @@ extension DiagnosticsLogger {
             }
         }
 
-        logFileHandle = try FileHandle(forWritingTo: logFileLocation)
-        logFileHandle!.seekToEndOfFile()
-        logSize = Int64(logFileHandle!.offsetInFile)
+        let logFileHandle = try FileHandle(forWritingTo: logFileLocation)
+        logFileHandle.seekToEndOfFile()
+        logSize = Int64(logFileHandle.offsetInFile)
         setupPipe()
         setupCrashMonitoring()
         isSetup = true
@@ -173,7 +175,7 @@ extension DiagnosticsLogger {
     private func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
         guard isSetup else { return assertionFailure("Trying to log a message while not set up") }
 
-        self.queue.async { [unowned self] in
+        queue.async { [unowned self] in
             let date = self.formatter.string(from: Date())
             let file = file.split(separator: "/").last.map(String.init) ?? file
             let output = String(format: "%@ | %@:L%@ | %@\n", date, file, String(line), message)
@@ -182,19 +184,25 @@ extension DiagnosticsLogger {
     }
 
     private func log(_ output: String) {
+        // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
+        guard Device.freeDiskSpaceInBytes > minimumRequiredDiskSpace else { return }
+        
         guard
-            let data = output.data(using: .utf8),
-            let fileHandle = logFileHandle else {
+            let data = output.data(using: .utf8) else {
                 return assertionFailure("Missing file handle or invalid output logged")
         }
 
-        // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
-        guard Device.freeDiskSpaceInBytes > minimumRequiredDiskSpace else { return }
-
-        fileHandle.seekToEndOfFile()
-        fileHandle.write(data)
-        logSize += Int64(data.count)
-        trimLinesIfNecessary()
+        let coordinator = NSFileCoordinator(filePresenter: nil)
+        var error: NSError?
+        coordinator.coordinate(writingItemAt: logFileLocation, error: &error) { [weak self] url in
+            guard let fileHandle = try? FileHandle(forWritingTo: url) else { return }
+            fileHandle.seekToEndOfFile()
+            fileHandle.write(data)
+            fileHandle.closeFile()
+            
+            self?.logSize += Int64(data.count)
+            self?.trimLinesIfNecessary()
+        }
     }
 
     private func trimLinesIfNecessary() {
