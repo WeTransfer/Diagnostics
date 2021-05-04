@@ -54,7 +54,7 @@ public final class DiagnosticsLogger {
     /// Sets up the logger to be ready for usage. This needs to be called before any log messages are reported.
     /// This method also starts a new session.
     public static func setup() throws {
-        guard !isSetUp() else {
+        guard !isSetUp() || standard.isRunningTests else {
             return
         }
         try standard.setup()
@@ -163,7 +163,15 @@ extension DiagnosticsLogger {
             return nil
         }
 
-        return queue.sync { try? Data(contentsOf: logFileLocation) }
+        return queue.sync {
+            let coordinator = NSFileCoordinator(filePresenter: nil)
+            var error: NSError?
+            var logData: Data?
+            coordinator.coordinate(readingItemAt: logFileLocation, error: &error) { url in
+                logData = try? Data(contentsOf: url)
+            }
+            return logData
+        }
     }
 
     /// Removes the log file. Should only be used for testing purposes.
@@ -195,7 +203,9 @@ extension DiagnosticsLogger {
         let coordinator = NSFileCoordinator(filePresenter: nil)
         var error: NSError?
         coordinator.coordinate(writingItemAt: logFileLocation, error: &error) { [weak self] url in
-            guard let fileHandle = try? FileHandle(forWritingTo: url) else { return }
+            guard let fileHandle = try? FileHandle(forWritingTo: url) else {
+                return
+            }
             fileHandle.seekToEndOfFile()
             fileHandle.write(data)
             fileHandle.closeFile()
