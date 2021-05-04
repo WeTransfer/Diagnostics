@@ -11,14 +11,14 @@ import XCTest
 
 final class LogsReporterTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-        try! DiagnosticsLogger.setup()
+    override func setUpWithError() throws {
+        try super.setUpWithError()
+        try DiagnosticsLogger.setup()
     }
 
-    override class func tearDown() {
-        try! DiagnosticsLogger.standard.deleteLogs()
-        super.tearDown()
+    override func tearDownWithError() throws {
+        try DiagnosticsLogger.standard.deleteLogs()
+        try super.tearDownWithError()
     }
     
     /// It should show logged messages.
@@ -26,7 +26,7 @@ final class LogsReporterTests: XCTestCase {
         let message = UUID().uuidString
         DiagnosticsLogger.log(message: message)
         let diagnostics = LogsReporter.report().diagnostics as! String
-        XCTAssertTrue(diagnostics.contains(message))
+        XCTAssertTrue(diagnostics.contains(message), "Diagnostics is \(diagnostics)")
     }
 
     /// It should show errors.
@@ -41,13 +41,13 @@ final class LogsReporterTests: XCTestCase {
     }
 
     /// It should reverse the order of sessions to have the most recent session on top.
-    func testReverseSessions() {
+    func testReverseSessions() throws {
         DiagnosticsLogger.log(message: "first")
         DiagnosticsLogger.standard.startNewSession()
         DiagnosticsLogger.log(message: "second")
         let diagnostics = LogsReporter.report().diagnostics as! String
-        let firstIndex = diagnostics.range(of: "first")!.lowerBound
-        let secondIndex = diagnostics.range(of: "second")!.lowerBound
+        let firstIndex = try XCTUnwrap(diagnostics.range(of: "first")?.lowerBound)
+        let secondIndex = try XCTUnwrap(diagnostics.range(of: "second")?.lowerBound)
         XCTAssertTrue(firstIndex > secondIndex)
     }
 
