@@ -1,3 +1,6 @@
+### 1.9.0
+- Prevent setup twice, use file coordinator for increased performance ([#83](https://github.com/WeTransfer/Diagnostics/pull/83)) via [@AvdLee](https://github.com/AvdLee)
+
 ### 1.8.1
 - Merge release 1.8.0 into master ([#77](https://github.com/WeTransfer/Diagnostics/pull/77)) via [@wetransferplatform](https://github.com/wetransferplatform)
 
