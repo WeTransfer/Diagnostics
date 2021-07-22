@@ -1,3 +1,8 @@
+### 1.9.1
+- Use latest write APIs to prevent a crash when storage is full. ([#87](https://github.com/WeTransfer/Diagnostics/pull/87)) via [@AvdLee](https://github.com/AvdLee)
+- Update submodule reference. ([#85](https://github.com/WeTransfer/Diagnostics/pull/85)) via [@kairadiagne](https://github.com/kairadiagne)
+- Merge release 1.9.0 into master ([#84](https://github.com/WeTransfer/Diagnostics/pull/84)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 1.9.0
 - Prevent setup twice, use file coordinator for increased performance ([#83](https://github.com/WeTransfer/Diagnostics/pull/83)) via [@AvdLee](https://github.com/AvdLee)
 
