@@ -203,16 +203,32 @@ extension DiagnosticsLogger {
         let coordinator = NSFileCoordinator(filePresenter: nil)
         var error: NSError?
         coordinator.coordinate(writingItemAt: logFileLocation, error: &error) { [weak self] url in
-            guard let fileHandle = try? FileHandle(forWritingTo: url) else {
-                return
+            do {
+                let fileHandle = try FileHandle(forWritingTo: url)
+                if #available(OSX 10.15.4, iOS 13.4, watchOS 6.0, tvOS 13.4, *) {
+                    defer {
+                        try? fileHandle.close()
+                    }
+                    try fileHandle.seekToEnd()
+                    try fileHandle.write(contentsOf: data)
+                } else {
+                    legacyAppend(data, to: fileHandle)
+                }
+                
+                self?.logSize += Int64(data.count)
+                self?.trimLinesIfNecessary()
+            } catch {
+                assertionFailure("Writing data failed with error: \(error)")
             }
-            fileHandle.seekToEndOfFile()
-            fileHandle.write(data)
-            fileHandle.closeFile()
-            
-            self?.logSize += Int64(data.count)
-            self?.trimLinesIfNecessary()
         }
+    }
+    
+    private func legacyAppend(_ data: Data, to fileHandle: FileHandle) {
+        defer {
+            fileHandle.closeFile()
+        }
+        fileHandle.seekToEndOfFile()
+        fileHandle.write(data)
     }
 
     private func trimLinesIfNecessary() {
