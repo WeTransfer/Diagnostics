@@ -3,13 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		500B277C23953F8C00C304D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500B277B23953F8C00C304D4 /* ViewController.swift */; };
-		500B27B523955AD400C304D4 /* Diagnostics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 500B279B23953FCA00C304D4 /* Diagnostics.framework */; };
-		500B27B623955AD400C304D4 /* Diagnostics.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 500B279B23953FCA00C304D4 /* Diagnostics.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		505000F2239FA4AB00EADD27 /* CustomFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505000F1239FA4AB00EADD27 /* CustomFilters.swift */; };
 		505000FD239FA4CB00EADD27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 505000F5239FA4CA00EADD27 /* Assets.xcassets */; };
 		505000FE239FA4CB00EADD27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 505000F6239FA4CA00EADD27 /* LaunchScreen.storyboard */; };
@@ -17,31 +15,8 @@
 		50500100239FA4CB00EADD27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505000FA239FA4CA00EADD27 /* AppDelegate.swift */; };
 		50500102239FA4CB00EADD27 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505000FC239FA4CA00EADD27 /* SceneDelegate.swift */; };
 		509F59CE2397AD0D006AD8D1 /* CustomReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F59CD2397AD0D006AD8D1 /* CustomReporter.swift */; };
+		84F575FF26DE67180032BB3A /* Diagnostics in Frameworks */ = {isa = PBXBuildFile; productRef = 84F575FE26DE67180032BB3A /* Diagnostics */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		500B279A23953FCA00C304D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 500B274C239524E100C304D4;
-			remoteInfo = Diagnostics;
-		};
-		500B279C23953FCA00C304D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 500B2755239524E100C304D4;
-			remoteInfo = DiagnosticsTests;
-		};
-		500B279E23953FEB00C304D4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 500B274B239524E100C304D4;
-			remoteInfo = Diagnostics;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		500B27B723955AD400C304D4 /* Embed Frameworks */ = {
@@ -50,7 +25,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				500B27B623955AD400C304D4 /* Diagnostics.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -60,7 +34,6 @@
 /* Begin PBXFileReference section */
 		500B277423953F8C00C304D4 /* Diagnostics-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Diagnostics-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		500B277B23953F8C00C304D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Diagnostics.xcodeproj; path = ../Diagnostics.xcodeproj; sourceTree = "<group>"; };
 		505000F1239FA4AB00EADD27 /* CustomFilters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFilters.swift; sourceTree = "<group>"; };
 		505000F5239FA4CA00EADD27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		505000F7239FA4CA00EADD27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -69,6 +42,7 @@
 		505000FB239FA4CA00EADD27 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		505000FC239FA4CA00EADD27 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		509F59CD2397AD0D006AD8D1 /* CustomReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomReporter.swift; sourceTree = "<group>"; };
+		84F575FD26DE666B0032BB3A /* Diagnostics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Diagnostics; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				500B27B523955AD400C304D4 /* Diagnostics.framework in Frameworks */,
+				84F575FF26DE67180032BB3A /* Diagnostics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,9 +60,9 @@
 		500B276B23953F8C00C304D4 = {
 			isa = PBXGroup;
 			children = (
+				84F575FD26DE666B0032BB3A /* Diagnostics */,
 				500B277623953F8C00C304D4 /* Diagnostics-Example */,
 				500B277523953F8C00C304D4 /* Products */,
-				500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */,
 				500B27B323955AC000C304D4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -110,15 +84,6 @@
 				505000F1239FA4AB00EADD27 /* CustomFilters.swift */,
 			);
 			path = "Diagnostics-Example";
-			sourceTree = "<group>";
-		};
-		500B279623953FCA00C304D4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				500B279B23953FCA00C304D4 /* Diagnostics.framework */,
-				500B279D23953FCA00C304D4 /* DiagnosticsTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		500B27B323955AC000C304D4 /* Frameworks */ = {
@@ -156,9 +121,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				500B279F23953FEB00C304D4 /* PBXTargetDependency */,
+				84F5760126DE67390032BB3A /* PBXTargetDependency */,
 			);
 			name = "Diagnostics-Example";
+			packageProductDependencies = (
+				84F575FE26DE67180032BB3A /* Diagnostics */,
+			);
 			productName = "Diagnostics-Example";
 			productReference = 500B277423953F8C00C304D4 /* Diagnostics-Example.app */;
 			productType = "com.apple.product-type.application";
@@ -170,7 +138,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1120;
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = WeTransfer;
 				TargetAttributes = {
 					500B277323953F8C00C304D4 = {
@@ -189,35 +157,12 @@
 			mainGroup = 500B276B23953F8C00C304D4;
 			productRefGroup = 500B277523953F8C00C304D4 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 500B279623953FCA00C304D4 /* Products */;
-					ProjectRef = 500B279523953FCA00C304D4 /* Diagnostics.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				500B277323953F8C00C304D4 /* Diagnostics-Example */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		500B279B23953FCA00C304D4 /* Diagnostics.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Diagnostics.framework;
-			remoteRef = 500B279A23953FCA00C304D4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		500B279D23953FCA00C304D4 /* DiagnosticsTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = DiagnosticsTests.xctest;
-			remoteRef = 500B279C23953FCA00C304D4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		500B277223953F8C00C304D4 /* Resources */ = {
@@ -248,10 +193,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		500B279F23953FEB00C304D4 /* PBXTargetDependency */ = {
+		84F5760126DE67390032BB3A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = Diagnostics;
-			targetProxy = 500B279E23953FEB00C304D4 /* PBXContainerItemProxy */;
+			productRef = 84F5760026DE67390032BB3A /* Diagnostics */;
 		};
 /* End PBXTargetDependency section */
 
@@ -301,6 +245,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -361,6 +306,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -447,6 +393,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		84F575FE26DE67180032BB3A /* Diagnostics */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Diagnostics;
+		};
+		84F5760026DE67390032BB3A /* Diagnostics */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Diagnostics;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 500B276C23953F8C00C304D4 /* Project object */;
 }
