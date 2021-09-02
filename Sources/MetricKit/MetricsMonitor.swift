@@ -10,17 +10,17 @@ import MetricKit
 
 /// Monitors payloads delivered by MetricKit and logs valueable information, including crashes.
 final class MetricsMonitor: NSObject {
-    
+
     func startMonitoring() {
         if #available(iOS 14, *) {
             MXMetricManager.shared.add(self)
         }
-        
+
         NSSetUncaughtExceptionHandler { exception in
             MetricsMonitor.logExceptionUsingCallStackSymbols(exception, description: "Uncaught Exception")
         }
     }
-    
+
     /// Creates a new log section with the current thread call stack symbols.
     private static func logExceptionUsingCallStackSymbols(_ exception: NSException, description: String) {
         let message = """
@@ -46,7 +46,7 @@ extension MetricsMonitor: MXMetricManagerSubscriber {
     func didReceive(_ payloads: [MXMetricPayload]) {
         // We don't do anything with metrics yet.
     }
-    
+
     @available(iOS 14.0, *)
     func didReceive(_ payloads: [MXDiagnosticPayload]) {
         guard let payload = payloads.last else {
@@ -55,12 +55,12 @@ extension MetricsMonitor: MXMetricManagerSubscriber {
         }
         
         let message = """
-            
+
             ---
             MXDIAGNOSTICS RECEIVED:
             \(payload.logDescription)
             ---
-            
+
             """
         DiagnosticsLogger.standard.log(message)
     }
