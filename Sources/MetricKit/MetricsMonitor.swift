@@ -53,7 +53,7 @@ extension MetricsMonitor: MXMetricManagerSubscriber {
             // We only use the last payload to prevent duplicate logging as much as possible.
             return
         }
-        
+
         let message = """
 
             ---
