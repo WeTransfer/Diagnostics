@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import MetricKit
+
 #if os(macOS)
 import AppKit
 #else
@@ -42,6 +44,8 @@ public final class DiagnosticsLogger {
         formatter.timeZone = TimeZone(identifier: "GMT")!
         return formatter
     }()
+
+    private lazy var metricsMonitor: MetricsMonitor = MetricsMonitor()
 
     /// Whether the logger is setup and ready to use.
     private var isSetup: Bool = false
@@ -104,34 +108,9 @@ extension DiagnosticsLogger {
         logFileHandle.seekToEndOfFile()
         logSize = Int64(logFileHandle.offsetInFile)
         setupPipe()
-        setupCrashMonitoring()
+        metricsMonitor.startMonitoring()
         isSetup = true
         startNewSession()
-    }
-
-    private func setupCrashMonitoring() {
-        NSSetUncaughtExceptionHandler { exception in
-            DiagnosticsLogger.logExceptionUsingCallStackSymbols(exception, description: "Uncaught Exception")
-        }
-    }
-
-    /// Creates a new log section with the current thread call stack symbols.
-    private static func logExceptionUsingCallStackSymbols(_ exception: NSException, description: String) {
-        let message = """
-
-        ---
-
-        🚨 CRASH:
-        Description: \(description)
-        Exception name: \(exception.name.rawValue)
-        Reason: \(exception.reason ?? "nil")
-
-            \(Thread.callStackSymbols.joined(separator: "\n"))
-
-        ---
-
-        """
-        standard.log(message)
     }
 }
 
@@ -191,10 +170,10 @@ extension DiagnosticsLogger {
         }
     }
 
-    private func log(_ output: String) {
+    func log(_ output: String) {
         // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
         guard Device.freeDiskSpaceInBytes > minimumRequiredDiskSpace else { return }
-        
+
         guard
             let data = output.data(using: .utf8) else {
                 return assertionFailure("Missing file handle or invalid output logged")
@@ -214,7 +193,7 @@ extension DiagnosticsLogger {
                 } else {
                     legacyAppend(data, to: fileHandle)
                 }
-                
+
                 self?.logSize += Int64(data.count)
                 self?.trimLinesIfNecessary()
             } catch {
@@ -222,7 +201,7 @@ extension DiagnosticsLogger {
             }
         }
     }
-    
+
     private func legacyAppend(_ data: Data, to fileHandle: FileHandle) {
         defer {
             fileHandle.closeFile()
