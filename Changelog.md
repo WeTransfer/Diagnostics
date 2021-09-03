@@ -1,3 +1,8 @@
+### 1.10.0
+- Use MetricKit to better collect crashes ([#86](https://github.com/WeTransfer/Diagnostics/issues/86)) via [@AvdLee](https://github.com/AvdLee)
+- Explore iOS 14 MetricKit possibilities ([#73](https://github.com/WeTransfer/Diagnostics/issues/73)) via [@AvdLee](https://github.com/AvdLee)
+- Merge release 1.9.1 into master ([#88](https://github.com/WeTransfer/Diagnostics/pull/88)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 1.9.1
 - Use latest write APIs to prevent a crash when storage is full. ([#87](https://github.com/WeTransfer/Diagnostics/pull/87)) via [@AvdLee](https://github.com/AvdLee)
 - Update submodule reference. ([#85](https://github.com/WeTransfer/Diagnostics/pull/85)) via [@kairadiagne](https://github.com/kairadiagne)
