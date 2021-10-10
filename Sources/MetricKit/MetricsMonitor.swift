@@ -12,9 +12,11 @@ import MetricKit
 final class MetricsMonitor: NSObject {
 
     func startMonitoring() {
-        if #available(iOS 14, *) {
-            MXMetricManager.shared.add(self)
-        }
+        #if os(iOS)
+            if #available(iOS 14, *) {
+                MXMetricManager.shared.add(self)
+            }
+        #endif
 
         NSSetUncaughtExceptionHandler { exception in
             MetricsMonitor.logExceptionUsingCallStackSymbols(exception, description: "Uncaught Exception")
@@ -41,6 +43,7 @@ final class MetricsMonitor: NSObject {
     }
 }
 
+#if os(iOS)
 extension MetricsMonitor: MXMetricManagerSubscriber {
     @available(iOS 13.0, *)
     func didReceive(_ payloads: [MXMetricPayload]) {
@@ -81,3 +84,4 @@ extension MXCrashDiagnostic {
         "💥 Reason: \(terminationReason ?? ""), Type: \(exceptionType?.stringValue ?? ""), Code: \(exceptionCode?.stringValue ?? ""), Signal: \(signal?.stringValue ?? ""), OS: \(metaData.osVersion), Build: \(metaData.applicationBuildVersion)"
     }
 }
+#endif
