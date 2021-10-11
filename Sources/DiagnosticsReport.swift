@@ -55,6 +55,7 @@ public extension DiagnosticsReport {
         print("Diagnostics Report saved to: \(filePath)")
     }
     
+#if os(OSX)
     private func saveUsingPanel(initialDirectoryPath: String, filename: String) {
         let savePanel = NSSavePanel()
         savePanel.canCreateDirectories = true
@@ -74,4 +75,5 @@ public extension DiagnosticsReport {
             NSWorkspace.shared.activateFileViewerSelecting([targetURL])
         }
     }
+#endif
 }
