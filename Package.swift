@@ -11,11 +11,11 @@ let package = Package(name: "Diagnostics",
                         .tvOS(.v12),
                         .watchOS(.v6)],
                       products: [
-                        // dev .library(name: "DangerDeps[Diagnostics]", type: .dynamic, targets: ["DangerDependencies"]),
+                        // dev .library(name: "DangerDeps", type: .dynamic, targets: ["DangerDependencies"]),
                         .library(name: "Diagnostics", type: .static, targets: ["Diagnostics"])
                         ],
                       dependencies: [
-                        // dev .package(name: "danger-swift", url: "https://github.com/danger/swift", from: "3.0.0"),
+                        // dev .package(url: "https://github.com/danger/swift", from: "3.0.0"),
                         // dev .package(name: "WeTransferPRLinter", path: "Submodules/WeTransfer-iOS-CI/Danger-Swift")
                         ],
                       targets: [
