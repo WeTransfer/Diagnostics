@@ -16,10 +16,10 @@ let package = Package(name: "Diagnostics",
                         ],
                       dependencies: [
                         // dev .package(name: "danger-swift", url: "https://github.com/danger/swift", from: "3.0.0"),
-                        // dev .package(name: "WeTransferPRLinter", path: "Submodules/WeTransfer-iOS-CI/Danger-Swift")
+                        // dev .package(name: "WeTransferPRLinter", path: "Submodules/WeTransfer-iOS-CI/WeTransferPRLinter")
                         ],
                       targets: [
-                        // dev .target(name: "DangerDependencies", dependencies: [.product(name: "Danger", package: "danger-swift"), .product(name: "WeTransferPRLinter", package: "Danger-Swift")], path: "Submodules/WeTransfer-iOS-CI/Danger-Swift", sources: ["DangerFakeSource.swift"]),
+                        // dev .target(name: "DangerDependencies", dependencies: [.product(name: "Danger", package: "danger-swift"), .product(name: "WeTransferPRLinter", package: "Danger-Swift")], path: "Submodules/WeTransfer-iOS-CI/WeTransferPRLinter", sources: ["DangerFakeSource.swift"]),
                         .target(name: "Diagnostics", path: "Sources", exclude: ["style.css"]),
                         .testTarget(name: "DiagnosticsTests", dependencies: ["Diagnostics"], path: "DiagnosticsTests")
                         ],
