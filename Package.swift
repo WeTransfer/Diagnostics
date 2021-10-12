@@ -15,7 +15,7 @@ let package = Package(name: "Diagnostics",
                         .library(name: "Diagnostics", type: .static, targets: ["Diagnostics"])
                         ],
                       dependencies: [
-                        // dev .package(name: "danger-swift", url: "https://github.com/danger/swift", from: "3.0.0"),
+                        // dev .package(name: "danger-swift", url: "https://github.com/danger/swift", from: "3.12.0"),
                         // dev .package(name: "WeTransferPRLinter", path: "Submodules/WeTransfer-iOS-CI/WeTransferPRLinter")
                         ],
                       targets: [
