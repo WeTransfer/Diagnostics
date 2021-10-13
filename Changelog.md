@@ -1,3 +1,7 @@
+### 1.11.0
+- Fix macOS Support ([#91](https://github.com/WeTransfer/Diagnostics/pull/91)) via [@AvdLee](https://github.com/AvdLee)
+- Merge release 1.10.0 into master ([#90](https://github.com/WeTransfer/Diagnostics/pull/90)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 1.10.0
 - Use MetricKit to better collect crashes ([#86](https://github.com/WeTransfer/Diagnostics/issues/86)) via [@AvdLee](https://github.com/AvdLee)
 - Explore iOS 14 MetricKit possibilities ([#73](https://github.com/WeTransfer/Diagnostics/issues/73)) via [@AvdLee](https://github.com/AvdLee)
