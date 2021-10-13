@@ -45,7 +45,7 @@ public extension DiagnosticsReport {
             saveUsingPanel(initialDirectoryPath: folderPath, filename: filename)
         #endif
     }
-    
+
     private func save(to filePath: String) {
         guard FileManager.default.createFile(atPath: filePath, contents: data, attributes: [FileAttributeKey.type: mimeType.rawValue]) else {
             print("Diagnostics Report could not be saved to: \(filePath)")
@@ -54,7 +54,7 @@ public extension DiagnosticsReport {
 
         print("Diagnostics Report saved to: \(filePath)")
     }
-    
+
 #if os(OSX)
     private func saveUsingPanel(initialDirectoryPath: String, filename: String) {
         let savePanel = NSSavePanel()

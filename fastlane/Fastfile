@@ -6,8 +6,8 @@ import "./../Submodules/WeTransfer-iOS-CI/Fastlane/shared_lanes.rb"
 
 desc "Run the tests and prepare for Danger"
 lane :test do |options|
-  # test_package(
-  #       package_name: 'Diagnostics',
-  #       package_path: ENV['PWD'],
-  #       disable_automatic_package_resolution: false)
+  test_package(
+        package_name: 'Diagnostics',
+        package_path: ENV['PWD'],
+        disable_automatic_package_resolution: false)
 end
