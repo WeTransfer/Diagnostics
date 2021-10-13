@@ -34,7 +34,7 @@ public extension DiagnosticsReport {
         let simulatorPath = (NSSearchPathForDirectoriesInDomains(.desktopDirectory, .userDomainMask, true) as [String]).first!
         let simulatorPathComponents = URL(string: simulatorPath)!.pathComponents.prefix(3).filter { $0 != "/" }
         let userPath = simulatorPathComponents.joined(separator: "/")
-        
+
         #if os(iOS)
             let folderPath = "/\(userPath)/Desktop/Diagnostics/"
             try? FileManager.default.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
