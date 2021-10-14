@@ -1,3 +1,7 @@
+### 1.12.0
+- [CI] Update danger to latest fix tag ([#93](https://github.com/WeTransfer/Diagnostics/pull/93)) via [@AvdLee](https://github.com/AvdLee)
+- Merge release 1.11.0 into master ([#92](https://github.com/WeTransfer/Diagnostics/pull/92)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 1.11.0
 - Fix macOS Support ([#91](https://github.com/WeTransfer/Diagnostics/pull/91)) via [@AvdLee](https://github.com/AvdLee)
 - Merge release 1.10.0 into master ([#90](https://github.com/WeTransfer/Diagnostics/pull/90)) via [@wetransferplatform](https://github.com/wetransferplatform)
