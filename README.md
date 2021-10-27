@@ -318,11 +318,10 @@ If you prefer not to use any of the aforementioned dependency managers, you can 
   $ git submodule add https://github.com/WeTransfer/Diagnostics.git
   ```
 
-- Open the new `Diagnostics` folder, and drag the `Diagnostics.xcodeproj` into the Project Navigator of your application's Xcode project.
+- Open the new `Diagnostics` folder, and drag the `Diagnostics` folder into the Project Navigator of your application's Xcode project. This will add the SPM package as a local package.
 
     > It should appear nested underneath your application's blue project icon. Whether it is above or below all the other Xcode groups does not matter.
 
-- Select the `Diagnostics.xcodeproj` in the Project Navigator and verify the deployment target matches that of your application target.
 - Next, select your application project in the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
 - In the tab bar at the top of that window, open the "General" panel.
 - Click on the `+` button under the "Embedded Binaries" section.
