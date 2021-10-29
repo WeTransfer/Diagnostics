@@ -82,10 +82,9 @@ extension DiagnosticsReporter {
         var html = "<head>"
         html += "<title>\(Bundle.appName) - Diagnostics Report</title>"
         html += style()
+        html += scripts()
         html += "<meta charset=\"utf-8\">"
         html += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
-        html += "<link rel=\"stylesheet\" href=\"/Users/avanderlee/Documents/GIT-Projects/WeTransfer/Diagnostics/Sources/style.css\">"
-        html += "<script src=\"/Users/avanderlee/Documents/GIT-Projects/WeTransfer/Diagnostics/Sources/functions.js\"></script>"
         html += "</head>"
         return html
     }
@@ -103,12 +102,17 @@ extension DiagnosticsReporter {
     }
 
     static func style() -> HTML {
-        /// To add Swift Package Manager support we're adding the CSS directly here. This is because we can't add resources to packages in SPM.
-        return ""
-//        guard let cssURL = Bundle.module.url(forResource: "style.css", withExtension: nil), let css = try? String(contentsOf: cssURL) else {
-//            return ""
-//        }
-//        return "<style>\(css)</style>"
+        guard let cssURL = Bundle.module.url(forResource: "style.css", withExtension: nil), let css = try? String(contentsOf: cssURL) else {
+            return ""
+        }
+        return "<style>\(css)</style>"
+    }
+
+    static func scripts() -> HTML {
+        guard let scriptsURL = Bundle.module.url(forResource: "functions.js", withExtension: nil), let scripts = try? String(contentsOf: scriptsURL) else {
+            return ""
+        }
+        return "<script type=\"text/javascript\">\(scripts)</script>"
     }
 
     static func menu(using chapters: [DiagnosticsChapter]) -> HTML {
