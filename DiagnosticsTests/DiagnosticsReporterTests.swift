@@ -62,14 +62,6 @@ final class DiagnosticsReporterTests: XCTestCase {
         XCTAssertTrue(html.contains(DiagnosticsReporter.style()))
         XCTAssertTrue(html.contains("</head>"))
     }
-
-    /// It should minify CSS.
-    func testCSSMinify() {
-        let style = DiagnosticsReporter.style()
-        XCTAssertFalse(style.contains(where: { $0.isNewline }))
-        XCTAssertFalse(style.contains("  "), "It should not contain double spaces")
-    }
-
 }
 
 struct MockedReport: DiagnosticsReporting {

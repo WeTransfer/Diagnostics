@@ -54,7 +54,7 @@ public enum DiagnosticsReporter {
             }
             return chapter
         }
-        
+
         let html = generateHTML(using: reportChapters)
         let data = html.data(using: .utf8)!
         return DiagnosticsReport(filename: "Diagnostics-Report.html", data: data)

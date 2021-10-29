@@ -22,7 +22,7 @@ struct LogsReporter: DiagnosticsReporting {
         var diagnostics = ""
         sessions.forEach { session in
             guard !session.isEmpty else { return }
-            
+
             diagnostics += "<div class=\"collapsible-session\">"
             diagnostics += "<details>"
             if session.isOldStyleSession {
