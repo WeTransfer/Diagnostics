@@ -20,7 +20,12 @@ let package = Package(name: "Diagnostics",
                         ],
                       targets: [
                         // dev .target(name: "DangerDependencies", dependencies: [.product(name: "Danger", package: "danger-swift"), .product(name: "WeTransferPRLinter", package: "WeTransferPRLinter")], path: "Submodules/WeTransfer-iOS-CI/DangerFakeSources", sources: ["DangerFakeSource.swift"]),
-                        .target(name: "Diagnostics", path: "Sources", exclude: ["style.css"]),
+                        .target(
+                            name: "Diagnostics",
+                            path: "Sources",
+                            resources: [
+                                .process("style.css")
+                            ]),
                         .testTarget(name: "DiagnosticsTests", dependencies: ["Diagnostics"], path: "DiagnosticsTests")
                         ],
                       swiftLanguageVersions: [.v5])

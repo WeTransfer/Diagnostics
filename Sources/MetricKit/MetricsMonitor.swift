@@ -25,21 +25,7 @@ final class MetricsMonitor: NSObject {
 
     /// Creates a new log section with the current thread call stack symbols.
     private static func logExceptionUsingCallStackSymbols(_ exception: NSException, description: String) {
-        let message = """
-
-        ---
-
-        🚨 CRASH:
-        Description: \(description)
-        Exception name: \(exception.name.rawValue)
-        Reason: \(exception.reason ?? "nil")
-
-            \(Thread.callStackSymbols.joined(separator: "\n"))
-
-        ---
-
-        """
-        DiagnosticsLogger.standard.log(message)
+        DiagnosticsLogger.standard.log(ExceptionLog(exception, description: description))
     }
 }
 
@@ -57,31 +43,7 @@ extension MetricsMonitor: MXMetricManagerSubscriber {
             return
         }
 
-        let message = """
-
-            ---
-            MXDIAGNOSTICS RECEIVED:
-            \(payload.logDescription)
-            ---
-
-            """
-        DiagnosticsLogger.standard.log(message)
-    }
-}
-
-@available(iOS 14.0, *)
-extension MXDiagnosticPayload {
-    var logDescription: String {
-        var logs: [String] = []
-        logs.append(contentsOf: crashDiagnostics?.compactMap { $0.logDescription } ?? [])
-        return logs.joined(separator: "\n")
-    }
-}
-
-@available(iOS 14.0, *)
-extension MXCrashDiagnostic {
-    var logDescription: String {
-        "💥 Reason: \(terminationReason ?? ""), Type: \(exceptionType?.stringValue ?? ""), Code: \(exceptionCode?.stringValue ?? ""), Signal: \(signal?.stringValue ?? ""), OS: \(metaData.osVersion), Build: \(metaData.applicationBuildVersion)"
+        DiagnosticsLogger.standard.log(payload)
     }
 }
 #endif

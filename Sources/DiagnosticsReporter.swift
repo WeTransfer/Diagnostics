@@ -84,6 +84,8 @@ extension DiagnosticsReporter {
         html += style()
         html += "<meta charset=\"utf-8\">"
         html += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+        html += "<link rel=\"stylesheet\" href=\"/Users/avanderlee/Documents/GIT-Projects/WeTransfer/Diagnostics/Sources/style.css\">"
+        html += "<script src=\"/Users/avanderlee/Documents/GIT-Projects/WeTransfer/Diagnostics/Sources/functions.js\"></script>"
         html += "</head>"
         return html
     }
@@ -102,9 +104,11 @@ extension DiagnosticsReporter {
 
     static func style() -> HTML {
         /// To add Swift Package Manager support we're adding the CSS directly here. This is because we can't add resources to packages in SPM.
-        return """
-        <style>body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:1em;line-height:1.3em;margin:50px 50px 20px;color:#17181a}h1{margin:10px 0 20px;font-weight:400}h3{display:block;font-weight:400;font-size:20px;margin:0 0 10px}p{font-size:14px;margin:0 0 10px;display:block}p:last-child,ul:last-child{margin-bottom:0}pre{overflow:scroll}.container{display:flex;justify-content:space-between;flex-direction:row-reverse;margin:0 auto}.main-content{width:calc(100% - 190px)}.nav-container{width:180px}.nav-container nav{position:fixed;border-radius:4px}.nav-container nav ul{margin:0}.nav-container nav ul li{margin-bottom:5px;display:block}.nav-container nav ul li:last-child{margin-bottom:0}.nav-container nav ul li a{font-size:14px;color:#444;text-decoration:none}.nav-container nav ul li a:hover{color:#000;text-decoration:underline}.chapter{position:relative;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #ccc}.chapter:last-child{border-bottom:0}.chapter .anchor{position:absolute;top:-20px}table th{text-align:left;padding:0 5px 0 0;font-weight:500}table td,table th{font-size:14px}footer{text-align:center;font-size:14px}footer a{color:#111}.footer-logo{width:20px;display:inline-block;vertical-align:middle}@media(max-width:768px){body{margin:20px}.container{margin:0}header h1{font-size:24px}.main-content{width:100%}.nav-container{display:none}table td,table th{display:block}table td{margin-bottom:5px}}@media (prefers-color-scheme:dark){body{background:#111;color:#f7f7f7}.chapter{border-bottom-color:rgba(255,255,255,.3)}.nav-container nav ul li a{color:rgba(255,255,255,.6)}.nav-container nav ul li a:hover{color:#fff}footer a{color:rgba(255,255,255,.85)}footer a:hover{color:#fff}.footer-logo path{fill:#f7f7f7}}</style>
-        """
+        return ""
+//        guard let cssURL = Bundle.module.url(forResource: "style.css", withExtension: nil), let css = try? String(contentsOf: cssURL) else {
+//            return ""
+//        }
+//        return "<style>\(css)</style>"
     }
 
     static func menu(using chapters: [DiagnosticsChapter]) -> HTML {
@@ -112,6 +116,11 @@ extension DiagnosticsReporter {
         chapters.forEach { chapter in
             html += "<li><a href=\"#\(chapter.title.anchor)\">\(chapter.title)</a></li>"
         }
+        html += "<li><button id=\"expand-sections\">Expand sessions</button></li>"
+        html += "<li><button id=\"collapse-sections\">Collapse sessions</button></li>"
+        html += "<li><input type=\"checkbox\" id=\"system-logs\" name=\"system-logs\" checked><label for=\"system-logs\">Show system logs</label></li>"
+        html += "<li><input type=\"checkbox\" id=\"error-logs\" name=\"error-logs\" checked><label for=\"error-logs\">Show error logs</label></li>"
+        html += "<li><input type=\"checkbox\" id=\"debug-logs\" name=\"debug-logs\" checked><label for=\"debug-logs\">Show debug logs</label></li>"
         html += "</ul></nav></aside>"
         return html
     }

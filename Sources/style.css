@@ -40,6 +40,10 @@ pre {
   overflow: scroll;
 }
 
+a {
+  color: #111;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -109,13 +113,62 @@ table th, table td {
   font-size: 14px;
 }
 
+.collapsible-session {
+  margin: 15px 0px;
+}
+
+.error {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+
+input[type=checkbox] {
+  margin: 10px 10px 10px 0px;
+}
+
+button {
+  margin: 10px 0px;
+}
+
+details {
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: .5em .5em 0;
+    font-family: monospace;
+    white-space: pre;
+    font-size: 14px;
+    overflow: scroll;
+}
+
+summary {
+    margin: -.5em -.5em 0;
+    padding: .5em;
+}
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+details > summary::marker {
+  display: none;
+}
+
+summary p {
+    font-size: 14px;
+    margin: 0px;
+}
+
+details[open] {
+    padding: .5em;
+}
+
+details[open] summary {
+    border-bottom: 1px solid #aaa;
+    margin-bottom: .5em;
+}
+
 footer {
   text-align: center;
   font-size: 14px;
-}
-
-footer a {
-  color: #111;
 }
 
 .footer-logo {
@@ -166,11 +219,11 @@ footer a {
     color: #fff;
   }
 
-  footer a {
+  a {
     color: rgba(255,255,255,0.85);
   }
 
-  footer a:hover {
+  a:hover {
     color: #fff;
   }
 
