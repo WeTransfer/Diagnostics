@@ -1,3 +1,12 @@
+### 2.0.0
+- [Diagnostics] Update color of links in CSS ([#100](https://github.com/WeTransfer/Diagnostics/issues/100)) via [@AvdLee](https://github.com/AvdLee)
+- [Reports] Make it easier to navigate through sessions ([#95](https://github.com/WeTransfer/Diagnostics/issues/95)) via [@AvdLee](https://github.com/AvdLee)
+- [Diagnostics] Make sections collapsing ([#101](https://github.com/WeTransfer/Diagnostics/issues/101)) via [@AvdLee](https://github.com/AvdLee)
+- [Diagnostics] Don't use `<pre>` for sections so HTML works ([#102](https://github.com/WeTransfer/Diagnostics/issues/102)) via [@AvdLee](https://github.com/AvdLee)
+- Is it possible to separate Custom Logs & System Logs ([#82](https://github.com/WeTransfer/Diagnostics/issues/82)) via [@AvdLee](https://github.com/AvdLee)
+- [Reports] Filter easily on errors ([#96](https://github.com/WeTransfer/Diagnostics/issues/96)) via [@AvdLee](https://github.com/AvdLee)
+- Merge release 1.12.0 into master ([#94](https://github.com/WeTransfer/Diagnostics/pull/94)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 1.12.0
 - [CI] Update danger to latest fix tag ([#93](https://github.com/WeTransfer/Diagnostics/pull/93)) via [@AvdLee](https://github.com/AvdLee)
 - Merge release 1.11.0 into master ([#92](https://github.com/WeTransfer/Diagnostics/pull/92)) via [@wetransferplatform](https://github.com/wetransferplatform)
