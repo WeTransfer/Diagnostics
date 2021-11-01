@@ -30,8 +30,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Failed to setup the Diagnostics Logger")
         }
-        
+
         DiagnosticsLogger.log(message: "Application started")
+        DiagnosticsLogger.log(message: "Log <a href=\"https://www.wetransfer.com\">HTML</a>")
         DiagnosticsLogger.log(error: ExampleError.missingData)
         DiagnosticsLogger.log(error: ExampleLocalizedError.missingLocalizedData)
         // Override point for customization after application launch.

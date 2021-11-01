@@ -18,7 +18,6 @@ import UIKit
 /// A Diagnostics Logger to log messages to which will end up in the Diagnostics Report if using the default `LogsReporter`.
 /// Will keep a `.txt` log in the documents directory with the latestlogs with a max size of 2 MB.
 public final class DiagnosticsLogger {
-
     static let standard = DiagnosticsLogger()
 
     private lazy var logFileLocation: URL = FileManager.default.documentsDirectory.appendingPathComponent("diagnostics_log.txt")
@@ -36,14 +35,6 @@ public final class DiagnosticsLogger {
     private var isRunningTests: Bool {
         return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
     }
-
-    private lazy var formatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.timeZone = TimeZone(identifier: "GMT")!
-        return formatter
-    }()
 
     private lazy var metricsMonitor: MetricsMonitor = MetricsMonitor()
 
@@ -71,7 +62,7 @@ public final class DiagnosticsLogger {
     ///   - function: The functino from which the log is send. Defaults to `#function`.
     ///   - line: The line from which the log is send. Defaults to `#line`.
     public static func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
-        standard.log(message: message, file: file, function: function, line: line)
+        standard.log(LogItem(.debug(message: message), file: file, function: function, line: line))
     }
 
     /// Logs the given error for the diagnostics report.
@@ -82,13 +73,7 @@ public final class DiagnosticsLogger {
     ///   - function: The functino from which the log is send. Defaults to `#function`.
     ///   - line: The line from which the log is send. Defaults to `#line`.
     public static func log(error: Error, description: String? = nil, file: String = #file, function: String = #function, line: UInt = #line) {
-        var message = "\(error) | \(error.localizedDescription)"
-
-        if let description = description {
-            message += " | \(description)"
-        }
-
-        standard.log(message: "ERROR: \(message)", file: file, function: function, line: line)
+        standard.log(LogItem(.error(error: error, description: description), file: file, function: function, line: line))
     }
 }
 
@@ -119,20 +104,7 @@ extension DiagnosticsLogger {
 
     /// Creates a new section in the overall logs with data about the session start and system information.
     func startNewSession() {
-        queue.async { [unowned self] in
-            let date = self.formatter.string(from: Date())
-            let appVersion = "\(Bundle.appVersion) (\(Bundle.appBuildNumber))"
-            let system = "\(Device.systemName) \(Device.systemVersion)"
-            let locale = Locale.preferredLanguages[0]
-
-            let message = date + "\n" + "System: \(system)\nLocale: \(locale)\nVersion: \(appVersion)\n\n"
-
-            if self.logSize == 0 {
-                self.log(message)
-            } else {
-                self.log("\n\n---\n\n\(message)")
-            }
-        }
+        log(NewSession())
     }
 
     /// Reads the log and converts it to a `Data` object.
@@ -159,45 +131,40 @@ extension DiagnosticsLogger {
         try? FileManager.default.removeItem(atPath: logFileLocation.path)
     }
 
-    private func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
-        guard isSetup else { return assertionFailure("Trying to log a message while not set up") }
-
-        queue.async { [unowned self] in
-            let date = self.formatter.string(from: Date())
-            let file = file.split(separator: "/").last.map(String.init) ?? file
-            let output = String(format: "%@ | %@:L%@ | %@\n", date, file, String(line), message)
-            self.log(output)
+    func log(_ loggable: Loggable) {
+        guard isSetup else {
+            return assertionFailure("Trying to log a message while not set up")
         }
-    }
 
-    func log(_ output: String) {
         // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
         guard Device.freeDiskSpaceInBytes > minimumRequiredDiskSpace else { return }
 
-        guard
-            let data = output.data(using: .utf8) else {
-                return assertionFailure("Missing file handle or invalid output logged")
+        guard let data = loggable.logData else {
+            return assertionFailure("Missing file handle or invalid output logged")
         }
 
-        let coordinator = NSFileCoordinator(filePresenter: nil)
-        var error: NSError?
-        coordinator.coordinate(writingItemAt: logFileLocation, error: &error) { [weak self] url in
-            do {
-                let fileHandle = try FileHandle(forWritingTo: url)
-                if #available(OSX 10.15.4, iOS 13.4, watchOS 6.0, tvOS 13.4, *) {
-                    defer {
-                        try? fileHandle.close()
+        queue.async { [weak self] in
+            guard let self = self else { return }
+            let coordinator = NSFileCoordinator(filePresenter: nil)
+            var error: NSError?
+            coordinator.coordinate(writingItemAt: self.logFileLocation, error: &error) { [weak self] url in
+                do {
+                    let fileHandle = try FileHandle(forWritingTo: url)
+                    if #available(OSX 10.15.4, iOS 13.4, watchOS 6.0, tvOS 13.4, *) {
+                        defer {
+                            try? fileHandle.close()
+                        }
+                        try fileHandle.seekToEnd()
+                        try fileHandle.write(contentsOf: data)
+                    } else {
+                        self?.legacyAppend(data, to: fileHandle)
                     }
-                    try fileHandle.seekToEnd()
-                    try fileHandle.write(contentsOf: data)
-                } else {
-                    legacyAppend(data, to: fileHandle)
-                }
 
-                self?.logSize += Int64(data.count)
-                self?.trimLinesIfNecessary()
-            } catch {
-                assertionFailure("Writing data failed with error: \(error)")
+                    self?.logSize += Int64(data.count)
+                    self?.trimLinesIfNecessary()
+                } catch {
+                    assertionFailure("Writing data failed with error: \(error)")
+                }
             }
         }
     }
@@ -265,7 +232,7 @@ private extension DiagnosticsLogger {
         }
 
         string.enumerateLines(invoking: { [weak self] (line, _) in
-            self?.log("SYSTEM: \(line)\n")
+            self?.log(SystemLog(line: line))
         })
     }
 }
