@@ -74,9 +74,9 @@ struct LogItem: Loggable {
     let message: String
     let cssClass: String?
 
-    init(_ type: LogType, file: String, function: String, line: UInt) {
+    init(_ type: LogType, file: StaticString, function: StaticString, line: UInt) {
         let date = DateFormatter.current.string(from: Date())
-        let file = file.split(separator: "/").last.map(String.init) ?? file
+        let file = String(describing: file).split(separator: "/").last.map(String.init) ?? String(describing: file)
         self.message = String(format: "%@ | %@:L%@ | %@", date, file, String(line), type.message)
         self.cssClass = type.cssClass
     }
