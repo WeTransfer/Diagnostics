@@ -1,3 +1,8 @@
+### 2.1.0
+- Using StaticString since that's more correct ([#108](https://github.com/WeTransfer/Diagnostics/pull/108)) via [@AvdLee](https://github.com/AvdLee)
+- Remove Cocoapods support ([#105](https://github.com/WeTransfer/Diagnostics/pull/105)) via [@AvdLee](https://github.com/AvdLee)
+- Merge release 2.0.0 into master ([#104](https://github.com/WeTransfer/Diagnostics/pull/104)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 2.0.0
 - [Diagnostics] Update color of links in CSS ([#100](https://github.com/WeTransfer/Diagnostics/issues/100)) via [@AvdLee](https://github.com/AvdLee)
 - [Reports] Make it easier to navigate through sessions ([#95](https://github.com/WeTransfer/Diagnostics/issues/95)) via [@AvdLee](https://github.com/AvdLee)
