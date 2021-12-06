@@ -61,7 +61,7 @@ public final class DiagnosticsLogger {
     ///   - file: The file from which the log is send. Defaults to `#file`.
     ///   - function: The functino from which the log is send. Defaults to `#function`.
     ///   - line: The line from which the log is send. Defaults to `#line`.
-    public static func log(message: String, file: String = #file, function: String = #function, line: UInt = #line) {
+    public static func log(message: String, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
         standard.log(LogItem(.debug(message: message), file: file, function: function, line: line))
     }
 
@@ -72,7 +72,7 @@ public final class DiagnosticsLogger {
     ///   - file: The file from which the log is send. Defaults to `#file`.
     ///   - function: The functino from which the log is send. Defaults to `#function`.
     ///   - line: The line from which the log is send. Defaults to `#line`.
-    public static func log(error: Error, description: String? = nil, file: String = #file, function: String = #function, line: UInt = #line) {
+    public static func log(error: Error, description: String? = nil, file: StaticString = #file, function: StaticString = #function, line: UInt = #line) {
         standard.log(LogItem(.error(error: error, description: description), file: file, function: function, line: line))
     }
 }
