@@ -18,6 +18,7 @@ public enum DiagnosticsReporter {
     public enum DefaultReporter: CaseIterable {
         case generalInfo
         case appSystemMetadata
+        case smartInsights
         case logs
         case userDefaults
 
@@ -27,6 +28,8 @@ public enum DiagnosticsReporter {
                 return GeneralInfoReporter.self
             case .appSystemMetadata:
                 return AppSystemMetadataReporter.self
+            case .smartInsights:
+                return SmartInsightsReporter.self
             case .logs:
                 return LogsReporter.self
             case .userDefaults:
