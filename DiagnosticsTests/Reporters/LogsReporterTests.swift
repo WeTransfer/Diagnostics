@@ -25,7 +25,7 @@ final class LogsReporterTests: XCTestCase {
     func testMessagesLog() {
         let message = UUID().uuidString
         DiagnosticsLogger.log(message: message)
-        let diagnostics = LogsReporter.report().diagnostics as! String
+        let diagnostics = LogsReporter().report().diagnostics as! String
         XCTAssertTrue(diagnostics.contains(message), "Diagnostics is \(diagnostics)")
     }
 
@@ -36,7 +36,7 @@ final class LogsReporterTests: XCTestCase {
         }
 
         DiagnosticsLogger.log(error: Error.testCase)
-        let diagnostics = LogsReporter.report().diagnostics as! String
+        let diagnostics = LogsReporter().report().diagnostics as! String
         XCTAssertTrue(diagnostics.contains("testCase"))
     }
 
@@ -45,7 +45,7 @@ final class LogsReporterTests: XCTestCase {
         DiagnosticsLogger.log(message: "first")
         DiagnosticsLogger.standard.startNewSession()
         DiagnosticsLogger.log(message: "second")
-        let diagnostics = LogsReporter.report().diagnostics as! String
+        let diagnostics = LogsReporter().report().diagnostics as! String
         let firstIndex = try XCTUnwrap(diagnostics.range(of: "first")?.lowerBound)
         let secondIndex = try XCTUnwrap(diagnostics.range(of: "second")?.lowerBound)
         XCTAssertTrue(firstIndex > secondIndex)

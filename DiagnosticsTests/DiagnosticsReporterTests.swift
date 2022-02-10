@@ -24,8 +24,9 @@ final class DiagnosticsReporterTests: XCTestCase {
     /// It should correctly generate HTML from the reporters.
     func testHTMLGeneration() {
         let diagnosticsChapter = DiagnosticsChapter(title: UUID().uuidString, diagnostics: UUID().uuidString)
-        MockedReporter.diagnosticsChapter = diagnosticsChapter
-        let reporters = [MockedReporter.self]
+        var reporter = MockedReporter()
+        reporter.diagnosticsChapter = diagnosticsChapter
+        let reporters = [reporter]
         let report = DiagnosticsReporter.create(using: reporters)
         let html = String(data: report.data, encoding: .utf8)!
 
@@ -45,8 +46,8 @@ final class DiagnosticsReporterTests: XCTestCase {
     /// It should filter using passed filters.
     func testFilters() {
         let keyToFilter = UUID().uuidString
-        MockedReport.diagnostics = [keyToFilter: UUID().uuidString]
-        let report = DiagnosticsReporter.create(using: [MockedReport.self], filters: [MockedFilter.self])
+        let mockedReport = MockedReport(diagnostics: [keyToFilter: UUID().uuidString])
+        let report = DiagnosticsReporter.create(using: [mockedReport], filters: [MockedFilter.self])
         let html = String(data: report.data, encoding: .utf8)!
         XCTAssertFalse(html.contains(keyToFilter))
         XCTAssertTrue(html.contains("FILTERED"))
