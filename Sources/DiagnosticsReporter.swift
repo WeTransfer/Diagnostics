@@ -49,14 +49,41 @@ public enum DiagnosticsReporter {
     /// - Parameters:
     ///   - reporters: The reporters to use. Defaults to `DefaultReporter.allReporters`. Use this parameter if you'd like to exclude certain reports.
     ///   - filters: The filters to use for the generated diagnostics. Should conform to the `DiagnosticsReportFilter` protocol.
-    public static func create(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters, filters: [DiagnosticsReportFilter.Type]? = nil) -> DiagnosticsReport {
-        let reportChapters = reporters.map { reporter -> DiagnosticsChapter in
-            var chapter = reporter.report()
-            if let filters = filters, !filters.isEmpty {
-                chapter.applyingFilters(filters)
+    ///   - smartInsightProvider: Provide any smart insights for the given `DiagnosticsChapter`.
+    public static func create(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters, filters: [DiagnosticsReportFilter.Type]? = nil, smartInsightsProvider: ((DiagnosticsChapter) -> [SmartInsight])? = nil) -> DiagnosticsReport {
+        /// We should be able to parse Smart insights out of other chapters.
+        /// For example: read out errors from the log chapter and create insights out of it.
+        ///
+        /// Therefore, we are generating insights on the go and add them to the Smart Insights later.
+        var smartInsights: [SmartInsight] = []
+        
+        let reportChapters = reporters
+            .filter { ($0 is SmartInsightsReporter.Type) == false }
+            .map { reporter -> DiagnosticsChapter in
+                var chapter = reporter.report()
+                if let filters = filters, !filters.isEmpty {
+                    chapter.applyingFilters(filters)
+                }
+                if let smartInsightsProvider = smartInsightsProvider {
+                    smartInsights.append(contentsOf: smartInsightsProvider(chapter))
+                }
+                
+                return chapter
             }
-            return chapter
+        
+        if let smartInsightsChapterIndex = reporters.firstIndex(where: { $0 is SmartInsightsReporter.Type }) {
+            
         }
+//        if let smartInsightsChapter = reportChapters.first(where: { $0.title == SmartInsightsReporter.title }) {
+//            smartInsights.forEach { insight in
+//                var currentInsights = (smartInsightsChapter.diagnostics as! [String: String])
+//                currentInsights[insight.name] = insight.result.message
+//                smartInsightsChapter.diagnostics = currentInsights
+//            }
+//        }
+        
+        // TODO 2: Add new Smart Insights to the default Smart Insights chapter.
+        // TODO 3: Create an extension to easily access all system, debug, and error logs.
 
         let html = generateHTML(using: reportChapters)
         let data = html.data(using: .utf8)!

@@ -7,7 +7,7 @@
 //
 import Foundation
 
-enum InsightResult {
+public enum InsightResult {
     case success(message: String)
     case warn(message: String)
     case error(message: String)
@@ -24,7 +24,7 @@ enum InsightResult {
     }
 }
 
-protocol SmartInsight {
+public protocol SmartInsight {
     var name: String { get }
     var result: InsightResult { get }
 }
@@ -32,7 +32,7 @@ protocol SmartInsight {
 /// Reports smart insights based on given variables.
 public struct SmartInsightsReporter: DiagnosticsReporting {
 
-    static var title: String = "Smart Insights"
+    static let title: String = "Smart Insights"
     static var diagnostics: [String: String] {
         let insights: [SmartInsight?] = [
             DeviceStorageInsight(),
