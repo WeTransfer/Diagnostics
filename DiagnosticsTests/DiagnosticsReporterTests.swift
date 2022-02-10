@@ -52,6 +52,29 @@ final class DiagnosticsReporterTests: XCTestCase {
         XCTAssertFalse(html.contains(keyToFilter))
         XCTAssertTrue(html.contains("FILTERED"))
     }
+    
+    func testWithoutProvidingSmartInsightsProvider() {
+        let mockedReport = MockedReport(diagnostics: ["key": UUID().uuidString])
+        let report = DiagnosticsReporter.create(using: [mockedReport, SmartInsightsReporter()], filters: [MockedFilter.self], smartInsightsProvider: nil)
+        let html = String(data: report.data, encoding: .utf8)!
+        XCTAssertTrue(html.contains("Smart Insights"), "Default insights should still be added")
+    }
+    
+    func testWithSmartInsightsProviderReturningNoExtraInsights() {
+        let mockedReport = MockedReport(diagnostics: ["key": UUID().uuidString])
+        let report = DiagnosticsReporter.create(using: [mockedReport, SmartInsightsReporter()], filters: [MockedFilter.self], smartInsightsProvider: MockedInsightsProvider(insightToReturn: nil))
+        let html = String(data: report.data, encoding: .utf8)!
+        XCTAssertTrue(html.contains("Smart Insights"), "Default insights should still be added")
+    }
+    
+    func testWithSmartInsightsProviderReturningExtraInsights() {
+        let mockedReport = MockedReport(diagnostics: ["key": UUID().uuidString])
+        let insightToReturn = SmartInsight(name: UUID().uuidString, result: .success(message: UUID().uuidString))
+        let report = DiagnosticsReporter.create(using: [mockedReport, SmartInsightsReporter()], filters: [MockedFilter.self], smartInsightsProvider: MockedInsightsProvider(insightToReturn: insightToReturn))
+        let html = String(data: report.data, encoding: .utf8)!
+        XCTAssertTrue(html.contains(insightToReturn.name))
+        XCTAssertTrue(html.contains(insightToReturn.result.message))
+    }
 
     /// It should correctly generate the header.
     func testHeaderGeneration() {
@@ -75,5 +98,17 @@ struct MockedReport: DiagnosticsReporting {
 struct MockedFilter: DiagnosticsReportFilter {
     static func filter(_ diagnostics: Diagnostics) -> Diagnostics {
         return "FILTERED"
+    }
+}
+
+struct MockedInsightsProvider: SmartInsightsProviding {
+    let insightToReturn: SmartInsightProviding?
+    
+    func smartInsights(for chapter: DiagnosticsChapter) -> [SmartInsightProviding]? {
+        guard let insightToReturn = insightToReturn else {
+            return nil
+        }
+
+        return [insightToReturn]
     }
 }
