@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DeviceStorageInsight: SmartInsight {
+struct DeviceStorageInsight: SmartInsightProviding {
     
     let name = "Storage"
     let result: InsightResult

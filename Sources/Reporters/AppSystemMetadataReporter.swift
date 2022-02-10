@@ -47,8 +47,8 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
         "iPhone12,5": "iPhone 11 Pro Max"
     ]
 
-    static var title: String = "App & System Details"
-    static var diagnostics: [String: String] {
+    let title: String = "App & System Details"
+    var diagnostics: [String: String] {
         var systemInfo = utsname()
         uname(&systemInfo)
         var hardware = Mirror(reflecting: systemInfo.machine).children.reduce("") { identifier, element in
@@ -56,7 +56,7 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
 
-        if let hardwareName = hardwareName[hardware] {
+        if let hardwareName = Self.hardwareName[hardware] {
             hardware += " (\(hardwareName))"
         }
 
@@ -75,7 +75,7 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
         return metadata
     }
 
-    public static func report() -> DiagnosticsChapter {
+    public func report() -> DiagnosticsChapter {
         return DiagnosticsChapter(title: title, diagnostics: diagnostics)
     }
 }

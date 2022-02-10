@@ -10,9 +10,9 @@ import Diagnostics
 
 struct MockedReporter: DiagnosticsReporting {
 
-    static var diagnosticsChapter: DiagnosticsChapter!
+    var diagnosticsChapter: DiagnosticsChapter!
 
-    static func report() -> DiagnosticsChapter {
+    func report() -> DiagnosticsChapter {
         return diagnosticsChapter
     }
 }

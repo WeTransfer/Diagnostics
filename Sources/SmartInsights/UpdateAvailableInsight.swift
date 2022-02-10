@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-struct UpdateAvailableInsight: SmartInsight {
+struct UpdateAvailableInsight: SmartInsightProviding {
     
     let name = "Update available"
     let result: InsightResult

@@ -11,9 +11,9 @@ import Foundation
 /// Creates a report chapter for all system and custom logs captured with the `DiagnosticsLogger`.
 struct LogsReporter: DiagnosticsReporting {
 
-    static var title: String = "Session Logs"
+    let title: String = "Session Logs"
 
-    static var diagnostics: String {
+    var diagnostics: String {
         guard let data = DiagnosticsLogger.standard.readLog(), let logs = String(data: data, encoding: .utf8) else {
             return "Parsing the log failed"
         }
@@ -38,8 +38,8 @@ struct LogsReporter: DiagnosticsReporting {
         return diagnostics
     }
 
-    static func report() -> DiagnosticsChapter {
-        return DiagnosticsChapter(title: title, diagnostics: diagnostics, formatter: self)
+    func report() -> DiagnosticsChapter {
+        return DiagnosticsChapter(title: title, diagnostics: diagnostics, formatter: Self.self)
     }
 }
 

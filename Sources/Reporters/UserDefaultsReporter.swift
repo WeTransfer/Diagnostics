@@ -12,11 +12,13 @@ import Foundation
 public final class UserDefaultsReporter: DiagnosticsReporting {
 
     /// Defaults to `standard`. Can be used to override and return a different user defaults.
-    public static var userDefaults: UserDefaults = .standard
+    public var userDefaults: UserDefaults = .standard
 
-    public static func report() -> DiagnosticsChapter {
+    public init() { }
+    
+    public func report() -> DiagnosticsChapter {
         let userDefaults = self.userDefaults.dictionaryRepresentation()
-        return DiagnosticsChapter(title: "UserDefaults", diagnostics: userDefaults, formatter: self)
+        return DiagnosticsChapter(title: "UserDefaults", diagnostics: userDefaults, formatter: Self.self)
     }
 }
 

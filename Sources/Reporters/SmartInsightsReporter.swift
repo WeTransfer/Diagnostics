@@ -24,7 +24,7 @@ public enum InsightResult {
     }
 }
 
-public protocol SmartInsight {
+public protocol SmartInsightProviding {
     var name: String { get }
     var result: InsightResult { get }
 }
@@ -32,22 +32,23 @@ public protocol SmartInsight {
 /// Reports smart insights based on given variables.
 public struct SmartInsightsReporter: DiagnosticsReporting {
 
-    static let title: String = "Smart Insights"
-    static var diagnostics: [String: String] {
-        let insights: [SmartInsight?] = [
+    let title: String = "Smart Insights"
+    var insights: [SmartInsightProviding]
+    
+    init() {
+        let defaultInsights: [SmartInsightProviding?] = [
             DeviceStorageInsight(),
             UpdateAvailableInsight()
         ]
-        
-        let metadata: [String: String] = insights.compactMap { $0 }.reduce([:]) { metadata, insight in
+        insights = defaultInsights.compactMap { $0 }
+    }
+
+    public func report() -> DiagnosticsChapter {
+        let diagnostics: [String: String] = insights.compactMap { $0 }.reduce([:]) { metadata, insight in
             var metadata = metadata
             metadata[insight.name] = insight.result.message
             return metadata
         }
-        return metadata
-    }
-
-    public static func report() -> DiagnosticsChapter {
         return DiagnosticsChapter(title: title, diagnostics: diagnostics)
     }
 }
