@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Shows an insight on whether the user has enough storage left or not.
 struct DeviceStorageInsight: SmartInsightProviding {
     
     static let warningThreshold: ByteCountFormatter.Units.Bytes = 1000 * 1000 * 1000 // 1GB

@@ -9,6 +9,8 @@
 import Foundation
 import Combine
 
+/// Uses the bundle identifier to fetch latest version information and provides insights into whether
+/// an app update is available.
 struct UpdateAvailableInsight: SmartInsightProviding {
     
     let name = "Update available"

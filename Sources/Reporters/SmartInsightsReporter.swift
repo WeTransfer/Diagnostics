@@ -24,8 +24,13 @@ public enum InsightResult: Equatable {
     }
 }
 
+/// Provides a smart insights with a given success, error, or warn result.
 public protocol SmartInsightProviding {
+    
+    /// The name of the smart insight.
     var name: String { get }
+    
+    /// The result of this insight, see `InsightResult`.
     var result: InsightResult { get }
 }
 
