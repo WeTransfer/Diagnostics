@@ -56,7 +56,7 @@ public enum DiagnosticsReporter {
         ///
         /// Therefore, we are generating insights on the go and add them to the Smart Insights later.
         var smartInsights: [SmartInsightProviding] = []
-        
+
         var reportChapters = reporters
             .filter { ($0 is SmartInsightsReporter) == false }
             .map { reporter -> DiagnosticsChapter in
@@ -67,17 +67,17 @@ public enum DiagnosticsReporter {
                 if let smartInsightsProvider = smartInsightsProvider, let insights = smartInsightsProvider.smartInsights(for: chapter) {
                     smartInsights.append(contentsOf: insights)
                 }
-                
+
                 return chapter
             }
-        
+
         if let smartInsightsChapterIndex = reporters.firstIndex(where: { $0 is SmartInsightsReporter }) {
             var smartInsightsReporter = SmartInsightsReporter()
             smartInsightsReporter.insights.append(contentsOf: smartInsights)
             let smartInsightsChapter = smartInsightsReporter.report()
             reportChapters.insert(smartInsightsChapter, at: smartInsightsChapterIndex)
         }
-        
+
         // TODO 3: Create an extension to easily access all system, debug, and error logs.
 
         let html = generateHTML(using: reportChapters)

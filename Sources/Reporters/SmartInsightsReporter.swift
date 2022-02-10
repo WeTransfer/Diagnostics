@@ -11,7 +11,7 @@ public enum InsightResult: Equatable {
     case success(message: String)
     case warn(message: String)
     case error(message: String)
-    
+
     var message: String {
         switch self {
         case .success(let message):
@@ -26,10 +26,10 @@ public enum InsightResult: Equatable {
 
 /// Provides a smart insights with a given success, error, or warn result.
 public protocol SmartInsightProviding {
-    
+
     /// The name of the smart insight.
     var name: String { get }
-    
+
     /// The result of this insight, see `InsightResult`.
     var result: InsightResult { get }
 }
@@ -39,7 +39,7 @@ public struct SmartInsightsReporter: DiagnosticsReporting {
 
     let title: String = "Smart Insights"
     var insights: [SmartInsightProviding]
-    
+
     init() {
         let defaultInsights: [SmartInsightProviding?] = [
             DeviceStorageInsight(),

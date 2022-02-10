@@ -10,12 +10,12 @@ import Foundation
 
 /// Shows an insight on whether the user has enough storage left or not.
 struct DeviceStorageInsight: SmartInsightProviding {
-    
+
     static let warningThreshold: ByteCountFormatter.Units.Bytes = 1000 * 1000 * 1000 // 1GB
-    
+
     let name = "Storage"
     let result: InsightResult
-    
+
     init(freeDiskSpace: ByteCountFormatter.Units.Bytes = Device.freeDiskSpaceInBytes, totalDiskSpace: ByteCountFormatter.Units.GigaBytes = Device.totalDiskSpace) {
         let lowOnStorage = freeDiskSpace <= Self.warningThreshold
         let freeDiskSpaceString = ByteCountFormatter.string(fromByteCount: freeDiskSpace, countStyle: ByteCountFormatter.CountStyle.decimal)

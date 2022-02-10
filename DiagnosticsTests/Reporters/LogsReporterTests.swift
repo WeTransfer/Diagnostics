@@ -20,7 +20,7 @@ final class LogsReporterTests: XCTestCase {
         try DiagnosticsLogger.standard.deleteLogs()
         try super.tearDownWithError()
     }
-    
+
     /// It should show logged messages.
     func testMessagesLog() throws {
         let message = UUID().uuidString

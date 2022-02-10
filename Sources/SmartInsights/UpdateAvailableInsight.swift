@@ -12,10 +12,10 @@ import Combine
 /// Uses the bundle identifier to fetch latest version information and provides insights into whether
 /// an app update is available.
 struct UpdateAvailableInsight: SmartInsightProviding {
-    
+
     let name = "Update available"
     let result: InsightResult
-    
+
     private var urlSessionAppMetadataPublisher: (URL) -> AnyPublisher<AppMetadataResults, Error> = { url in
         URLSession.shared
             .dataTaskPublisher(for: url)
@@ -23,14 +23,14 @@ struct UpdateAvailableInsight: SmartInsightProviding {
             .decode(type: AppMetadataResults.self, decoder: JSONDecoder())
             .eraseToAnyPublisher()
     }
-    
+
     init?(bundleIdentifier: String? = Bundle.main.bundleIdentifier, currentVersion: String = Bundle.appVersion, appMetadataPublisher: AnyPublisher<AppMetadataResults, Error>? = nil) {
         guard let bundleIdentifier = bundleIdentifier else { return nil }
         let url = URL(string: "https://itunes.apple.com/br/lookup?bundleId=\(bundleIdentifier)")!
-        
+
         let group = DispatchGroup()
         group.enter()
-        
+
         var appMetadata: AppMetadata?
         let publisher = appMetadataPublisher ?? urlSessionAppMetadataPublisher(url)
         let cancellable = publisher
@@ -39,16 +39,16 @@ struct UpdateAvailableInsight: SmartInsightProviding {
             } receiveValue: { result in
                 appMetadata = result.results.first
             }
-        
+
         /// Set a timeout of 1 second to prevent the call from taking too long unexpectedly.
         /// Though: the request should be super fast since it's a small resource.
         let result = group.wait(timeout: .now() + .seconds(1))
         cancellable.cancel()
-        
+
         guard result == .success, let appMetadata = appMetadata else {
             return nil
         }
-        
+
         switch currentVersion.compare(appMetadata.version) {
         case .orderedSame:
             self.result = .success(message: "The user is using the latest app version \(appMetadata.version)")

@@ -6,13 +6,13 @@ enum LoggableCSSClass: String {
 }
 
 protocol Loggable {
-    
+
     /// The date of the log event. If set, it will be prepended to the log message in the right format.
     var date: Date? { get }
-    
+
     /// Any prefix to add before the actual message.
     var prefix: String? { get }
-    
+
     /// The message to log.
     var message: String { get }
 
@@ -32,7 +32,7 @@ extension Loggable {
             return "\(message)\n".data(using: .utf8)
         }
     }
-    
+
     private var logMessage: String {
         var messages: [String] = []
         if let date = date {

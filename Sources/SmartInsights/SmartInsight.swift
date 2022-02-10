@@ -12,7 +12,7 @@ import Foundation
 public struct SmartInsight: SmartInsightProviding {
     public let name: String
     public let result: InsightResult
-    
+
     public init(name: String, result: InsightResult) {
         self.name = name
         self.result = result
