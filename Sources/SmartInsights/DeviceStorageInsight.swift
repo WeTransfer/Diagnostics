@@ -10,13 +10,15 @@ import Foundation
 
 struct DeviceStorageInsight: SmartInsightProviding {
     
+    static let warningThreshold: ByteCountFormatter.Units.Bytes = 1000 * 1000 * 1000 // 1GB
+    
     let name = "Storage"
     let result: InsightResult
-    let warningThreshold: ByteCountFormatter.Units.Bytes = 1000 * 1024 * 1024 // 1GB
     
-    init() {
-        let lowOnStorage = Device.freeDiskSpaceInBytes < warningThreshold
-        let storageStatus = "(\(Device.freeDiskSpace) of \(Device.totalDiskSpace) left)"
+    init(freeDiskSpace: ByteCountFormatter.Units.Bytes = Device.freeDiskSpaceInBytes, totalDiskSpace: ByteCountFormatter.Units.GigaBytes = Device.totalDiskSpace) {
+        let lowOnStorage = freeDiskSpace <= Self.warningThreshold
+        let freeDiskSpaceString = ByteCountFormatter.string(fromByteCount: freeDiskSpace, countStyle: ByteCountFormatter.CountStyle.decimal)
+        let storageStatus = "(\(freeDiskSpaceString) of \(totalDiskSpace) left)"
         if lowOnStorage {
             result = .warn(message: "The user is low on storage \(storageStatus)")
         } else {

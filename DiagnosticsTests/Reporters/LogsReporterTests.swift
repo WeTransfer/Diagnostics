@@ -22,15 +22,19 @@ final class LogsReporterTests: XCTestCase {
     }
     
     /// It should show logged messages.
-    func testMessagesLog() {
+    func testMessagesLog() throws {
         let message = UUID().uuidString
         DiagnosticsLogger.log(message: message)
         let diagnostics = LogsReporter().report().diagnostics as! String
         XCTAssertTrue(diagnostics.contains(message), "Diagnostics is \(diagnostics)")
+        XCTAssertEqual(diagnostics.debugLogs.count, 1)
+        let debugLog = try XCTUnwrap(diagnostics.debugLogs.first)
+        XCTAssertTrue(debugLog.contains("<span class=\"log-prefix\">LogsReporterTests.swift:L27</span>"), "Prefix should be added")
+        XCTAssertTrue(debugLog.contains("<span class=\"log-message\">\(message)</span>"), "Log message should be added")
     }
 
     /// It should show errors.
-    func testErrorLog() {
+    func testErrorLog() throws {
         enum Error: Swift.Error {
             case testCase
         }
@@ -38,6 +42,9 @@ final class LogsReporterTests: XCTestCase {
         DiagnosticsLogger.log(error: Error.testCase)
         let diagnostics = LogsReporter().report().diagnostics as! String
         XCTAssertTrue(diagnostics.contains("testCase"))
+        XCTAssertEqual(diagnostics.errorLogs.count, 1)
+        let errorLog = try XCTUnwrap(diagnostics.errorLogs.first)
+        XCTAssertTrue(errorLog.contains("<span class=\"log-message\">ERROR: testCase"))
     }
 
     /// It should reverse the order of sessions to have the most recent session on top.

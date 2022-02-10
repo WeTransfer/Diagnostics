@@ -7,7 +7,7 @@
 //
 import Foundation
 
-public enum InsightResult {
+public enum InsightResult: Equatable {
     case success(message: String)
     case warn(message: String)
     case error(message: String)

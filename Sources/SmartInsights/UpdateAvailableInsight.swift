@@ -13,21 +13,25 @@ struct UpdateAvailableInsight: SmartInsightProviding {
     
     let name = "Update available"
     let result: InsightResult
-    let warningThreshold: ByteCountFormatter.Units.Bytes = 1000 * 1024 * 1024 // 1GB
     
-    init?() {
-//        guard let bundleIdentifier = Bundle.main.bundleIdentifier else { return nil }
-        let bundleIdentifier = "com.wetransfer.transfer"
+    private var urlSessionAppMetadataPublisher: (URL) -> AnyPublisher<AppMetadataResults, Error> = { url in
+        URLSession.shared
+            .dataTaskPublisher(for: url)
+            .map(\.data)
+            .decode(type: AppMetadataResults.self, decoder: JSONDecoder())
+            .eraseToAnyPublisher()
+    }
+    
+    init?(bundleIdentifier: String? = Bundle.main.bundleIdentifier, currentVersion: String = Bundle.appVersion, appMetadataPublisher: AnyPublisher<AppMetadataResults, Error>? = nil) {
+        guard let bundleIdentifier = bundleIdentifier else { return nil }
         let url = URL(string: "https://itunes.apple.com/br/lookup?bundleId=\(bundleIdentifier)")!
         
         let group = DispatchGroup()
         group.enter()
         
         var appMetadata: AppMetadata?
-        let cancellable = URLSession.shared
-            .dataTaskPublisher(for: url)
-            .map(\.data)
-            .decode(type: AppMetadataResults.self, decoder: JSONDecoder())
+        let publisher = appMetadataPublisher ?? urlSessionAppMetadataPublisher(url)
+        let cancellable = publisher
             .sink { _ in
                 group.leave()
             } receiveValue: { result in
@@ -43,23 +47,23 @@ struct UpdateAvailableInsight: SmartInsightProviding {
             return nil
         }
         
-        let currentVersion = Bundle.appVersion
-        
         switch currentVersion.compare(appMetadata.version) {
-        case .orderedSame, .orderedDescending:
-            self.result = .success(message: "")
+        case .orderedSame:
+            self.result = .success(message: "The user is using the latest app version \(appMetadata.version)")
+        case .orderedDescending:
+            self.result = .success(message: "The user is using a newer version \(currentVersion)")
         case .orderedAscending:
             self.result = .warn(message: "The user could update to \(appMetadata.version)")
         }
     }
 }
 
-private struct AppMetadataResults: Codable {
+struct AppMetadataResults: Codable {
     let results: [AppMetadata]
 }
 
 // A list of App metadata with details around a given app.
-private struct AppMetadata: Codable {
+struct AppMetadata: Codable {
     /// The current latest version available in the App Store.
     let version: String
 }
