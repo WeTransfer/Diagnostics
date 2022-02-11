@@ -26,7 +26,7 @@ final class SmartInsightsReporterTests: XCTestCase {
         reporter.insights.removeAll()
         
         reporter.insights.append(contentsOf: [insight, insight, insight])
-        
+
         let chapter = reporter.report()
         XCTAssertEqual(chapter.title, "Smart Insights")
         let insightsDictionary = try XCTUnwrap(chapter.diagnostics as? [String: String])

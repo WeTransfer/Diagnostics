@@ -16,7 +16,7 @@ final class DiagnosticsReporterTests: XCTestCase {
         try! DiagnosticsLogger.setup()
     }
 
-    override class func tearDown() {
+    override func tearDown() {
         try! DiagnosticsLogger.standard.deleteLogs()
         super.tearDown()
     }
