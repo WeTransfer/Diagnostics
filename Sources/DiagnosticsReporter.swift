@@ -78,8 +78,6 @@ public enum DiagnosticsReporter {
             reportChapters.insert(smartInsightsChapter, at: smartInsightsChapterIndex)
         }
 
-        // TODO 3: Create an extension to easily access all system, debug, and error logs.
-
         let html = generateHTML(using: reportChapters)
         let data = html.data(using: .utf8)!
         return DiagnosticsReport(filename: "Diagnostics-Report.html", data: data)
