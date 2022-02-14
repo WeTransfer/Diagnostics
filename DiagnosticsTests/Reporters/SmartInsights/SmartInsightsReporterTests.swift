@@ -30,6 +30,6 @@ final class SmartInsightsReporterTests: XCTestCase {
         let chapter = reporter.report()
         XCTAssertEqual(chapter.title, "Smart Insights")
         let insightsDictionary = try XCTUnwrap(chapter.diagnostics as? [String: String])
-        XCTAssertEqual(insightsDictionary.count, 1, "It should only have 1 of the custom insights")
+        XCTAssertEqual(insightsDictionary.count, 1, "It should only have one of the custom insights")
     }
 }
