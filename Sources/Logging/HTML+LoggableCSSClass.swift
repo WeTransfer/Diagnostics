@@ -1,6 +1,6 @@
 //
 //  HTML+LoggableCSSClass.swift
-//  
+//  Diagnostics
 //
 //  Created by Antoine van der Lee on 10/02/2022.
 //  Copyright © 2019 WeTransfer. All rights reserved.
