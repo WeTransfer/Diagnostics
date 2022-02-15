@@ -212,7 +212,7 @@ let report = DiagnosticsReporter.create(using: reporters)
 By default, standard Smart Insights are provided:
 
 - `UpdateAvailableInsight` using your bundle identifier to fetch the latest available app version. An insight will be shown whether an update is available to the user or not.
-- `DeviceStorageInsight` showing whether the user is out of storage or not
+- `DeviceStorageInsight` shows whether the user is out of storage or not
 
 ### Adding your own custom insights
 It's possible to provide your own custom insights based on the chapters in the report. A common example is to parse the errors and show a smart insight about an occurred error:
