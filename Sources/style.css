@@ -134,7 +134,6 @@ details {
     border-radius: 4px;
     padding: .5em .5em 0;
     font-family: monospace;
-    white-space: pre;
     font-size: 14px;
     overflow: scroll;
 }

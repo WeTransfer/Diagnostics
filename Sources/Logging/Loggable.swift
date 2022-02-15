@@ -2,6 +2,13 @@ import Foundation
 import MetricKit
 
 protocol Loggable {
+    
+    /// The date of the log event. If set, it will be prepended to the log message in the right format.
+    var date: Date? { get }
+    
+    /// Any prefix to add before the actual message.
+    var prefix: String? { get }
+    
     /// The message to log.
     var message: String { get }
 
@@ -10,14 +17,29 @@ protocol Loggable {
 }
 
 extension Loggable {
+    var date: Date? { nil }
+    var prefix: String? { nil }
     var cssClass: String? { nil }
 
     var logData: Data? {
         if let cssClass = cssClass {
-            return "<p class=\"\(cssClass)\">\(message)</p>".data(using: .utf8)
+            return "<p class=\"\(cssClass)\">\(logMessage)</p>".data(using: .utf8)
         } else {
             return message.data(using: .utf8)
         }
+    }
+    
+    private var logMessage: String {
+        var messages: [String] = []
+        if let date = date {
+            let date = DateFormatter.current.string(from: date)
+            messages.append("<span class=\"log-date\">\(date)</span>")
+        }
+        if let prefix = prefix {
+            messages.append("<span class=\"log-prefix\">\(prefix)</span>")
+        }
+        messages.append("<span class=\"log-message\">\(self.message)</span>")
+        return messages.joined(separator: "<span class=\"log-separator\"> | </span>")
     }
 }
 
@@ -71,24 +93,26 @@ struct LogItem: Loggable {
         }
     }
 
+    let date: Date? = Date()
+    let prefix: String?
     let message: String
     let cssClass: String?
 
     init(_ type: LogType, file: StaticString, function: StaticString, line: UInt) {
-        let date = DateFormatter.current.string(from: Date())
         let file = String(describing: file).split(separator: "/").last.map(String.init) ?? String(describing: file)
-        self.message = String(format: "%@ | %@:L%@ | %@", date, file, String(line), type.message)
+        prefix = "\(file):L\(line)"
+        self.message = type.message
         self.cssClass = type.cssClass
     }
 }
 
 struct SystemLog: Loggable {
+    let date: Date? = Date()
     let message: String
     let cssClass: String? = "system"
 
     init(line: String) {
-        let date = DateFormatter.current.string(from: Date())
-        message = "\(date) | SYSTEM: \(line)"
+        message = "SYSTEM: \(line)"
     }
 }
 
