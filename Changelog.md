@@ -1,3 +1,8 @@
+### 3.0.0
+- [Reports] Smart reporting ([#97](https://github.com/WeTransfer/Diagnostics/issues/97)) via [@AvdLee](https://github.com/AvdLee)
+- Wrap words for better readability ([#112](https://github.com/WeTransfer/Diagnostics/pull/112)) via [@AvdLee](https://github.com/AvdLee)
+- Merge release 2.1.0 into master ([#109](https://github.com/WeTransfer/Diagnostics/pull/109)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 2.1.0
 - Using StaticString since that's more correct ([#108](https://github.com/WeTransfer/Diagnostics/pull/108)) via [@AvdLee](https://github.com/AvdLee)
 - Remove Cocoapods support ([#105](https://github.com/WeTransfer/Diagnostics/pull/105)) via [@AvdLee](https://github.com/AvdLee)
