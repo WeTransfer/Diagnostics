@@ -64,7 +64,8 @@ public enum DiagnosticsReporter {
                 if let filters = filters, !filters.isEmpty {
                     chapter.applyingFilters(filters)
                 }
-                if let smartInsightsProvider = smartInsightsProvider, let insights = smartInsightsProvider.smartInsights(for: chapter) {
+                if let smartInsightsProvider = smartInsightsProvider {
+                    let insights = smartInsightsProvider.smartInsights(for: chapter)
                     smartInsights.append(contentsOf: insights)
                 }
 

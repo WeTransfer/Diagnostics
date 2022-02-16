@@ -11,6 +11,6 @@ public protocol SmartInsightsProviding {
 
     /// Allows parsing the given chapter and read Smart Insights out of it.
     /// - Parameter `chapter`: The `DiagnosticsChapter` to use for reading out insights.
-    /// - Returns: An optional collection of smart insights derived from the chapter.
-    func smartInsights(for chapter: DiagnosticsChapter) -> [SmartInsightProviding]?
+    /// - Returns: An collection of smart insights derived from the chapter.
+    func smartInsights(for chapter: DiagnosticsChapter) -> [SmartInsightProviding]
 }

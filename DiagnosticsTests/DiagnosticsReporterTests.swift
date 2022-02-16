@@ -104,9 +104,9 @@ struct MockedFilter: DiagnosticsReportFilter {
 struct MockedInsightsProvider: SmartInsightsProviding {
     let insightToReturn: SmartInsightProviding?
 
-    func smartInsights(for chapter: DiagnosticsChapter) -> [SmartInsightProviding]? {
+    func smartInsights(for chapter: DiagnosticsChapter) -> [SmartInsightProviding] {
         guard let insightToReturn = insightToReturn else {
-            return nil
+            return []
         }
 
         return [insightToReturn]
