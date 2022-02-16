@@ -1,34 +1,37 @@
 import Foundation
 import MetricKit
 
+enum LoggableCSSClass: String {
+    case debug, error, system
+}
+
 protocol Loggable {
-    
     /// The date of the log event. If set, it will be prepended to the log message in the right format.
     var date: Date? { get }
-    
+
     /// Any prefix to add before the actual message.
     var prefix: String? { get }
-    
+
     /// The message to log.
     var message: String { get }
 
     /// An optional CSS class to add to the log. If set, the log will be surrounded with a `<p>` as well.
-    var cssClass: String? { get }
+    var cssClass: LoggableCSSClass? { get }
 }
 
 extension Loggable {
     var date: Date? { nil }
     var prefix: String? { nil }
-    var cssClass: String? { nil }
+    var cssClass: LoggableCSSClass? { nil }
 
     var logData: Data? {
         if let cssClass = cssClass {
-            return "<p class=\"\(cssClass)\">\(logMessage)</p>".data(using: .utf8)
+            return "<p class=\"\(cssClass)\">\(logMessage)</p>\n".data(using: .utf8)
         } else {
-            return message.data(using: .utf8)
+            return "\(message)\n".data(using: .utf8)
         }
     }
-    
+
     private var logMessage: String {
         var messages: [String] = []
         if let date = date {
@@ -83,12 +86,12 @@ struct LogItem: Loggable {
             }
         }
 
-        var cssClass: String {
+        var cssClass: LoggableCSSClass {
             switch self {
             case .debug:
-                return "debug"
+                return .debug
             case .error:
-                return "error"
+                return .error
             }
         }
     }
@@ -96,7 +99,7 @@ struct LogItem: Loggable {
     let date: Date? = Date()
     let prefix: String?
     let message: String
-    let cssClass: String?
+    let cssClass: LoggableCSSClass?
 
     init(_ type: LogType, file: StaticString, function: StaticString, line: UInt) {
         let file = String(describing: file).split(separator: "/").last.map(String.init) ?? String(describing: file)
@@ -109,7 +112,7 @@ struct LogItem: Loggable {
 struct SystemLog: Loggable {
     let date: Date? = Date()
     let message: String
-    let cssClass: String? = "system"
+    let cssClass: LoggableCSSClass? = .system
 
     init(line: String) {
         message = "SYSTEM: \(line)"

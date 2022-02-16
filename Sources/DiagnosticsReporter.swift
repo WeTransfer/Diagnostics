@@ -10,7 +10,7 @@ import Foundation
 
 public protocol DiagnosticsReporting {
     /// Creates the report chapter.
-    static func report() -> DiagnosticsChapter
+    func report() -> DiagnosticsChapter
 }
 
 public enum DiagnosticsReporter {
@@ -18,23 +18,26 @@ public enum DiagnosticsReporter {
     public enum DefaultReporter: CaseIterable {
         case generalInfo
         case appSystemMetadata
+        case smartInsights
         case logs
         case userDefaults
 
-        public var reporter: DiagnosticsReporting.Type {
+        public var reporter: DiagnosticsReporting {
             switch self {
             case .generalInfo:
-                return GeneralInfoReporter.self
+                return GeneralInfoReporter()
             case .appSystemMetadata:
-                return AppSystemMetadataReporter.self
+                return AppSystemMetadataReporter()
+            case .smartInsights:
+                return SmartInsightsReporter()
             case .logs:
-                return LogsReporter.self
+                return LogsReporter()
             case .userDefaults:
-                return UserDefaultsReporter.self
+                return UserDefaultsReporter()
             }
         }
 
-        public static var allReporters: [DiagnosticsReporting.Type] {
+        public static var allReporters: [DiagnosticsReporting] {
             allCases.map { $0.reporter }
         }
     }
@@ -46,13 +49,34 @@ public enum DiagnosticsReporter {
     /// - Parameters:
     ///   - reporters: The reporters to use. Defaults to `DefaultReporter.allReporters`. Use this parameter if you'd like to exclude certain reports.
     ///   - filters: The filters to use for the generated diagnostics. Should conform to the `DiagnosticsReportFilter` protocol.
-    public static func create(using reporters: [DiagnosticsReporting.Type] = DefaultReporter.allReporters, filters: [DiagnosticsReportFilter.Type]? = nil) -> DiagnosticsReport {
-        let reportChapters = reporters.map { reporter -> DiagnosticsChapter in
-            var chapter = reporter.report()
-            if let filters = filters, !filters.isEmpty {
-                chapter.applyingFilters(filters)
+    ///   - smartInsightsProvider: Provide any smart insights for the given `DiagnosticsChapter`.
+    public static func create(using reporters: [DiagnosticsReporting] = DefaultReporter.allReporters, filters: [DiagnosticsReportFilter.Type]? = nil, smartInsightsProvider: SmartInsightsProviding? = nil) -> DiagnosticsReport {
+        /// We should be able to parse Smart insights out of other chapters.
+        /// For example: read out errors from the log chapter and create insights out of it.
+        ///
+        /// Therefore, we are generating insights on the go and add them to the Smart Insights later.
+        var smartInsights: [SmartInsightProviding] = []
+
+        var reportChapters = reporters
+            .filter { ($0 is SmartInsightsReporter) == false }
+            .map { reporter -> DiagnosticsChapter in
+                var chapter = reporter.report()
+                if let filters = filters, !filters.isEmpty {
+                    chapter.applyingFilters(filters)
+                }
+                if let smartInsightsProvider = smartInsightsProvider {
+                    let insights = smartInsightsProvider.smartInsights(for: chapter)
+                    smartInsights.append(contentsOf: insights)
+                }
+
+                return chapter
             }
-            return chapter
+
+        if let smartInsightsChapterIndex = reporters.firstIndex(where: { $0 is SmartInsightsReporter }) {
+            var smartInsightsReporter = SmartInsightsReporter()
+            smartInsightsReporter.insights.append(contentsOf: smartInsights)
+            let smartInsightsChapter = smartInsightsReporter.report()
+            reportChapters.insert(smartInsightsChapter, at: smartInsightsChapterIndex)
         }
 
         let html = generateHTML(using: reportChapters)

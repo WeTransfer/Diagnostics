@@ -16,7 +16,7 @@ enum Session {
 
 /// An example Custom Reporter.
 struct CustomReporter: DiagnosticsReporting {
-    static func report() -> DiagnosticsChapter {
+    func report() -> DiagnosticsChapter {
         let diagnostics: [String: String] = [
             "Logged In": Session.isLoggedIn.description
         ]

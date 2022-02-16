@@ -14,7 +14,7 @@ final class UserDefaultsReporterTests: XCTestCase {
     func testReportUserDefaults() {
         let expectedValue = UUID().uuidString
         UserDefaults.standard.set(expectedValue, forKey: "test_key")
-        let diagnostics = UserDefaultsReporter.report().diagnostics as! [String: Any]
+        let diagnostics = UserDefaultsReporter().report().diagnostics as! [String: Any]
         XCTAssertEqual(diagnostics["test_key"] as? String, expectedValue)
     }
 

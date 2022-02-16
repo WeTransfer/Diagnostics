@@ -13,7 +13,7 @@ final class AppSystemMetadataReporterTests: XCTestCase {
 
     /// It should correctly add the metadata.
     func testMetadata() {
-        let metadata = AppSystemMetadataReporter.report().diagnostics as! [String: String]
+        let metadata = AppSystemMetadataReporter().report().diagnostics as! [String: String]
 
         XCTAssertEqual(metadata[AppSystemMetadataReporter.MetadataKey.appName.rawValue], Bundle.appName)
         XCTAssertEqual(metadata[AppSystemMetadataReporter.MetadataKey.appVersion.rawValue], "\(Bundle.appVersion) (\(Bundle.appBuildNumber))")

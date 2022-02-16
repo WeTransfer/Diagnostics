@@ -15,6 +15,7 @@
 		50500100239FA4CB00EADD27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505000FA239FA4CA00EADD27 /* AppDelegate.swift */; };
 		50500102239FA4CB00EADD27 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505000FC239FA4CA00EADD27 /* SceneDelegate.swift */; };
 		509F59CE2397AD0D006AD8D1 /* CustomReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 509F59CD2397AD0D006AD8D1 /* CustomReporter.swift */; };
+		8461D42627B520A200A520DF /* CustomSmartInsights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461D42527B520A200A520DF /* CustomSmartInsights.swift */; };
 		84F575FF26DE67180032BB3A /* Diagnostics in Frameworks */ = {isa = PBXBuildFile; productRef = 84F575FE26DE67180032BB3A /* Diagnostics */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +43,7 @@
 		505000FB239FA4CA00EADD27 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		505000FC239FA4CA00EADD27 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		509F59CD2397AD0D006AD8D1 /* CustomReporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomReporter.swift; sourceTree = "<group>"; };
+		8461D42527B520A200A520DF /* CustomSmartInsights.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSmartInsights.swift; sourceTree = "<group>"; };
 		84F575FD26DE666B0032BB3A /* Diagnostics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Diagnostics; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +84,7 @@
 				500B277B23953F8C00C304D4 /* ViewController.swift */,
 				509F59CD2397AD0D006AD8D1 /* CustomReporter.swift */,
 				505000F1239FA4AB00EADD27 /* CustomFilters.swift */,
+				8461D42527B520A200A520DF /* CustomSmartInsights.swift */,
 			);
 			path = "Diagnostics-Example";
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50500100239FA4CB00EADD27 /* AppDelegate.swift in Sources */,
+				8461D42627B520A200A520DF /* CustomSmartInsights.swift in Sources */,
 				50500102239FA4CB00EADD27 /* SceneDelegate.swift in Sources */,
 				500B277C23953F8C00C304D4 /* ViewController.swift in Sources */,
 				509F59CE2397AD0D006AD8D1 /* CustomReporter.swift in Sources */,

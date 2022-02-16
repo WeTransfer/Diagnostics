@@ -15,7 +15,7 @@ public struct DiagnosticsChapter {
     public let title: String
 
     /// The `Diagnostics` to show in the chapter.
-    public private(set) var diagnostics: Diagnostics
+    public internal(set) var diagnostics: Diagnostics
 
     /// Whether the title should be visibly shown.
     public let shouldShowTitle: Bool

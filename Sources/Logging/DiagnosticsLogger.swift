@@ -163,7 +163,7 @@ extension DiagnosticsLogger {
                     self?.logSize += Int64(data.count)
                     self?.trimLinesIfNecessary()
                 } catch {
-                    assertionFailure("Writing data failed with error: \(error)")
+                    print("Writing data failed with error: \(error)")
                 }
             }
         }

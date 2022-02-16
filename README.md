@@ -25,6 +25,7 @@ Diagnostics is a library written in Swift which makes it really easy to share Di
 	- [Filtering out sensitive data](#filtering-out-sensitive-data) 
 	- [Adding your own custom logs](#adding-your-own-custom-logs)
 	- [Adding your own custom report](#adding-your-own-custom-report)
+    - [Smart insights](#smart-insights)   
 - [Communication](#communication)
 - [Installation](#installation)
 - [Release Notes](#release-notes)
@@ -42,6 +43,8 @@ The library allows to easily attach the Diagnostics Report as an attachment to t
     - UserDefaults
 - [x] Possibility to filter out sensitive data using a `DiagnosticsReportFilter`
 - [x] A custom `DiagnosticsLogger` to add your own logs
+- [x] Smart insights like _"⚠️ User is low on storage"_ and *"✅ User is using the latest app version"*
+- [x] Flexible setup to add your own smart insights
 - [x] Flexible setup to add your own custom diagnostics
 - [x] Native cross-platform support, e.g. iOS, iPadOS and macOS
 
@@ -203,6 +206,35 @@ var reporters = DiagnosticsReporter.DefaultReporter.allReporters
 reporters.insert(CustomReporter.self, at: 1)
 let report = DiagnosticsReporter.create(using: reporters)
 ```
+
+## Smart Insights
+![](Assets/smart-insights.png)
+By default, standard Smart Insights are provided:
+
+- `UpdateAvailableInsight` uses your bundle identifier to fetch the latest available app version. An insight will be shown whether an update is available to the user or not.
+- `DeviceStorageInsight` shows whether the user is out of storage or not
+
+### Adding your own custom insights
+It's possible to provide your own custom insights based on the chapters in the report. A common example is to parse the errors and show a smart insight about an occurred error:
+
+```swift
+struct SmartInsightsProvider: SmartInsightsProviding {
+    func smartInsights(for chapter: DiagnosticsChapter) -> [SmartInsightProviding]? {
+        guard let html = chapter.diagnostics as? HTML else { return nil }
+        if html.errorLogs.contains(where: { $0.contains("AppDelegate.ExampleLocalizedError") }) {
+            return [
+                SmartInsight(
+                    name: "Localized data",
+                    result: .warn(message: "An error was found regarding missing localisation.")
+                )
+            ]
+        }
+        return nil
+    }
+}
+```
+
+The example project provides the above sample code for you to try out. You can make use of `html.errorLogs`, `.debugLogs`, and `.systemLogs` to quickly access specific logs from the report.
 
 #### Creating a custom HTML formatter for your report
 You can make use of the `HTMLFormatting` protocol to customize the way the HTML is reported. 

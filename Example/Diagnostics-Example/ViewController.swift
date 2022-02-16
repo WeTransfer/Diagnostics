@@ -15,8 +15,8 @@ final class ViewController: UIViewController {
     @IBAction private func sendDiagnostics(_ sender: UIButton) {
         /// Create the report.
         var reporters = DiagnosticsReporter.DefaultReporter.allReporters
-        reporters.insert(CustomReporter.self, at: 1)
-        let report = DiagnosticsReporter.create(using: reporters, filters: [DiagnosticsDictionaryFilter.self, DiagnosticsStringFilter.self])
+        reporters.insert(CustomReporter(), at: 1)
+        let report = DiagnosticsReporter.create(using: reporters, filters: [DiagnosticsDictionaryFilter.self, DiagnosticsStringFilter.self], smartInsightsProvider: SmartInsightsProvider())
 
         guard MFMailComposeViewController.canSendMail() else {
             /// For debugging purposes you can save the report to desktop when testing on the simulator.

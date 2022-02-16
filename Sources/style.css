@@ -103,6 +103,10 @@ a {
   top: -20px;
 }
 
+.chapter-content {
+  font-family: sans-serif;
+}
+
 table th {
   text-align: left;
   padding: 0 5px 0 0;
