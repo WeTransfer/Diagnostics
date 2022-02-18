@@ -219,8 +219,8 @@ It's possible to provide your own custom insights based on the chapters in the r
 
 ```swift
 struct SmartInsightsProvider: SmartInsightsProviding {
-    func smartInsights(for chapter: DiagnosticsChapter) -> [SmartInsightProviding]? {
-        guard let html = chapter.diagnostics as? HTML else { return nil }
+    func smartInsights(for chapter: DiagnosticsChapter) -> [SmartInsightProviding] {
+        guard let html = chapter.diagnostics as? HTML else { return [] }
         if html.errorLogs.contains(where: { $0.contains("AppDelegate.ExampleLocalizedError") }) {
             return [
                 SmartInsight(
@@ -229,7 +229,7 @@ struct SmartInsightsProvider: SmartInsightsProviding {
                 )
             ]
         }
-        return nil
+        return []
     }
 }
 ```
