@@ -12,9 +12,13 @@ let package = Package(name: "Diagnostics",
                       products: [
                         .library(name: "Diagnostics", type: .static, targets: ["Diagnostics"])
                         ],
+                      dependencies: [
+                        .package(url: "https://github.com/sindresorhus/ExceptionCatcher", from: "2.0.0")
+                      ],
                       targets: [
                         .target(
                             name: "Diagnostics",
+                            dependencies: ["ExceptionCatcher"],
                             path: "Sources",
                             resources: [
                                 .process("style.css"),

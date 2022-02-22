@@ -8,6 +8,7 @@
 
 import Foundation
 import MetricKit
+import ExceptionCatcher
 
 #if os(macOS)
 import AppKit
@@ -210,9 +211,7 @@ private extension DiagnosticsLogger {
 
         inputPipe.fileHandleForReading.readabilityHandler = { [weak self] handle in
             let data = handle.availableData
-            self?.queue.async {
-                self?.handleLoggedData(data)
-            }
+            self?.handleLoggedData(data)
         }
 
         // Copy the STDOUT file descriptor into our output pipe's file descriptor
@@ -225,15 +224,23 @@ private extension DiagnosticsLogger {
     }
 
     private func handleLoggedData(_ data: Data) {
-        outputPipe.fileHandleForWriting.write(data)
+        do {
+            try ExceptionCatcher.catch { () -> Void in
+                autoreleasepool {
+                    outputPipe.fileHandleForWriting.write(data)
 
-        guard let string = String(data: data, encoding: .utf8) else {
-            return assertionFailure("Invalid data is logged")
+                    guard let string = String(data: data, encoding: .utf8) else {
+                        return assertionFailure("Invalid data is logged")
+                    }
+
+                    string.enumerateLines(invoking: { [weak self] (line, _) in
+                        self?.log(SystemLog(line: line))
+                    })
+                }
+            }
+        } catch {
+            print("Exception was catched \(error)")
         }
-
-        string.enumerateLines(invoking: { [weak self] (line, _) in
-            self?.log(SystemLog(line: line))
-        })
     }
 }
 
