@@ -101,7 +101,7 @@ struct LogItem: Loggable {
     let message: String
     let cssClass: LoggableCSSClass?
 
-    init(_ type: LogType, file: StaticString, function: StaticString, line: UInt) {
+    init(_ type: LogType, file: String, function: String, line: UInt) {
         let file = String(describing: file).split(separator: "/").last.map(String.init) ?? String(describing: file)
         prefix = "\(file):L\(line)"
         self.message = type.message
