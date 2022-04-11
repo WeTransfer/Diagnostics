@@ -1,3 +1,10 @@
+### 4.0.0
+- Use String instead of StaticString to be more inline with swift-log behaviour ([#118](https://github.com/WeTransfer/Diagnostics/pull/118)) via [@antranapp](https://github.com/antranapp)
+- Adds Raphael as a code owner ([#117](https://github.com/WeTransfer/Diagnostics/pull/117)) via [@kairadiagne](https://github.com/kairadiagne)
+- Catch obj-c exception, remove unneeded dispatch ([#116](https://github.com/WeTransfer/Diagnostics/pull/116)) via [@AvdLee](https://github.com/AvdLee)
+- Update example and readme ([#115](https://github.com/WeTransfer/Diagnostics/pull/115)) via [@mikakruschel](https://github.com/mikakruschel)
+- Merge release 3.0.0 into master ([#114](https://github.com/WeTransfer/Diagnostics/pull/114)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 3.0.0
 - [Reports] Smart reporting ([#97](https://github.com/WeTransfer/Diagnostics/issues/97)) via [@AvdLee](https://github.com/AvdLee)
 - Wrap words for better readability ([#112](https://github.com/WeTransfer/Diagnostics/pull/112)) via [@AvdLee](https://github.com/AvdLee)
