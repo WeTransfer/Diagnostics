@@ -52,6 +52,12 @@ extension String: HTMLGenerating {
     }
 }
 
+extension DirectoryTreeNode: HTMLGenerating {
+    public func html() -> HTML {
+        return "<pre>\(self)</pre>"
+    }
+}
+
 extension DiagnosticsChapter: HTMLGenerating {
     public func html() -> HTML {
         var html = "<div class=\"chapter\">"

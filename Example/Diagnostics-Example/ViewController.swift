@@ -16,7 +16,18 @@ final class ViewController: UIViewController {
         /// Create the report.
         var reporters = DiagnosticsReporter.DefaultReporter.allReporters
         reporters.insert(CustomReporter(), at: 1)
-        let report = DiagnosticsReporter.create(using: reporters, filters: [DiagnosticsDictionaryFilter.self, DiagnosticsStringFilter.self], smartInsightsProvider: SmartInsightsProvider())
+
+        let documentsURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+        print(documentsURL)
+        reporters.insert(DirectoryTreesReporter(directories: [documentsURL]), at: 2)
+        let report = DiagnosticsReporter.create(
+            using: reporters,
+            filters: [
+                DiagnosticsDictionaryFilter.self,
+                DiagnosticsStringFilter.self
+            ],
+            smartInsightsProvider: SmartInsightsProvider()
+        )
 
         guard MFMailComposeViewController.canSendMail() else {
             /// For debugging purposes you can save the report to desktop when testing on the simulator.

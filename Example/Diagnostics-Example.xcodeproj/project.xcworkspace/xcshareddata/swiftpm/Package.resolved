@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ExceptionCatcher",
+        "repositoryURL": "https://github.com/sindresorhus/ExceptionCatcher",
+        "state": {
+          "branch": null,
+          "revision": "9d99a736e17f67ab3aa333c0dad7ed2ee9d6b2b9",
+          "version": "2.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
