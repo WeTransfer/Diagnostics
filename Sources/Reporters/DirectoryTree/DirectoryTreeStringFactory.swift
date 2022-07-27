@@ -1,16 +1,23 @@
 //
 //  DirectoryTreeStringFactory.swift
-//  PrintDirectoryTree
+//  Diagnostics
 //
 //  Created by Antoine van der Lee on 27/07/2022.
 //
 
 import Foundation
 
+/// Creates a pretty string from a `DirectoryTreeNode` and its child nodes.
 private struct DirectoryTreeStringFactory {
     let node: DirectoryTreeNode
+
+    /// Whether the full path of the node should be printed or just the name.
     var printFullPath: Bool = false
+
+    /// The indent to apply, used during recursive looping over the nodes.
     var indent: String = ""
+
+    /// Whether this node should be handled as a last node.
     var isLastNode: Bool = true
 
     func make() -> String {
@@ -37,8 +44,8 @@ private struct DirectoryTreeStringFactory {
 }
 
 extension DirectoryTreeNode: CustomStringConvertible {
-    /// Formats the the FS structure as into a tree.
-    public var description: String {
+    /// Formats the nodes into a readable pretty string.
+    var description: String {
         DirectoryTreeStringFactory(
             node: self,
             isLastNode: true

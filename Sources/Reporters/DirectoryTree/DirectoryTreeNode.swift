@@ -1,8 +1,8 @@
 //
-//  FSNode.swift
-//  tree
+//  DirectoryTreeNode.swift
+//  Diagnostics
 //
-//  Created by Peter Matta on 10/31/18.
+//  Created by Antoine van der Lee on 27/07/2022.
 //
 
 import Foundation
