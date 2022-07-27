@@ -82,6 +82,7 @@ struct LogItem: Loggable {
                 if let description = description {
                     message += " | \(description)"
                 }
+
                 return "ERROR: \(message)".addingHTMLEncoding()
             }
         }
