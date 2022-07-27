@@ -18,8 +18,13 @@ final class ViewController: UIViewController {
         reporters.insert(CustomReporter(), at: 1)
 
         let documentsURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-        print(documentsURL)
-        reporters.insert(DirectoryTreesReporter(directories: [documentsURL]), at: 2)
+        let directoryTreesReporter = DirectoryTreesReporter(
+            directories: [
+                documentsURL
+            ]
+        )
+        reporters.insert(directoryTreesReporter, at: 2)
+
         let report = DiagnosticsReporter.create(
             using: reporters,
             filters: [

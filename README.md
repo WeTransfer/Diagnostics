@@ -183,6 +183,53 @@ DiagnosticsLogger.log(error: ExampleError.missingData)
 
 The error logger will make use of the localized description if available which you can add by making your error conform to `LocalizedError`.
 
+### Adding a directory tree report
+It's possible to add a directory tree report for a given set of URL, resulting in the following output:
+
+```
+└── Documents
+    +-- contents
+    |   +-- B3F2F9AD-AB8D-4825-8369-181DEAAFF940.png
+    |   +-- 5B9C090E-6CE1-4A2F-956B-15897AB4B0A1.png
+    |   +-- 739416EF-8FF8-4502-9B36-CEB778385BBF.png
+    |   +-- 27A3C96B-1813-4553-A6B7-436E6F3DBB20.png
+    |   +-- 8F176CEE-B28F-49EB-8802-CC0438879FBE.png
+    |   +-- 340C2371-A81A-4188-8E04-BC19E94F9DAE.png
+    |   +-- E63AFEBC-B7E7-46D3-BC92-E34A53C0CE0A.png
+    |   +-- 6B363F44-AB69-4A60-957E-710494381739.png
+    |   +-- 9D31CA40-D152-45D9-BDCE-9BB09CCB825E.png
+    |   +-- 304E2E41-9697-4F9A-9EE0-8D487ED60C45.jpeg
+    |   └── 7 more file(s)
+    +-- diagnostics_log.txt
+    +-- Okapi.sqlite
+    +-- Library
+    |   +-- Preferences
+    |   |   └── group.com.wetransfer.app.plist
+    |   └── Caches
+    |       └── com.apple.nsurlsessiond
+    |           └── Downloads
+    |               └── com.wetransfer
+    +-- Coyote.sqlite-shm
+    +-- Coyote.sqlite
+    +-- Coyote.sqlite-wal
+    +-- Okapi.sqlite-shm
+    +-- Okapi.sqlite-wal
+    └── 1 more file(s)
+```
+
+You can do this by adding the `DirectoryTreesReporter`:
+
+```swift
+var reporters = DiagnosticsReporter.DefaultReporter.allReporters
+let documentsURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+let directoryTreesReporter = DirectoryTreesReporter(
+    directories: [
+        documentsURL
+    ]
+)
+reporters.insert(directoryTreesReporter, at: 1)
+```
+
 ### Adding your own custom report
 To add your own report you need to make use of the `DiagnosticsReporting` protocol.
 
