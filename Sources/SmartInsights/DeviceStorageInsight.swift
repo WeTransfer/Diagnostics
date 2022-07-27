@@ -16,7 +16,9 @@ struct DeviceStorageInsight: SmartInsightProviding {
     let name = "Storage"
     let result: InsightResult
 
-    init(freeDiskSpace: ByteCountFormatter.Units.Bytes = Device.freeDiskSpaceInBytes, totalDiskSpace: ByteCountFormatter.Units.GigaBytes = Device.totalDiskSpace) {
+    init(
+        freeDiskSpace: ByteCountFormatter.Units.Bytes = Device.freeDiskSpaceInBytes,
+        totalDiskSpace: ByteCountFormatter.Units.GigaBytes = Device.totalDiskSpace) {
         let lowOnStorage = freeDiskSpace <= Self.warningThreshold
         let freeDiskSpaceString = ByteCountFormatter.string(fromByteCount: freeDiskSpace, countStyle: ByteCountFormatter.CountStyle.decimal)
         let storageStatus = "(\(freeDiskSpaceString) of \(totalDiskSpace) left)"

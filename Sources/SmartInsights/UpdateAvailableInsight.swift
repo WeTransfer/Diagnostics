@@ -24,7 +24,11 @@ struct UpdateAvailableInsight: SmartInsightProviding {
             .eraseToAnyPublisher()
     }
 
-    init?(bundleIdentifier: String? = Bundle.main.bundleIdentifier, currentVersion: String = Bundle.appVersion, appMetadataPublisher: AnyPublisher<AppMetadataResults, Error>? = nil) {
+    init?(
+        bundleIdentifier: String? = Bundle.main.bundleIdentifier,
+        currentVersion: String = Bundle.appVersion,
+        appMetadataPublisher: AnyPublisher<AppMetadataResults, Error>? = nil
+    ) {
         guard let bundleIdentifier = bundleIdentifier else { return nil }
         let url = URL(string: "https://itunes.apple.com/br/lookup?bundleId=\(bundleIdentifier)")!
 

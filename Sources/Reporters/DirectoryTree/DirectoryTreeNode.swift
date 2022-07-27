@@ -11,10 +11,10 @@ import Foundation
 indirect enum DirectoryTreeNode {
     /// A regular file.
     case file(String, String)
-    
+
     /// A symlink.
     case symbolLink(String, String)
-    
+
     /// A directory with it's contents.
     case directory(String, String, [DirectoryTreeNode])
 }
@@ -31,7 +31,7 @@ extension DirectoryTreeNode {
             return path
         }
     }
-    
+
     /// Returns node's name.
     var name: String {
         switch self {
@@ -41,36 +41,44 @@ extension DirectoryTreeNode {
             return name
         }
     }
-    
+
     /// Returns contents of the node, if the node is directory, `nil` otherwise.
     var contents: [DirectoryTreeNode]? {
         switch self {
-        case let .directory(_, _, contents): return contents
-        default: return nil
+        case let .directory(_, _, contents):
+            return contents
+        default:
+            return nil
         }
     }
-    
+
     /// Returns `true` if node is a directory, `false` otherwise.
     var isDirectory: Bool {
         switch self {
-        case .directory: return true
-        default: return false
+        case .directory:
+            return true
+        default:
+            return false
         }
     }
-    
+
     /// Returns `true` if node is a file, `false` otherwise.
     var isFile: Bool {
         switch self {
-        case .file: return true
-        default: return false
+        case .file:
+            return true
+        default:
+            return false
         }
     }
-    
+
     /// Returns `true` if node is a symbolLink, `false` otherwise.
     var isSymbolLink: Bool {
         switch self {
-        case .symbolLink: return true
-        default: return false
+        case .symbolLink:
+            return true
+        default:
+            return false
         }
     }
 }
@@ -81,17 +89,20 @@ extension DirectoryTreeNode {
     /// Returns array of directory names.
     var directories: [String] {
         switch self {
-        case .file, .symbolLink: return []
+        case .file, .symbolLink:
+            return []
         case let .directory(_, name, contents):
             return [name] + contents.flatMap { $0.directories }
         }
     }
-    
+
     /// Returns an array of file names existing in the FS tree.
     var files: [String] {
         switch self {
-        case .symbolLink: return []
-        case let .file(_, name): return [name]
+        case .symbolLink:
+            return []
+        case let .file(_, name):
+            return [name]
         case let .directory(_, _, contents):
             return contents.flatMap { $0.files }.sorted()
         }

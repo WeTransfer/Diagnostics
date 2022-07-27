@@ -169,7 +169,8 @@ extension MXDiagnosticPayload {
 @available(iOS 14.0, *)
 extension MXCrashDiagnostic {
     var logDescription: String {
-        "💥 Reason: \(terminationReason ?? ""), Type: \(exceptionType?.stringValue ?? ""), Code: \(exceptionCode?.stringValue ?? ""), Signal: \(signal?.stringValue ?? ""), OS: \(metaData.osVersion), Build: \(metaData.applicationBuildVersion)"
+        // swiftlint:disable:next line_length
+        return "💥 Reason: \(terminationReason ?? ""), Type: \(exceptionType?.stringValue ?? ""), Code: \(exceptionCode?.stringValue ?? ""), Signal: \(signal?.stringValue ?? ""), OS: \(metaData.osVersion), Build: \(metaData.applicationBuildVersion)"
     }
 }
 #endif

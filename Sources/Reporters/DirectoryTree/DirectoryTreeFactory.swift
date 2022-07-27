@@ -52,7 +52,8 @@ struct DirectoryTreeFactory {
         let type = try fileType(atPath: path)
 
         switch type {
-        case .typeRegular: return .file(path, name)
+        case .typeRegular:
+            return .file(path, name)
         case .typeSymbolicLink:
             guard includeSymbolicLinks else { return nil }
             return .symbolLink(path, name)
