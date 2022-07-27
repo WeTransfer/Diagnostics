@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreTelephony
 
 /// Reports App and System specific metadata like OS and App version.
 public struct AppSystemMetadataReporter: DiagnosticsReporting {
@@ -20,6 +21,7 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
         case freeSpace = "Free space"
         case deviceLanguage = "Device Language"
         case appLanguage = "App Language"
+        case cellularAllowed = "Cellular Allowed"
     }
 
     static let hardwareName: [String: String] = [
@@ -62,6 +64,8 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
 
         let system = "\(Device.systemName) \(Device.systemVersion)"
 
+        let cellularData = CTCellularData()
+
         let metadata: [String: String] = [
             MetadataKey.appName.rawValue: Bundle.appName,
             MetadataKey.appDisplayName.rawValue: Bundle.appDisplayName,
@@ -70,12 +74,26 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
             MetadataKey.system.rawValue: system,
             MetadataKey.freeSpace.rawValue: "\(Device.freeDiskSpace) of \(Device.totalDiskSpace)",
             MetadataKey.deviceLanguage.rawValue: Locale.current.languageCode ?? "Unknown",
-            MetadataKey.appLanguage.rawValue: Locale.preferredLanguages[0]
+            MetadataKey.appLanguage.rawValue: Locale.preferredLanguages[0],
+            MetadataKey.cellularAllowed.rawValue: "\(cellularData.restrictedState)"
             ]
         return metadata
     }
 
     public func report() -> DiagnosticsChapter {
         return DiagnosticsChapter(title: title, diagnostics: diagnostics)
+    }
+}
+
+ extension CTCellularDataRestrictedState: CustomStringConvertible {
+     public var description: String {
+        switch self {
+        case .restricted:
+            return "Restricted"
+        case .notRestricted:
+            return "Not restricted"
+        default:
+            return "Unknown"
+        }
     }
 }
