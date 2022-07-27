@@ -136,7 +136,7 @@ final class DirectoryTreeFactoryTests: XCTestCase {
         case .file(_, let name):
             let newBaseURL = baseURL.appendingPathComponent(name)
             FileManager.default.createFile(atPath: newBaseURL.path, contents: Data())
-        case .symbolLink(_, _):
+        case .symbolLink:
             fatalError("Symbol links are not supported for now")
         case .directory(_, let name, let childNodes):
             let newBaseURL = baseURL.appendingPathComponent(name)
