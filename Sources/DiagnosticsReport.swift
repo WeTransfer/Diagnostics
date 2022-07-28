@@ -47,7 +47,11 @@ public extension DiagnosticsReport {
     }
 
     private func save(to filePath: String) {
-        guard FileManager.default.createFile(atPath: filePath, contents: data, attributes: [FileAttributeKey.type: mimeType.rawValue]) else {
+        guard FileManager.default.createFile(
+            atPath: filePath,
+            contents: data,
+            attributes: [FileAttributeKey.type: mimeType.rawValue]
+        ) else {
             print("Diagnostics Report could not be saved to: \(filePath)")
             return
         }

@@ -5,7 +5,7 @@
 //  Created by Antoine van der Lee on 02/12/2019.
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
-
+//  swiftlint:disable line_length
 import UIKit
 import Diagnostics
 
@@ -32,7 +32,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         DiagnosticsLogger.log(message: "Application started")
-        DiagnosticsLogger.log(message: "Log <a href=\"https://www.wetransfer.com\">HTML</a>")
         DiagnosticsLogger.log(error: ExampleError.missingData)
         DiagnosticsLogger.log(error: ExampleLocalizedError.missingLocalizedData)
         DiagnosticsLogger.log(message: "A very long string: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque condimentum facilisis arcu, at fermentum diam fermentum in. Nullam lectus libero, tincidunt et risus vel, feugiat vulputate nunc. Nunc malesuada congue risus fringilla lacinia. Aliquam suscipit nulla nec faucibus mattis. Suspendisse quam nunc, interdum vel dapibus in, vulputate ac enim. Morbi placerat commodo leo, nec condimentum eros dictum sit amet. Vivamus maximus neque in dui rutrum, vel consectetur metus mollis. Nulla ultricies sodales viverra. Etiam ut velit consectetur, consectetur turpis eu, volutpat purus. Maecenas vitae consectetur tortor, at eleifend lacus. Nullam sed augue vel purus mollis sagittis at sed dui. Quisque faucibus fermentum lectus eget porttitor. Phasellus efficitur aliquet lobortis. Suspendisse at lectus imperdiet, sollicitudin arcu non, interdum diam. Sed ornare ante dolor. In pretium auctor sem, id vestibulum sem molestie in.")

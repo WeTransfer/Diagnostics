@@ -116,6 +116,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 500B278823953F8E00C304D4 /* Build configuration list for PBXNativeTarget "Diagnostics-Example" */;
 			buildPhases = (
+				84E8B49F289179FC00A84288 /* SwiftLint */,
 				500B277023953F8C00C304D4 /* Sources */,
 				500B277123953F8C00C304D4 /* Frameworks */,
 				500B277223953F8C00C304D4 /* Resources */,
@@ -179,6 +180,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		84E8B49F289179FC00A84288 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -z \"$CI\" ]; then\n    if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n        if test -d \"/opt/homebrew/bin/\"; then\n            PATH=\"/opt/homebrew/bin/:${PATH}\"\n        fi\n\n        export PATH\n        swiftlint --config \"${SRCROOT}/../Submodules/WeTransfer-iOS-CI/BuildTools/.swiftlint.yml\"\n        swiftlint lint --path ../Sources --config \"${SRCROOT}/../Submodules/WeTransfer-iOS-CI/BuildTools/.swiftlint.yml\"\n    else\n        echo \"Info: As we're not building for Debug, no SwiftLint is running.\"\n    fi\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		500B277023953F8C00C304D4 /* Sources */ = {

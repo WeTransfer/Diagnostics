@@ -23,20 +23,25 @@ final class LogsReporterTests: XCTestCase {
 
     /// It should show logged messages.
     func testMessagesLog() throws {
-        let message = UUID().uuidString
+        let identifier = UUID().uuidString
+        let message = "<b>\(identifier)</b>"
         DiagnosticsLogger.log(message: message)
         let diagnostics = LogsReporter().report().diagnostics as! String
-        XCTAssertTrue(diagnostics.contains(message), "Diagnostics is \(diagnostics)")
+        XCTAssertTrue(diagnostics.contains(identifier), "Diagnostics is \(diagnostics)")
         XCTAssertEqual(diagnostics.debugLogs.count, 1)
         let debugLog = try XCTUnwrap(diagnostics.debugLogs.first)
-        XCTAssertTrue(debugLog.contains("<span class=\"log-prefix\">LogsReporterTests.swift:L27</span>"), "Prefix should be added")
-        XCTAssertTrue(debugLog.contains("<span class=\"log-message\">\(message)</span>"), "Log message should be added")
+        XCTAssertTrue(debugLog.contains("<span class=\"log-prefix\">LogsReporterTests.swift:L28</span>"), "Prefix should be added")
+        XCTAssertTrue(debugLog.contains("<span class=\"log-message\">&lt;b&gt;\(identifier)&lt;/b&gt;</span>"), "Log message should be added to \(debugLog)")
     }
 
     /// It should show errors.
     func testErrorLog() throws {
-        enum Error: Swift.Error {
+        enum Error: LocalizedError {
             case testCase
+
+            var errorDescription: String? {
+                return "<b>example description</b>"
+            }
         }
 
         DiagnosticsLogger.log(error: Error.testCase)
@@ -44,7 +49,7 @@ final class LogsReporterTests: XCTestCase {
         XCTAssertTrue(diagnostics.contains("testCase"))
         XCTAssertEqual(diagnostics.errorLogs.count, 1)
         let errorLog = try XCTUnwrap(diagnostics.errorLogs.first)
-        XCTAssertTrue(errorLog.contains("<span class=\"log-message\">ERROR: testCase"))
+        XCTAssertTrue(errorLog.contains("<span class=\"log-message\">ERROR: testCase | &lt;b&gt;example description&lt;/b&gt"))
     }
 
     /// It should reverse the order of sessions to have the most recent session on top.

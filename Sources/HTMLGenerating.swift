@@ -52,6 +52,12 @@ extension String: HTMLGenerating {
     }
 }
 
+extension DirectoryTreeNode: HTMLGenerating {
+    public func html() -> HTML {
+        return "<pre>\(self)</pre>"
+    }
+}
+
 extension DiagnosticsChapter: HTMLGenerating {
     public func html() -> HTML {
         var html = "<div class=\"chapter\">"
@@ -60,7 +66,7 @@ extension DiagnosticsChapter: HTMLGenerating {
         if shouldShowTitle {
             html += "<h3>\(title)</h3>"
         }
-        
+
         html += "<div class=\"chapter-content\">"
 
         if let formatter = formatter {

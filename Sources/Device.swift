@@ -21,7 +21,7 @@ enum Device {
         return UIDevice.current.systemName
         #endif
     }
-    
+
     static var systemVersion: String {
         #if os(macOS)
         return ProcessInfo().operatingSystemVersionString
@@ -29,7 +29,7 @@ enum Device {
         return UIDevice.current.systemVersion
         #endif
     }
-    
+
     static var freeDiskSpace: ByteCountFormatter.Units.GigaBytes {
         return ByteCountFormatter.string(fromByteCount: freeDiskSpaceInBytes, countStyle: ByteCountFormatter.CountStyle.decimal)
     }
@@ -43,7 +43,9 @@ enum Device {
 
     static var freeDiskSpaceInBytes: ByteCountFormatter.Units.Bytes {
         if #available(iOS 11.0, *) {
-            if let space = try? URL(fileURLWithPath: NSHomeDirectory() as String).resourceValues(forKeys: [URLResourceKey.volumeAvailableCapacityForImportantUsageKey]).volumeAvailableCapacityForImportantUsage {
+            if let space = try? URL(fileURLWithPath: NSHomeDirectory() as String)
+                .resourceValues(forKeys: [URLResourceKey.volumeAvailableCapacityForImportantUsageKey])
+                .volumeAvailableCapacityForImportantUsage {
                 #if swift(>=5)
                     return space
                 #else
