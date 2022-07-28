@@ -1,3 +1,8 @@
+### 4.1.0
+- Directory Tree Reporter ([#121](https://github.com/WeTransfer/Diagnostics/pull/121)) via [@AvdLee](https://github.com/AvdLee)
+- Report whether cellular is allowed ([#124](https://github.com/WeTransfer/Diagnostics/pull/124)) via [@AvdLee](https://github.com/AvdLee)
+- Merge release 4.0.0 into master ([#119](https://github.com/WeTransfer/Diagnostics/pull/119)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 4.0.0
 - Use String instead of StaticString to be more inline with swift-log behaviour ([#118](https://github.com/WeTransfer/Diagnostics/pull/118)) via [@antranapp](https://github.com/antranapp)
 - Adds Raphael as a code owner ([#117](https://github.com/WeTransfer/Diagnostics/pull/117)) via [@kairadiagne](https://github.com/kairadiagne)
