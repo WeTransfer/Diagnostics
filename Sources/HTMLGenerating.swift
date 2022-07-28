@@ -66,7 +66,7 @@ extension DiagnosticsChapter: HTMLGenerating {
         if shouldShowTitle {
             html += "<h3>\(title)</h3>"
         }
-        
+
         html += "<div class=\"chapter-content\">"
 
         if let formatter = formatter {

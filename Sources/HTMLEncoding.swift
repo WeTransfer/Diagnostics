@@ -13,7 +13,7 @@ protocol HTMLEncoding {
 }
 
 extension String: HTMLEncoding {
-    
+
     /// Encodes entities to be displayed correctly in the final HTML report.
     func addingHTMLEncoding() -> HTML {
         return replacingOccurrences(of: "<", with: "&lt;")

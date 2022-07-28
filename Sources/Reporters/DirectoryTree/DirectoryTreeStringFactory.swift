@@ -39,7 +39,7 @@ private struct DirectoryTreeStringFactory {
                     isLastNode: isLastNode)
                 return childFactory.make()
             }
-            .joined(separator: "")
+            .joined()
     }
 }
 

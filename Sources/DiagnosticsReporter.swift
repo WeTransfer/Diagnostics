@@ -5,6 +5,7 @@
 //  Created by Antoine van der Lee on 02/12/2019.
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
+//  swiftlint:disable line_length
 
 import Foundation
 
@@ -47,10 +48,15 @@ public enum DiagnosticsReporter {
 
     /// Creates the report by making use of the given reporters.
     /// - Parameters:
-    ///   - reporters: The reporters to use. Defaults to `DefaultReporter.allReporters`. Use this parameter if you'd like to exclude certain reports.
+    ///   - reporters: The reporters to use. Defaults to `DefaultReporter.allReporters`.
+    ///   Use this parameter if you'd like to exclude certain reports.
     ///   - filters: The filters to use for the generated diagnostics. Should conform to the `DiagnosticsReportFilter` protocol.
     ///   - smartInsightsProvider: Provide any smart insights for the given `DiagnosticsChapter`.
-    public static func create(using reporters: [DiagnosticsReporting] = DefaultReporter.allReporters, filters: [DiagnosticsReportFilter.Type]? = nil, smartInsightsProvider: SmartInsightsProviding? = nil) -> DiagnosticsReport {
+    public static func create(
+        using reporters: [DiagnosticsReporting] = DefaultReporter.allReporters,
+        filters: [DiagnosticsReportFilter.Type]? = nil,
+        smartInsightsProvider: SmartInsightsProviding? = nil
+    ) -> DiagnosticsReport {
         /// We should be able to parse Smart insights out of other chapters.
         /// For example: read out errors from the log chapter and create insights out of it.
         ///

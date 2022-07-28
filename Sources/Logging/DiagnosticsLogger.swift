@@ -26,7 +26,12 @@ public final class DiagnosticsLogger {
     private let inputPipe: Pipe = Pipe()
     private let outputPipe: Pipe = Pipe()
 
-    private let queue: DispatchQueue = DispatchQueue(label: "com.wetransfer.diagnostics.logger", qos: .utility, autoreleaseFrequency: .workItem, target: .global(qos: .utility))
+    private let queue: DispatchQueue = DispatchQueue(
+        label: "com.wetransfer.diagnostics.logger",
+        qos: .utility,
+        autoreleaseFrequency: .workItem,
+        target: .global(qos: .utility)
+    )
 
     private var logSize: ByteCountFormatter.Units.Bytes!
     private let maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
@@ -73,7 +78,13 @@ public final class DiagnosticsLogger {
     ///   - file: The file from which the log is send. Defaults to `#file`.
     ///   - function: The functino from which the log is send. Defaults to `#function`.
     ///   - line: The line from which the log is send. Defaults to `#line`.
-    public static func log(error: Error, description: String? = nil, file: String = #file, function: String = #function, line: UInt = #line) {
+    public static func log(
+        error: Error,
+        description: String? = nil,
+        file: String = #file,
+        function: String = #function,
+        line: UInt = #line
+    ) {
         standard.log(LogItem(.error(error: error, description: description), file: file, function: function, line: line))
     }
 }
@@ -83,7 +94,8 @@ extension DiagnosticsLogger {
 
     private func setup() throws {
         if !FileManager.default.fileExists(atPath: logFileLocation.path) {
-            try FileManager.default.createDirectory(atPath: FileManager.default.documentsDirectory.path, withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default
+                .createDirectory(atPath: FileManager.default.documentsDirectory.path, withIntermediateDirectories: true, attributes: nil)
             guard FileManager.default.createFile(atPath: logFileLocation.path, contents: nil, attributes: nil) else {
                 assertionFailure("Unable to create the log file")
                 return
