@@ -8,6 +8,7 @@
 import Foundation
 import CoreTelephony
 
+#if os(iOS)
 /// Shows an insight on whether the user has enabled cellular data system-wide for this app.
 struct CellularAllowedInsight: SmartInsightProviding {
 
@@ -26,3 +27,4 @@ struct CellularAllowedInsight: SmartInsightProviding {
         }
     }
 }
+#endif

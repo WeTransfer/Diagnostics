@@ -41,11 +41,14 @@ public struct SmartInsightsReporter: DiagnosticsReporting {
     var insights: [SmartInsightProviding]
 
     init() {
-        let defaultInsights: [SmartInsightProviding?] = [
+        var defaultInsights: [SmartInsightProviding?] = [
             DeviceStorageInsight(),
-            UpdateAvailableInsight(),
-            CellularAllowedInsight()
+            UpdateAvailableInsight()
         ]
+        #if os(iOS)
+            defaultInsights.append(CellularAllowedInsight())
+        #endif
+        
         insights = defaultInsights.compactMap { $0 }
     }
 
