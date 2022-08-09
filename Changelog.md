@@ -1,3 +1,7 @@
+### 4.2.0
+- Fix macOS support ([#127](https://github.com/WeTransfer/Diagnostics/pull/127)) via [@AvdLee](https://github.com/AvdLee)
+- Merge release 4.1.0 into master ([#125](https://github.com/WeTransfer/Diagnostics/pull/125)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 4.1.0
 - Directory Tree Reporter ([#121](https://github.com/WeTransfer/Diagnostics/pull/121)) via [@AvdLee](https://github.com/AvdLee)
 - Report whether cellular is allowed ([#124](https://github.com/WeTransfer/Diagnostics/pull/124)) via [@AvdLee](https://github.com/AvdLee)
