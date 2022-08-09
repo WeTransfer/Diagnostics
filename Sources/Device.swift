@@ -31,36 +31,28 @@ enum Device {
     }
 
     static var freeDiskSpace: ByteCountFormatter.Units.GigaBytes {
-        return ByteCountFormatter.string(fromByteCount: freeDiskSpaceInBytes, countStyle: ByteCountFormatter.CountStyle.decimal)
+        ByteCountFormatter.string(fromByteCount: freeDiskSpaceInBytes, countStyle: ByteCountFormatter.CountStyle.decimal)
     }
 
     static var totalDiskSpace: ByteCountFormatter.Units.GigaBytes {
-        guard let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
-            let space = (systemAttributes[FileAttributeKey.systemSize] as? NSNumber)?.int64Value else { return "UNKNOWN" }
+        ByteCountFormatter.string(fromByteCount: totalDiskSpaceInBytes, countStyle: ByteCountFormatter.CountStyle.decimal)
+    }
 
-        return ByteCountFormatter.string(fromByteCount: space, countStyle: ByteCountFormatter.CountStyle.decimal)
+    static var totalDiskSpaceInBytes: ByteCountFormatter.Units.Bytes {
+        guard let space = try? URL(fileURLWithPath: NSHomeDirectory() as String)
+            .resourceValues(forKeys: [URLResourceKey.volumeTotalCapacityKey])
+            .volumeTotalCapacity else {
+            return 0
+        }
+        return Int64(space)
     }
 
     static var freeDiskSpaceInBytes: ByteCountFormatter.Units.Bytes {
-        if #available(iOS 11.0, *) {
-            if let space = try? URL(fileURLWithPath: NSHomeDirectory() as String)
-                .resourceValues(forKeys: [URLResourceKey.volumeAvailableCapacityForImportantUsageKey])
-                .volumeAvailableCapacityForImportantUsage {
-                #if swift(>=5)
-                    return space
-                #else
-                    return space ?? 0
-                #endif
-            } else {
-                return 0
-            }
-        } else {
-            if let systemAttributes = try? FileManager.default.attributesOfFileSystem(forPath: NSHomeDirectory() as String),
-            let freeSpace = (systemAttributes[FileAttributeKey.systemFreeSize] as? NSNumber)?.int64Value {
-                return freeSpace
-            } else {
-                return 0
-            }
+        guard let space = try? URL(fileURLWithPath: NSHomeDirectory() as String)
+            .resourceValues(forKeys: [URLResourceKey.volumeAvailableCapacityForOpportunisticUsageKey])
+            .volumeAvailableCapacityForOpportunisticUsage else {
+            return 0
         }
+        return space
     }
 }

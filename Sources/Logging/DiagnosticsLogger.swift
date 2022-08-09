@@ -37,6 +37,23 @@ public final class DiagnosticsLogger {
     private let maximumSize: ByteCountFormatter.Units.Bytes = 2 * 1024 * 1024 // 2 MB
     private let trimSize: ByteCountFormatter.Units.Bytes = 100 * 1024 // 100 KB
     private let minimumRequiredDiskSpace: ByteCountFormatter.Units.Bytes = 500 * 1024 * 1024 // 500 MB
+    private var logLinesPassedSinceLastDiskCheck = 0
+
+    /// Makes sure we have enough disk space left for new logs, preventing a crash due to a lack of space.
+    /// Comes with a threshold to check for free disk space since iOS 16+ triggers system logs during space
+    /// checking that we handle as logs as well.
+    /// Not adding this threshold would mean ending up in an infinite loop on iOS 16 and up.
+    /// `logLinesPassedSinceLastDiskCheck` is thread safe since this method is only accessed from our serial queue.
+    private var canWriteNewLogs: Bool {
+        guard logLinesPassedSinceLastDiskCheck >= 5 else {
+            return true
+        }
+        defer { logLinesPassedSinceLastDiskCheck = 0 }
+        guard Device.freeDiskSpaceInBytes > minimumRequiredDiskSpace else {
+            return false
+        }
+        return true
+    }
 
     private var isRunningTests: Bool {
         return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
@@ -149,19 +166,18 @@ extension DiagnosticsLogger {
             return assertionFailure("Trying to log a message while not set up")
         }
 
-        // Make sure we have enough disk space left. This prevents a crash due to a lack of space.
-        guard Device.freeDiskSpaceInBytes > minimumRequiredDiskSpace else { return }
-
-        guard let data = loggable.logData else {
-            return assertionFailure("Missing file handle or invalid output logged")
-        }
-
         queue.async { [weak self] in
             guard let self = self else { return }
             let coordinator = NSFileCoordinator(filePresenter: nil)
             var error: NSError?
             coordinator.coordinate(writingItemAt: self.logFileLocation, error: &error) { [weak self] url in
                 do {
+                    guard let self = self, self.canWriteNewLogs else { return }
+
+                    guard let data = loggable.logData else {
+                        return assertionFailure("Missing file handle or invalid output logged")
+                    }
+
                     let fileHandle = try FileHandle(forWritingTo: url)
                     if #available(OSX 10.15.4, iOS 13.4, watchOS 6.0, tvOS 13.4, *) {
                         defer {
@@ -170,11 +186,11 @@ extension DiagnosticsLogger {
                         try fileHandle.seekToEnd()
                         try fileHandle.write(contentsOf: data)
                     } else {
-                        self?.legacyAppend(data, to: fileHandle)
+                        self.legacyAppend(data, to: fileHandle)
                     }
 
-                    self?.logSize += Int64(data.count)
-                    self?.trimLinesIfNecessary()
+                    self.logSize += Int64(data.count)
+                    self.trimLinesIfNecessary()
                 } catch {
                     print("Writing data failed with error: \(error)")
                 }
