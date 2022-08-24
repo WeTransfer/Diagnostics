@@ -45,7 +45,7 @@ public struct SmartInsightsReporter: DiagnosticsReporting {
             DeviceStorageInsight(),
             UpdateAvailableInsight()
         ]
-        #if os(iOS)
+        #if os(iOS) && !targetEnvironment(macCatalyst)
             defaultInsights.append(CellularAllowedInsight())
         #endif
         

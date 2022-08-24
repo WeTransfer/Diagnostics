@@ -8,7 +8,7 @@
 import Foundation
 import CoreTelephony
 
-#if os(iOS)
+#if os(iOS) && !targetEnvironment(macCatalyst)
 /// Shows an insight on whether the user has enabled cellular data system-wide for this app.
 struct CellularAllowedInsight: SmartInsightProviding {
 
