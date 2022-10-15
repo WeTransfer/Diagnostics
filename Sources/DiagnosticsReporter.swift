@@ -30,7 +30,7 @@ public enum DiagnosticsReporter {
             case .appSystemMetadata:
                 return AppSystemMetadataReporter()
             case .smartInsights:
-                return SmartInsightsReporter()
+                return SmartInsightsReporter(itunesRegion: "us")
             case .logs:
                 return LogsReporter()
             case .userDefaults:
@@ -53,6 +53,8 @@ public enum DiagnosticsReporter {
     ///   - filters: The filters to use for the generated diagnostics. Should conform to the `DiagnosticsReportFilter` protocol.
     ///   - smartInsightsProvider: Provide any smart insights for the given `DiagnosticsChapter`.
     public static func create(
+        filename: String = "Diagnostics-Report.html",
+        itunesRegion: String = "us",
         using reporters: [DiagnosticsReporting] = DefaultReporter.allReporters,
         filters: [DiagnosticsReportFilter.Type]? = nil,
         smartInsightsProvider: SmartInsightsProviding? = nil
@@ -79,7 +81,7 @@ public enum DiagnosticsReporter {
             }
 
         if let smartInsightsChapterIndex = reporters.firstIndex(where: { $0 is SmartInsightsReporter }) {
-            var smartInsightsReporter = SmartInsightsReporter()
+            var smartInsightsReporter = SmartInsightsReporter(itunesRegion: itunesRegion)
             smartInsightsReporter.insights.append(contentsOf: smartInsights)
             let smartInsightsChapter = smartInsightsReporter.report()
             reportChapters.insert(smartInsightsChapter, at: smartInsightsChapterIndex)
@@ -87,7 +89,7 @@ public enum DiagnosticsReporter {
 
         let html = generateHTML(using: reportChapters)
         let data = html.data(using: .utf8)!
-        return DiagnosticsReport(filename: "Diagnostics-Report.html", data: data)
+        return DiagnosticsReport(filename: filename, data: data)
     }
 }
 

@@ -40,10 +40,10 @@ public struct SmartInsightsReporter: DiagnosticsReporting {
     let title: String = "Smart Insights"
     var insights: [SmartInsightProviding]
 
-    init() {
+    init(itunesRegion: String = "us") {
         var defaultInsights: [SmartInsightProviding?] = [
             DeviceStorageInsight(),
-            UpdateAvailableInsight()
+            UpdateAvailableInsight(itunesRegion: itunesRegion)
         ]
         #if os(iOS) && !targetEnvironment(macCatalyst)
             defaultInsights.append(CellularAllowedInsight())
