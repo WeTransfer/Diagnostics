@@ -28,7 +28,7 @@ struct UpdateAvailableInsight: SmartInsightProviding {
         bundleIdentifier: String? = Bundle.main.bundleIdentifier,
         currentVersion: String = Bundle.appVersion,
         appMetadataPublisher: AnyPublisher<AppMetadataResults, Error>? = nil,
-        itunesRegion: String = "us"
+        itunesRegion: String = Locale.current.regionCode ?? "us"
     ) {
         guard let bundleIdentifier = bundleIdentifier else { return nil }
         let url = URL(string: "https://itunes.apple.com/\(itunesRegion)/lookup?bundleId=\(bundleIdentifier)")!
