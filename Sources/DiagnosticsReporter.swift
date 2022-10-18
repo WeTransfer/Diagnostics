@@ -53,6 +53,7 @@ public enum DiagnosticsReporter {
     ///   - filters: The filters to use for the generated diagnostics. Should conform to the `DiagnosticsReportFilter` protocol.
     ///   - smartInsightsProvider: Provide any smart insights for the given `DiagnosticsChapter`.
     public static func create(
+        filename: String = "Diagnostics-Report.html",
         using reporters: [DiagnosticsReporting] = DefaultReporter.allReporters,
         filters: [DiagnosticsReportFilter.Type]? = nil,
         smartInsightsProvider: SmartInsightsProviding? = nil
@@ -87,7 +88,7 @@ public enum DiagnosticsReporter {
 
         let html = generateHTML(using: reportChapters)
         let data = html.data(using: .utf8)!
-        return DiagnosticsReport(filename: "Diagnostics-Report.html", data: data)
+        return DiagnosticsReport(filename: filename, data: data)
     }
 }
 

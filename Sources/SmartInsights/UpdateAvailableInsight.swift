@@ -27,10 +27,11 @@ struct UpdateAvailableInsight: SmartInsightProviding {
     init?(
         bundleIdentifier: String? = Bundle.main.bundleIdentifier,
         currentVersion: String = Bundle.appVersion,
-        appMetadataPublisher: AnyPublisher<AppMetadataResults, Error>? = nil
+        appMetadataPublisher: AnyPublisher<AppMetadataResults, Error>? = nil,
+        itunesRegion: String = Locale.current.regionCode ?? "us"
     ) {
         guard let bundleIdentifier = bundleIdentifier else { return nil }
-        let url = URL(string: "https://itunes.apple.com/br/lookup?bundleId=\(bundleIdentifier)")!
+        let url = URL(string: "https://itunes.apple.com/\(itunesRegion)/lookup?bundleId=\(bundleIdentifier)")!
 
         let group = DispatchGroup()
         group.enter()
