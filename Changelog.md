@@ -1,3 +1,8 @@
+### 4.3.0
+- Let developer set App Store region for UpdateAvailableInsight ([#133](https://github.com/WeTransfer/Diagnostics/pull/133)) via [@Rubenfer](https://github.com/Rubenfer)
+- Fix macCatalyst support ([#131](https://github.com/WeTransfer/Diagnostics/pull/131)) via [@mikakruschel](https://github.com/mikakruschel)
+- Merge release 4.2.0 into master ([#129](https://github.com/WeTransfer/Diagnostics/pull/129)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 4.2.0
 - Fix macOS support ([#127](https://github.com/WeTransfer/Diagnostics/pull/127)) via [@AvdLee](https://github.com/AvdLee)
 - Merge release 4.1.0 into master ([#125](https://github.com/WeTransfer/Diagnostics/pull/125)) via [@wetransferplatform](https://github.com/wetransferplatform)
