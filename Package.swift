@@ -10,7 +10,7 @@ let package = Package(name: "Diagnostics",
                         .tvOS(.v12),
                         .watchOS(.v6)],
                       products: [
-                        .library(name: "Diagnostics", type: .static, targets: ["Diagnostics"])
+                        .library(name: "Diagnostics", targets: ["Diagnostics"])
                         ],
                       dependencies: [
                         .package(url: "https://github.com/sindresorhus/ExceptionCatcher", from: "2.0.0")
