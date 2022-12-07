@@ -1,3 +1,8 @@
+### 4.3.1
+- Directory modelling suggestion ([#130](https://github.com/WeTransfer/Diagnostics/pull/130)) via [@entunidotdeb](https://github.com/entunidotdeb)
+- Fix SwiftUI previews ([#135](https://github.com/WeTransfer/Diagnostics/pull/135)) via [@Rubenfer](https://github.com/Rubenfer)
+- Merge release 4.3.0 into master ([#134](https://github.com/WeTransfer/Diagnostics/pull/134)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 4.3.0
 - Let developer set App Store region for UpdateAvailableInsight ([#133](https://github.com/WeTransfer/Diagnostics/pull/133)) via [@Rubenfer](https://github.com/Rubenfer)
 - Fix macCatalyst support ([#131](https://github.com/WeTransfer/Diagnostics/pull/131)) via [@mikakruschel](https://github.com/mikakruschel)
