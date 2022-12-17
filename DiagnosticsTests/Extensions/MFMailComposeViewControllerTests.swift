@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import Diagnostics
+#if canImport(MessageUI)
 import MessageUI
 
 final class MFMailComposeViewControllerTests: XCTestCase {
@@ -49,3 +50,4 @@ private final class MockedMFMailComposeViewController: MFMailComposeViewControll
         self.filename = filename
     }
 }
+#endif

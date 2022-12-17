@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Combine
 
 /// Uses the bundle identifier to fetch latest version information and provides insights into whether
 /// an app update is available.
@@ -16,19 +15,11 @@ struct UpdateAvailableInsight: SmartInsightProviding {
     let name = "Update available"
     let result: InsightResult
 
-    private var urlSessionAppMetadataPublisher: (URL) -> AnyPublisher<AppMetadataResults, Error> = { url in
-        URLSession.shared
-            .dataTaskPublisher(for: url)
-            .map(\.data)
-            .decode(type: AppMetadataResults.self, decoder: JSONDecoder())
-            .eraseToAnyPublisher()
-    }
-
     init?(
         bundleIdentifier: String? = Bundle.main.bundleIdentifier,
         currentVersion: String = Bundle.appVersion,
-        appMetadataPublisher: AnyPublisher<AppMetadataResults, Error>? = nil,
-        itunesRegion: String = Locale.current.regionCode ?? "us"
+        itunesRegion: String = Locale.current.regionCode ?? "us",
+        appMetadataCompletion: (() -> Result<AppMetadataResults, Error>)? = nil
     ) {
         guard let bundleIdentifier = bundleIdentifier else { return nil }
         let url = URL(string: "https://itunes.apple.com/\(itunesRegion)/lookup?bundleId=\(bundleIdentifier)")!
@@ -37,20 +28,35 @@ struct UpdateAvailableInsight: SmartInsightProviding {
         group.enter()
 
         var appMetadata: AppMetadata?
-        let publisher = appMetadataPublisher ?? urlSessionAppMetadataPublisher(url)
-        let cancellable = publisher
-            .sink { _ in
-                group.leave()
-            } receiveValue: { result in
+        let request = URLRequest(url: url)
+        if let appMetadataCompletion = appMetadataCompletion {
+            group.leave()
+            switch appMetadataCompletion() {
+            case .success(let result):
                 appMetadata = result.results.first
+            case .failure:
+                return nil
             }
+        } else {
+            let task = URLSession.shared.dataTask(with: request) { data, _, _ in
+                group.leave()
+                if let data = data {
+                    let result = try? JSONDecoder().decode(AppMetadataResults.self, from: data)
+                    appMetadata = result?.results.first
+                }
+            }
+            
+            /// Set a timeout of 1 second to prevent the call from taking too long unexpectedly.
+            /// Though: the request should be super fast since it's a small resource.
+            let result = group.wait(timeout: .now() + .seconds(1))
+            task.cancel()
 
-        /// Set a timeout of 1 second to prevent the call from taking too long unexpectedly.
-        /// Though: the request should be super fast since it's a small resource.
-        let result = group.wait(timeout: .now() + .seconds(1))
-        cancellable.cancel()
+            guard result == .success else {
+                return nil
+            }
+        }
 
-        guard result == .success, let appMetadata = appMetadata else {
+        guard let appMetadata = appMetadata else {
             return nil
         }
 

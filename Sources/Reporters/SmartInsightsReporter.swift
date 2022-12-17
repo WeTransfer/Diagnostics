@@ -48,7 +48,7 @@ public struct SmartInsightsReporter: DiagnosticsReporting {
         #if os(iOS) && !targetEnvironment(macCatalyst)
             defaultInsights.append(CellularAllowedInsight())
         #endif
-        
+
         insights = defaultInsights.compactMap { $0 }
     }
 
