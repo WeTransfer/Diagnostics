@@ -35,9 +35,13 @@ final class ViewController: UIViewController {
         )
 
         guard MFMailComposeViewController.canSendMail() else {
-            /// For debugging purposes you can save the report to desktop when testing on the simulator.
-            /// This allows you to iterate fast on your report.
-            report.saveToDesktop()
+            #if targetEnvironment(simulator)
+                /// For debugging purposes you can save the report to desktop when testing on the simulator.
+                /// This allows you to iterate fast on your report.
+                report.saveToDesktop()
+            #else
+                presentShareExtension(for: report)
+            #endif
             return
         }
 
@@ -51,6 +55,19 @@ final class ViewController: UIViewController {
         mail.addDiagnosticReport(report)
 
         present(mail, animated: true)
+    }
+
+    private func presentShareExtension(for report: DiagnosticsReport) {
+        let destinationURL = FileManager.default.temporaryDirectory.appendingPathComponent(report.filename)
+        try! report.data.write(to: destinationURL)
+        let activityViewController = UIActivityViewController(
+            activityItems: [
+                destinationURL
+            ].compactMap { $0 },
+            applicationActivities: nil
+        )
+
+        present(activityViewController, animated: true, completion: nil)
     }
 
     @IBAction private func crashTriggerButtonTapped(_ sender: Any) {
