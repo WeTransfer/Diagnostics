@@ -190,7 +190,7 @@ extension MXCallStackTree {
 
         guard let object = try? JSONSerialization.jsonObject(with: jsonData, options: []),
               let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]) else {
-            return ""
+            return "Error: Call Stack Tree could not be parsed into a JSON string."
         }
 
         return String(decoding: data, as: UTF8.self)
