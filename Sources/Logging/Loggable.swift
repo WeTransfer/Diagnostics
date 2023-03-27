@@ -170,8 +170,30 @@ extension MXDiagnosticPayload {
 @available(iOS 14.0, *)
 extension MXCrashDiagnostic {
     var logDescription: String {
-        // swiftlint:disable:next line_length
-        return "💥 Reason: \(terminationReason ?? ""), Type: \(exceptionType?.stringValue ?? ""), Code: \(exceptionCode?.stringValue ?? ""), Signal: \(signal?.stringValue ?? ""), OS: \(metaData.osVersion), Build: \(metaData.applicationBuildVersion)"
+        return """
+        💥  Reason: \(terminationReason ?? "")
+            Type: \(exceptionType?.stringValue ?? "")
+            Code: \(exceptionCode?.stringValue ?? "")
+            Signal: \(signal?.stringValue ?? "")
+            OS: \(metaData.osVersion)
+            Build: \(metaData.applicationBuildVersion)
+
+        \(callStackTree.logDescription)
+        """
+    }
+}
+
+@available(iOS 14.0, *)
+extension MXCallStackTree {
+    var logDescription: String {
+        let jsonData = jsonRepresentation()
+
+        guard let object = try? JSONSerialization.jsonObject(with: jsonData, options: []),
+              let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]) else {
+            return "Error: Call Stack Tree could not be parsed into a JSON string."
+        }
+
+        return String(decoding: data, as: UTF8.self)
     }
 }
 #endif
