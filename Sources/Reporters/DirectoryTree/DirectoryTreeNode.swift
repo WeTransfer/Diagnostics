@@ -8,7 +8,7 @@
 import Foundation
 
 /// A file system node with it's path, name and contents.
-indirect enum DirectoryTreeNode {
+indirect enum DirectoryTreeNode: Sendable {
     /// A regular file.
     case file(String, String)
 

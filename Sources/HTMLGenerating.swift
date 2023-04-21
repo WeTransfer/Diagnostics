@@ -10,7 +10,7 @@ import Foundation
 
 public typealias HTML = String
 
-public protocol HTMLGenerating {
+public protocol HTMLGenerating: Sendable {
     func html() -> HTML
 }
 
