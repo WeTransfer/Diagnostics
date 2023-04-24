@@ -12,13 +12,13 @@ private struct DirectoryTreeStringFactory {
     let node: DirectoryTreeNode
 
     /// Whether the full path of the node should be printed or just the name.
-    var printFullPath: Bool = false
+    var printFullPath = false
 
     /// The indent to apply, used during recursive looping over the nodes.
     var indent: String = ""
 
     /// Whether this node should be handled as a last node.
-    var isLastNode: Bool = true
+    var isLastNode = true
 
     func make() -> String {
         let name = printFullPath ? "\(node.path)/\(node.name)" : node.name
@@ -29,7 +29,7 @@ private struct DirectoryTreeStringFactory {
         }
 
         return currentString + contents.enumerated()
-            .map { (idx, content) in
+            .map { idx, content in
                 let indent = "\(indent)\(isLastNode ? "    " : "|   ")"
                 let isLastNode = idx == contents.count - 1
                 let childFactory = DirectoryTreeStringFactory(

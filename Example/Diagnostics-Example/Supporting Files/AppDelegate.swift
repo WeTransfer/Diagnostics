@@ -6,8 +6,8 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 //  swiftlint:disable line_length
-import UIKit
 import Diagnostics
+import UIKit
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {

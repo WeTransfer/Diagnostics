@@ -6,9 +6,9 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-import UIKit
-import MessageUI
 import Diagnostics
+import MessageUI
+import UIKit
 
 final class ViewController: UIViewController {
 
@@ -19,8 +19,8 @@ final class ViewController: UIViewController {
 
         let documentsURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
         let directoryTreesReporter = DirectoryTreesReporter(
-            directories: [
-                documentsURL
+            trunks: [
+                Directory(url: documentsURL)
             ]
         )
         reporters.insert(directoryTreesReporter, at: 2)

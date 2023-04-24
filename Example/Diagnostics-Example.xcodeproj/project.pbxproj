@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -141,8 +141,9 @@
 		500B276C23953F8C00C304D4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1120;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = WeTransfer;
 				TargetAttributes = {
 					500B277323953F8C00C304D4 = {
@@ -184,6 +185,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		84E8B49F289179FC00A84288 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -198,7 +200,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -z \"$CI\" ]; then\n    if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n        if test -d \"/opt/homebrew/bin/\"; then\n            PATH=\"/opt/homebrew/bin/:${PATH}\"\n        fi\n\n        export PATH\n        swiftlint --config \"${SRCROOT}/../Submodules/WeTransfer-iOS-CI/BuildTools/.swiftlint.yml\"\n        swiftlint lint --path ../Sources --config \"${SRCROOT}/../Submodules/WeTransfer-iOS-CI/BuildTools/.swiftlint.yml\"\n    else\n        echo \"Info: As we're not building for Debug, no SwiftLint is running.\"\n    fi\nfi\n";
+			shellScript = "if [ -z \"$CI\" ]; then\n    if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n        if test -d \"/opt/homebrew/bin/\"; then\n            PATH=\"/opt/homebrew/bin/:${PATH}\"\n        fi\n\n        export PATH\n        swiftlint --config \"${SRCROOT}/../Submodules/WeTransfer-iOS-CI/BuildTools/.swiftlint.yml\"\n        swiftlint lint --config \"${SRCROOT}/../Submodules/WeTransfer-iOS-CI/BuildTools/.swiftlint.yml\" ../Sources\n    else\n        echo \"Info: As we're not building for Debug, no SwiftLint is running.\"\n    fi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

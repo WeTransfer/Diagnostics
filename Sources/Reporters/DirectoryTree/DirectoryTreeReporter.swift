@@ -15,7 +15,7 @@ public struct Directory {
     let includeHiddenFiles: Bool
     let includeSymbolicLinks: Bool
     let printFullPath: Bool
-    
+
     /// Directory/Group to be diagnosed
     /// - Parameters:
     ///   - url: location of resource
@@ -75,7 +75,7 @@ public struct DirectoryTreesReporter: DiagnosticsReporting {
         }
         self.init(trunks: newTrunks)
     }
-    
+
     public init(trunks: [Directory]) {
         self.trunks = trunks
     }

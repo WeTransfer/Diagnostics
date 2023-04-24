@@ -69,7 +69,7 @@ extension DiagnosticsChapter: HTMLGenerating {
 
         html += "<div class=\"chapter-content\">"
 
-        if let formatter = formatter {
+        if let formatter {
             html += formatter.format(diagnostics)
         } else {
             html += diagnostics.html()

@@ -6,12 +6,12 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-import Foundation
 import Diagnostics
+import Foundation
 
 enum Session {
     /// A fake property to demonstrate the custom reporter.
-    static var isLoggedIn: Bool = false
+    static var isLoggedIn = false
 }
 
 /// An example Custom Reporter.

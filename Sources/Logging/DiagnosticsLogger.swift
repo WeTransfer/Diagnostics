@@ -6,9 +6,9 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
+import ExceptionCatcher
 import Foundation
 import MetricKit
-import ExceptionCatcher
 
 #if os(macOS)
 import AppKit
@@ -23,10 +23,10 @@ public final class DiagnosticsLogger {
 
     private lazy var logFileLocation: URL = FileManager.default.documentsDirectory.appendingPathComponent("diagnostics_log.txt")
 
-    private let inputPipe: Pipe = Pipe()
-    private let outputPipe: Pipe = Pipe()
+    private let inputPipe = Pipe()
+    private let outputPipe = Pipe()
 
-    private let queue: DispatchQueue = DispatchQueue(
+    private let queue = DispatchQueue(
         label: "com.wetransfer.diagnostics.logger",
         qos: .utility,
         autoreleaseFrequency: .workItem,
@@ -59,10 +59,10 @@ public final class DiagnosticsLogger {
         return ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil
     }
 
-    private lazy var metricsMonitor: MetricsMonitor = MetricsMonitor()
+    private lazy var metricsMonitor = MetricsMonitor()
 
     /// Whether the logger is setup and ready to use.
-    private var isSetup: Bool = false
+    private var isSetup = false
 
     /// Whether the logger is setup and ready to use.
     public static func isSetUp() -> Bool {
@@ -167,12 +167,12 @@ extension DiagnosticsLogger {
         }
 
         queue.async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             let coordinator = NSFileCoordinator(filePresenter: nil)
             var error: NSError?
             coordinator.coordinate(writingItemAt: self.logFileLocation, error: &error) { [weak self] url in
                 do {
-                    guard let self = self, self.canWriteNewLogs else { return }
+                    guard let self, self.canWriteNewLogs else { return }
 
                     guard let data = loggable.logData else {
                         return assertionFailure("Missing file handle or invalid output logged")
@@ -261,7 +261,7 @@ private extension DiagnosticsLogger {
                         return assertionFailure("Invalid data is logged")
                     }
 
-                    string.enumerateLines(invoking: { [weak self] (line, _) in
+                    string.enumerateLines(invoking: { [weak self] line, _ in
                         self?.log(SystemLog(line: line))
                     })
                 }

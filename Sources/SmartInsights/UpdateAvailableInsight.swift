@@ -21,7 +21,7 @@ struct UpdateAvailableInsight: SmartInsightProviding {
         itunesRegion: String = Locale.current.regionCode ?? "us",
         appMetadataCompletion: (() -> Result<AppMetadataResults, Error>)? = nil
     ) {
-        guard let bundleIdentifier = bundleIdentifier else { return nil }
+        guard let bundleIdentifier else { return nil }
         let url = URL(string: "https://itunes.apple.com/\(itunesRegion)/lookup?bundleId=\(bundleIdentifier)")!
 
         let group = DispatchGroup()
@@ -29,7 +29,7 @@ struct UpdateAvailableInsight: SmartInsightProviding {
 
         var appMetadata: AppMetadata?
         let request = URLRequest(url: url)
-        if let appMetadataCompletion = appMetadataCompletion {
+        if let appMetadataCompletion {
             group.leave()
             switch appMetadataCompletion() {
             case .success(let result):
@@ -40,12 +40,12 @@ struct UpdateAvailableInsight: SmartInsightProviding {
         } else {
             let task = URLSession.shared.dataTask(with: request) { data, _, _ in
                 group.leave()
-                if let data = data {
+                if let data {
                     let result = try? JSONDecoder().decode(AppMetadataResults.self, from: data)
                     appMetadata = result?.results.first
                 }
             }
-            
+
             /// Set a timeout of 1 second to prevent the call from taking too long unexpectedly.
             /// Though: the request should be super fast since it's a small resource.
             let result = group.wait(timeout: .now() + .seconds(1))
@@ -56,7 +56,7 @@ struct UpdateAvailableInsight: SmartInsightProviding {
             }
         }
 
-        guard let appMetadata = appMetadata else {
+        guard let appMetadata else {
             return nil
         }
 

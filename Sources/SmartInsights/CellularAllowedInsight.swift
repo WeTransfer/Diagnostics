@@ -5,8 +5,8 @@
 //  Created by Antoine van der Lee on 27/07/2022.
 //
 
-import Foundation
 import CoreTelephony
+import Foundation
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
 /// Shows an insight on whether the user has enabled cellular data system-wide for this app.
