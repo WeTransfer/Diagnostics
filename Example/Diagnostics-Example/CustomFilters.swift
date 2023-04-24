@@ -6,8 +6,8 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-import Foundation
 import Diagnostics
+import Foundation
 
 struct DiagnosticsDictionaryFilter: DiagnosticsReportFilter {
 

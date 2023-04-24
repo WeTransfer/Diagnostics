@@ -25,10 +25,10 @@ struct DirectoryTreeFactory {
     var maxLength: Int = 10
 
     /// Whether hidden files should be captured.
-    var includeHiddenFiles: Bool = false
+    var includeHiddenFiles = false
 
     /// Whether symbolic links should be captured.
-    var includeSymbolicLinks: Bool = false
+    var includeSymbolicLinks = false
 
     /// The file manager to use for operations.
     var fileManager: FileManager = .default

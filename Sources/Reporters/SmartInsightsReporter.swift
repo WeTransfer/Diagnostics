@@ -53,10 +53,8 @@ public struct SmartInsightsReporter: DiagnosticsReporting {
     }
 
     public func report() -> DiagnosticsChapter {
-        let diagnostics: [String: String] = insights.compactMap { $0 }.reduce([:]) { metadata, insight in
-            var metadata = metadata
+        let diagnostics: [String: String] = insights.compactMap { $0 }.reduce(into: [:]) { metadata, insight in
             metadata[insight.name] = insight.result.message
-            return metadata
         }
         return DiagnosticsChapter(title: title, diagnostics: diagnostics)
     }

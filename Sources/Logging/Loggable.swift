@@ -25,7 +25,7 @@ extension Loggable {
     var cssClass: LoggableCSSClass? { nil }
 
     var logData: Data? {
-        if let cssClass = cssClass {
+        if let cssClass {
             return "<p class=\"\(cssClass)\">\(logMessage)</p>\n".data(using: .utf8)
         } else {
             return "\(message)\n".data(using: .utf8)
@@ -34,11 +34,11 @@ extension Loggable {
 
     private var logMessage: String {
         var messages: [String] = []
-        if let date = date {
+        if let date {
             let date = DateFormatter.current.string(from: date)
             messages.append("<span class=\"log-date\">\(date)</span>")
         }
-        if let prefix = prefix {
+        if let prefix {
             messages.append("<span class=\"log-prefix\">\(prefix)</span>")
         }
         messages.append("<span class=\"log-message\">\(self.message)</span>")
@@ -79,7 +79,7 @@ struct LogItem: Loggable {
             case .error(let error, let description):
                 var message = "\(error) | \(error.localizedDescription)"
 
-                if let description = description {
+                if let description {
                     message += " | \(description)"
                 }
 

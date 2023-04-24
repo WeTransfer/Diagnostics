@@ -6,8 +6,8 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-import Foundation
 import CoreTelephony
+import Foundation
 
 /// Reports App and System specific metadata like OS and App version.
 public struct AppSystemMetadataReporter: DiagnosticsReporting {
@@ -53,9 +53,9 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
     var diagnostics: [String: String] {
         var systemInfo = utsname()
         uname(&systemInfo)
-        var hardware = Mirror(reflecting: systemInfo.machine).children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8, value != 0 else { return identifier }
-            return identifier + String(UnicodeScalar(UInt8(value)))
+        var hardware = Mirror(reflecting: systemInfo.machine).children.reduce(into: "") { identifier, element in
+            guard let value = element.value as? Int8, value != 0 else { return }
+            identifier += String(UnicodeScalar(UInt8(value)))
         }
 
         if let hardwareName = Self.hardwareName[hardware] {

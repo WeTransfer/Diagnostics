@@ -68,10 +68,10 @@ public enum DiagnosticsReporter {
             .filter { ($0 is SmartInsightsReporter) == false }
             .map { reporter -> DiagnosticsChapter in
                 var chapter = reporter.report()
-                if let filters = filters, !filters.isEmpty {
+                if let filters, !filters.isEmpty {
                     chapter.applyingFilters(filters)
                 }
-                if let smartInsightsProvider = smartInsightsProvider {
+                if let smartInsightsProvider {
                     let insights = smartInsightsProvider.smartInsights(for: chapter)
                     smartInsights.append(contentsOf: insights)
                 }
