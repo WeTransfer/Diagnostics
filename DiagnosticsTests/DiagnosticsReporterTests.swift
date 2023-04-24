@@ -89,7 +89,7 @@ final class DiagnosticsReporterTests: XCTestCase {
 }
 
 struct MockedReport: DiagnosticsReporting {
-    var diagnostics: Diagnostics = [:]
+    var diagnostics: Diagnostics = [String: String]()
     func report() -> DiagnosticsChapter {
         return DiagnosticsChapter(title: UUID().uuidString, diagnostics: diagnostics)
     }

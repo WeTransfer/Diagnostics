@@ -13,8 +13,8 @@ import AppKit
 #endif
 
 /// The actual diagnostics report containing the compiled data of all reporters.
-public struct DiagnosticsReport {
-    public enum MimeType: String {
+public struct DiagnosticsReport: Sendable {
+    public enum MimeType: String, Sendable {
         case html = "text/html"
     }
 

@@ -9,7 +9,7 @@
 import Foundation
 
 /// Defines a Diagnostics Chapter which will end up in the report as HTML.
-public struct DiagnosticsChapter {
+public struct DiagnosticsChapter: Sendable {
 
     /// The title of the diagnostics report which will also be used as HTML anchor.
     public let title: String
