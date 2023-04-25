@@ -1,3 +1,8 @@
+### 4.4.1
+- Clean up the project by fixing SwiftLint warnings ([#147](https://github.com/WeTransfer/Diagnostics/pull/147)) via [@AvdLee](https://github.com/AvdLee)
+- Add Sendable conformance ([#146](https://github.com/WeTransfer/Diagnostics/pull/146)) via [@AvdLee](https://github.com/AvdLee)
+- Merge release 4.4.0 into master ([#144](https://github.com/WeTransfer/Diagnostics/pull/144)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 4.4.0
 - Add JSON data around crash callstack ([#143](https://github.com/WeTransfer/Diagnostics/pull/143)) via [@AvdLee](https://github.com/AvdLee)
 - Set minimum iOS support to iOS 11 ([#139](https://github.com/WeTransfer/Diagnostics/pull/139)) via [@antranapp](https://github.com/antranapp)
