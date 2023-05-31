@@ -172,9 +172,9 @@ extension MXCrashDiagnostic {
     var logDescription: String {
         return """
         💥  Reason: \(terminationReason ?? "")
-            Type: \(exceptionType?.stringValue ?? "")
+            Exception Type: \(exceptionType: exceptionType?.int32Value)
             Code: \(exceptionCode?.stringValue ?? "")
-            Signal: \(signal?.stringValue ?? "")
+            Signal: \(signal: signal?.int32Value)
             OS: \(metaData.osVersion)
             Build: \(metaData.applicationBuildVersion)
 
@@ -196,4 +196,131 @@ extension MXCallStackTree {
         return String(decoding: data, as: UTF8.self)
     }
 }
+
+extension String.StringInterpolation {
+    mutating func appendInterpolation(exceptionType: Int32?) {
+        guard let exceptionType = exceptionType else {
+            appendLiteral("")
+            return
+        }
+        
+        let literal: String
+        
+        switch exceptionType {
+        case EXC_BAD_ACCESS:
+            literal = "EXC_BAD_ACCESS"
+        case EXC_BAD_INSTRUCTION:
+            literal = "EXC_BAD_INSTRUCTION"
+        case EXC_ARITHMETIC:
+            literal = "EXC_ARITHMETIC"
+        case EXC_EMULATION:
+            literal = "EXC_EMULATION"
+        case EXC_SOFTWARE:
+            literal = "EXC_SOFTWARE"
+        case EXC_BREAKPOINT:
+            literal = "EXC_BREAKPOINT"
+        case EXC_SYSCALL:
+            literal = "EXC_SYSCALL"
+        case EXC_MACH_SYSCALL:
+            literal = "EXC_MACH_SYSCALL"
+        case EXC_RPC_ALERT:
+            literal = "EXC_RPC_ALERT"
+        case EXC_CRASH:
+            literal = "EXC_CRASH"
+        case EXC_RESOURCE:
+            literal = "EXC_RESOURCE"
+        case EXC_GUARD:
+            literal = "EXC_GUARD"
+        case EXC_CORPSE_NOTIFY:
+            literal = "EXC_CORPSE_NOTIFY"
+            
+        default:
+            literal = "\(exceptionType)"
+        }
+        
+        appendLiteral(literal)
+    }
+    
+    mutating func appendInterpolation(signal: Int32?) {
+        guard let signal = signal else {
+            appendLiteral("")
+            return
+        }
+        
+        let literal: String
+        
+        switch signal {
+        case SIGHUP:
+            literal = "SIGHUP"
+        case SIGINT:
+            literal = "SIGINT"
+        case SIGQUIT:
+            literal = "SIGQUIT"
+        case SIGILL:
+            literal = "SIGILL"
+        case SIGTRAP:
+            literal = "SIGTRAP"
+        case SIGABRT:
+            literal = "SIGABRT"
+        case SIGIOT:
+            literal = "SIGIOT"
+        case SIGEMT:
+            literal = "SIGEMT"
+        case SIGFPE:
+            literal = "SIGFPE"
+        case SIGKILL:
+            literal = "SIGKILL"
+        case SIGBUS:
+            literal = "SIGBUS"
+        case SIGSEGV:
+            literal = "SIGSEGV"
+        case SIGSYS:
+            literal = "SIGSYS"
+        case SIGPIPE:
+            literal = "SIGPIPE"
+        case SIGALRM:
+            literal = "SIGALRM"
+        case SIGTERM:
+            literal = "SIGTERM"
+        case SIGURG:
+            literal = "SIGURG"
+        case SIGSTOP:
+            literal = "SIGSTOP"
+        case SIGTSTP:
+            literal = "SIGTSTP"
+        case SIGCONT:
+            literal = "SIGCONT"
+        case SIGCHLD:
+            literal = "SIGCHLD"
+        case SIGTTIN:
+            literal = "SIGTTIN"
+        case SIGTTOU:
+            literal = "SIGTTOU"
+        case SIGIO:
+            literal = "SIGIO"
+        case SIGXCPU:
+            literal = "SICXCPU"
+        case SIGXFSZ:
+            literal = "SIGXFSZ"
+        case SIGVTALRM:
+            literal = "SIGVTALRM"
+        case SIGPROF:
+            literal = "SIGPROF"
+        case SIGWINCH:
+            literal = "SIGWINCH"
+        case SIGINFO:
+            literal = "SIGINFO"
+        case SIGUSR1:
+            literal = "SIGUSR1"
+        case SIGUSR2:
+            literal = "SIGUSR2"
+            
+        default:
+            literal = "\(signal)"
+        }
+        
+        self.appendLiteral(literal)
+    }
+}
+
 #endif
