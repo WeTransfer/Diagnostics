@@ -198,14 +198,15 @@ extension MXCallStackTree {
 }
 
 extension String.StringInterpolation {
+    // swiftlint:disable:next cyclomatic_complexity
     mutating func appendInterpolation(exceptionType: Int32?) {
         guard let exceptionType = exceptionType else {
             appendLiteral("")
             return
         }
-        
+
         let literal: String
-        
+
         switch exceptionType {
         case EXC_BAD_ACCESS:
             literal = "EXC_BAD_ACCESS"
@@ -233,22 +234,23 @@ extension String.StringInterpolation {
             literal = "EXC_GUARD"
         case EXC_CORPSE_NOTIFY:
             literal = "EXC_CORPSE_NOTIFY"
-            
+
         default:
             literal = "\(exceptionType)"
         }
-        
+
         appendLiteral(literal)
     }
-    
+
+    // swiftlint:disable:next cyclomatic_complexity function_body_length
     mutating func appendInterpolation(signal: Int32?) {
         guard let signal = signal else {
             appendLiteral("")
             return
         }
-        
+
         let literal: String
-        
+
         switch signal {
         case SIGHUP:
             literal = "SIGHUP"
@@ -314,11 +316,11 @@ extension String.StringInterpolation {
             literal = "SIGUSR1"
         case SIGUSR2:
             literal = "SIGUSR2"
-            
+
         default:
             literal = "\(signal)"
         }
-        
+
         self.appendLiteral(literal)
     }
 }
