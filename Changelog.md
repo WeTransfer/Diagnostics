@@ -1,3 +1,7 @@
+### 4.5.0
+- Updated logDescription of MXCrashDiagnostic with human-readable exception type and signal ([#151](https://github.com/WeTransfer/Diagnostics/pull/151)) via [@edorphy](https://github.com/edorphy)
+- Merge release 4.4.1 into master ([#148](https://github.com/WeTransfer/Diagnostics/pull/148)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 4.4.1
 - Clean up the project by fixing SwiftLint warnings ([#147](https://github.com/WeTransfer/Diagnostics/pull/147)) via [@AvdLee](https://github.com/AvdLee)
 - Add Sendable conformance ([#146](https://github.com/WeTransfer/Diagnostics/pull/146)) via [@AvdLee](https://github.com/AvdLee)
