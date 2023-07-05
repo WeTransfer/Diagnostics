@@ -133,16 +133,12 @@ extension DiagnosticsReporter {
     }
 
     static func style() -> HTML {
-        guard let cssURL = Bundle.module.url(forResource: "style.css", withExtension: nil), let css = try? String(contentsOf: cssURL) else {
-            return ""
-        }
+        let css = readFromFile(name: "style", extension: "css")
         return "<style>\(css)</style>"
     }
 
     static func scripts() -> HTML {
-        guard let scriptsURL = Bundle.module.url(forResource: "functions.js", withExtension: nil), let scripts = try? String(contentsOf: scriptsURL) else {
-            return ""
-        }
+        let scripts = readFromFile(name: "functions", extension: "js")
         return "<script type=\"text/javascript\">\(scripts)</script>"
     }
 
@@ -168,6 +164,17 @@ extension DiagnosticsReporter {
         }
         html += "</div>"
         return html
+    }
+    
+    static func readFromFile(name:String,`extension`:String)->String{
+        
+    #if SWIFT_PACKAGE
+        guard let url = Bundle.module.url(forResource: name, withExtension: `extension`) else {return ""}
+    #else
+        guard let url = DiagnosticsImp.resourceBundle.url( forResource: name, withExtension: `extension`) else { return ""}
+    #endif
+        guard let stringDate = try? String(contentsOf: url) else {return ""}
+        return stringDate
     }
 }
 

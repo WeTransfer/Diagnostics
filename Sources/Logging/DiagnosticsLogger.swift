@@ -257,9 +257,7 @@ private extension DiagnosticsLogger {
                 autoreleasepool {
                     outputPipe.fileHandleForWriting.write(data)
 
-                    guard let string = String(data: data, encoding: .utf8) else {
-                        return assertionFailure("Invalid data is logged")
-                    }
+                    guard let string = String(data: data, encoding: .utf8) else {return}
 
                     string.enumerateLines(invoking: { [weak self] line, _ in
                         self?.log(SystemLog(line: line))

@@ -21,8 +21,8 @@ let package = Package(name: "Diagnostics",
                             dependencies: ["ExceptionCatcher"],
                             path: "Sources",
                             resources: [
-                                .process("style.css"),
-                                .process("functions.js")
+                                .process("Assets/style.css"),
+                                .process("Assets/functions.js")
                             ]),
                         .testTarget(name: "DiagnosticsTests", dependencies: ["Diagnostics"], path: "DiagnosticsTests")
                         ],
