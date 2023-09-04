@@ -6,7 +6,6 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-
 #if canImport(CoreTelephony)
     import CoreTelephony
 #endif
