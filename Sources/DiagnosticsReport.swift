@@ -40,7 +40,7 @@ public extension DiagnosticsReport {
             try? FileManager.default.createDirectory(atPath: folderPath, withIntermediateDirectories: true, attributes: nil)
             let filePath = folderPath + filename
             save(to: filePath)
-        #else
+        #elseif os(OSX)
             let folderPath = "/\(userPath)/Desktop/"
             saveUsingPanel(initialDirectoryPath: folderPath, filename: filename)
         #endif

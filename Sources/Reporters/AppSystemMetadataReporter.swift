@@ -6,7 +6,10 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-import CoreTelephony
+#if canImport(CoreTelephony)
+    import CoreTelephony
+#endif
+
 import Foundation
 
 /// Reports App and System specific metadata like OS and App version.

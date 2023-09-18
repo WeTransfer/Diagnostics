@@ -1,11 +1,13 @@
 //
 //  CellularAllowedInsight.swift
-//  
+//
 //
 //  Created by Antoine van der Lee on 27/07/2022.
 //
 
-import CoreTelephony
+#if canImport(CoreTelephony)
+    import CoreTelephony
+#endif
 import Foundation
 
 #if os(iOS) && !targetEnvironment(macCatalyst)
