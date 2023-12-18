@@ -71,11 +71,12 @@ public final class DiagnosticsLogger {
 
     /// Sets up the logger to be ready for usage. This needs to be called before any log messages are reported.
     /// This method also starts a new session.
-    public static func setup() throws {
+    public static func setup(customLogFolder: URL? = nil) throws {
         guard !isSetUp() || standard.isRunningTests else {
             return
         }
-        try standard.setup()
+
+        try standard.setup(customLogFolder: customLogFolder)
     }
 
     /// Logs the given message for the diagnostics report.
@@ -109,10 +110,14 @@ public final class DiagnosticsLogger {
 // MARK: - Setup
 extension DiagnosticsLogger {
 
-    private func setup() throws {
+    private func setup(customLogFolder: URL? = nil) throws {
+
+        let logFolder: URL = customLogFolder ?? FileManager.default.documentsDirectory
+        logFileLocation = logFolder.appendingPathComponent("diagnostics_log.txt")
+
         if !FileManager.default.fileExists(atPath: logFileLocation.path) {
             try FileManager.default
-                .createDirectory(atPath: FileManager.default.documentsDirectory.path, withIntermediateDirectories: true, attributes: nil)
+                .createDirectory(atPath: logFolder.path, withIntermediateDirectories: true, attributes: nil)
             guard FileManager.default.createFile(atPath: logFileLocation.path, contents: nil, attributes: nil) else {
                 assertionFailure("Unable to create the log file")
                 return
