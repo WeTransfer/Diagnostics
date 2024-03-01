@@ -24,10 +24,12 @@ struct LogsTrimmer {
         }
 
         // Find all matches in the input string
-        let matches = regex.matches(
-            in: logs,
-            range: NSRange(location: 0, length: logs.utf16.count)
-        ).suffix(numberOfLinesToTrim)
+        let matches = regex
+            .matches(
+                in: logs,
+                range: NSRange(location: 0, length: logs.utf16.count)
+            )
+            .suffix(numberOfLinesToTrim)
 
         guard let firstMatch = matches.first, let lastMatch = matches.last else {
             return
