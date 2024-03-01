@@ -35,3 +35,4 @@ open class GeneralInfoReporter: DiagnosticsReporting {
         return DiagnosticsChapter(title: title, diagnostics: description, shouldShowTitle: false)
     }
 }
+//  swiftlint:enable line_length
