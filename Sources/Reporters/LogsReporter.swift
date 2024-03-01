@@ -14,28 +14,32 @@ struct LogsReporter: DiagnosticsReporting {
     let title: String = "Session Logs"
 
     var diagnostics: String {
-        guard let data = DiagnosticsLogger.standard.readLog(), let logs = String(data: data, encoding: .utf8) else {
-            return "Parsing the log failed"
-        }
-
-        let sessions = logs.components(separatedBy: "\n\n---\n\n").reversed()
-        var diagnostics = ""
-        sessions.forEach { session in
-            guard !session.isEmpty else { return }
-
-            diagnostics += "<div class=\"collapsible-session\">"
-            diagnostics += "<details>"
-            if session.isOldStyleSession {
-                let title = session.split(whereSeparator: \.isNewline).first ?? "Unknown session title"
-                diagnostics += "<summary>\(title)</summary>"
-                diagnostics += "<pre>\(session.addingHTMLEncoding())</pre>"
-            } else {
-                diagnostics += session
+        do {
+            guard let data = try DiagnosticsLogger.standard.readLog(), let logs = String(data: data, encoding: .utf8) else {
+                return "Parsing the log failed (Unknown error)"
             }
-            diagnostics += "</details>"
-            diagnostics += "</div>"
+
+            let sessions = logs.components(separatedBy: "\n\n---\n\n").reversed()
+            var diagnostics = ""
+            sessions.forEach { session in
+                guard !session.isEmpty else { return }
+
+                diagnostics += "<div class=\"collapsible-session\">"
+                diagnostics += "<details>"
+                if session.isOldStyleSession {
+                    let title = session.split(whereSeparator: \.isNewline).first ?? "Unknown session title"
+                    diagnostics += "<summary>\(title)</summary>"
+                    diagnostics += "<pre>\(session.addingHTMLEncoding())</pre>"
+                } else {
+                    diagnostics += session
+                }
+                diagnostics += "</details>"
+                diagnostics += "</div>"
+            }
+            return diagnostics
+        } catch {
+            return "Parsing the log failed (\(error.localizedDescription))"
         }
-        return diagnostics
     }
 
     func report() -> DiagnosticsChapter {
