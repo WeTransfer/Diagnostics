@@ -55,9 +55,7 @@ struct NewSession: Loggable {
         let system = "\(Device.systemName) \(Device.systemVersion)"
         let locale = Locale.preferredLanguages[0]
 
-        /// We start with `\n\n---\n\n` for backwards compatibility since it's
-        /// used for splitting the log into sections.
-        var message = "\n\n---\n\n<summary><div class=\"session-header\">"
+        var message = "<summary><div class=\"session-header\">"
         message += "<p><span>Date: </span>\(date)</p>"
         message += "<p><span>System: </span>\(system)</p>"
         message += "<p><span>Locale: </span>\(locale)</p>"
