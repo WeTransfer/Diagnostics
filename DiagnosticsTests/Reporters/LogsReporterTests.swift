@@ -62,5 +62,4 @@ final class LogsReporterTests: XCTestCase {
         let secondIndex = try XCTUnwrap(diagnostics.range(of: "second")?.lowerBound)
         XCTAssertTrue(firstIndex > secondIndex)
     }
-
 }
