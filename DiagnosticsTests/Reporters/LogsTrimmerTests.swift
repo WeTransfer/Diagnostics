@@ -4,9 +4,10 @@
 //
 //  Created by Antoine van der Lee on 01/03/2024.
 //
+//  swiftlint:disable line_length
 
-import XCTest
 @testable import Diagnostics
+import XCTest
 
 final class LogsTrimmerTests: XCTestCase {
 
@@ -60,3 +61,4 @@ final class LogsTrimmerTests: XCTestCase {
         XCTAssertEqual(outputString, expectedOutput)
     }
 }
+//  swiftlint:enable line_length
