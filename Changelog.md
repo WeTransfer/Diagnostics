@@ -1,3 +1,11 @@
+### 4.6.0
+- [TMOB 5115] Trim using lines instead of bytes ([#166](https://github.com/WeTransfer/Diagnostics/pull/166)) via [@AvdLee](https://github.com/AvdLee)
+- [TMOB 5114] Log failures happening during log reading ([#165](https://github.com/WeTransfer/Diagnostics/pull/165)) via [@AvdLee](https://github.com/AvdLee)
+- Fix SwiftLint warnings inside example project ([#164](https://github.com/WeTransfer/Diagnostics/pull/164)) via [@AvdLee](https://github.com/AvdLee)
+- Update `CODEWONERS` file ([#158](https://github.com/WeTransfer/Diagnostics/pull/158)) via [@peagasilva](https://github.com/peagasilva)
+- Fix: unblock building for VisionOS Simulator ([#155](https://github.com/WeTransfer/Diagnostics/pull/155)) via [@pgorrindo](https://github.com/pgorrindo)
+- Merge release 4.5.0 into master ([#152](https://github.com/WeTransfer/Diagnostics/pull/152)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 4.5.0
 - Updated logDescription of MXCrashDiagnostic with human-readable exception type and signal ([#151](https://github.com/WeTransfer/Diagnostics/pull/151)) via [@edorphy](https://github.com/edorphy)
 - Merge release 4.4.1 into master ([#148](https://github.com/WeTransfer/Diagnostics/pull/148)) via [@wetransferplatform](https://github.com/wetransferplatform)
