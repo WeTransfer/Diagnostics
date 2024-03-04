@@ -18,8 +18,6 @@ final class LogsTrimmerTests: XCTestCase {
         <p class="system"><span class="log-date">2024-02-20 10:33:47</span><span class="log-separator"> | </span><span class="log-message">SYSTEM: 2024-02-20 10:33:47.086 Collect[32949:1669571] Reachability Flag Status: -R t------ reachabilityStatusForFlags</span></p>
         """
 
-        /// Store the maximum size to match the expected output.
-        let maximumSize = Int64(Data(expectedOutput.utf8).count)
         var input = expectedOutput
         input += """
         <p class="system"><span class="log-date">2024-02-20 10:33:47</span><span class="log-separator"> | </span><span class="log-message">SYSTEM: 2024-02-20 10:33:47.101 Collect[32949:1669571] [Firebase/Crashlytics] Version 8.15.0</span></p>
@@ -42,8 +40,6 @@ final class LogsTrimmerTests: XCTestCase {
         <summary><div class="session-header"><p><span>Date: </span>2024-02-20 10:33:47</p><p><span>System: </span>iOS 16.3</p><p><span>Locale: </span>en-GB</p><p><span>Version: </span>6.2.8 (17000)</p></div></summary>
         """
 
-        /// Store the maximum size to match the expected output.
-        let maximumSize = Int64(Data(expectedOutput.utf8).count)
         var input = expectedOutput
         input += """
         <p class="system"><span class="log-date">2024-02-20 10:33:47</span><span class="log-separator"> | </span><span class="log-message">SYSTEM: 2024-02-20 10:33:47.086 Collect[32949:1669571] Reachability Flag Status: -R t------ reachabilityStatusForFlags</span></p>
