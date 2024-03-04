@@ -5,7 +5,6 @@
 //  Created by Antoine van der Lee on 02/12/2019.
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
-//  swiftlint:disable line_length
 
 import Foundation
 
@@ -120,6 +119,7 @@ extension DiagnosticsReporter {
         return html
     }
 
+    //  swiftlint:disable line_length
     private static func footer() -> HTML {
         return """
         <footer>
@@ -131,6 +131,7 @@ extension DiagnosticsReporter {
         </footer>
         """
     }
+    //  swiftlint:enable line_length
 
     static func style() -> HTML {
         guard let cssURL = Bundle.module.url(forResource: "style.css", withExtension: nil), let css = try? String(contentsOf: cssURL) else {
@@ -140,12 +141,15 @@ extension DiagnosticsReporter {
     }
 
     static func scripts() -> HTML {
-        guard let scriptsURL = Bundle.module.url(forResource: "functions.js", withExtension: nil), let scripts = try? String(contentsOf: scriptsURL) else {
+        guard
+            let scriptsURL = Bundle.module.url(forResource: "functions.js", withExtension: nil),
+            let scripts = try? String(contentsOf: scriptsURL) else {
             return ""
         }
         return "<script type=\"text/javascript\">\(scripts)</script>"
     }
 
+    //  swiftlint:disable line_length
     static func menu(using chapters: [DiagnosticsChapter]) -> HTML {
         var html = "<aside class=\"nav-container\"><nav><ul>"
         chapters.forEach { chapter in
@@ -159,6 +163,7 @@ extension DiagnosticsReporter {
         html += "</ul></nav></aside>"
         return html
     }
+    //  swiftlint:enable line_length
 
     static func mainContent(using chapters: [DiagnosticsChapter]) -> HTML {
         var html = "<div class=\"main-content\">"
