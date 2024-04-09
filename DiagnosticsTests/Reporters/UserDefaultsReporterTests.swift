@@ -12,10 +12,29 @@ final class UserDefaultsReporterTests: XCTestCase {
 
     /// It should show the user defaults in the report.
     func testReportUserDefaults() {
-        let expectedValue = UUID().uuidString
-        UserDefaults.standard.set(expectedValue, forKey: "test_key")
-        let diagnostics = UserDefaultsReporter().report().diagnostics as! [String: Any]
-        XCTAssertEqual(diagnostics["test_key"] as? String, expectedValue)
+        let userDefaults = UserDefaults.standard
+
+        let expectedValue1 = UUID().uuidString
+        let key1 = "test_key_1"
+        userDefaults.set(expectedValue1, forKey: key1)
+
+        let expectedValue2 = UUID().uuidString
+        let key2 = "test_key_2"
+        userDefaults.set(expectedValue2, forKey: key2)
+
+        let unexpectedValue = UUID().uuidString
+        let unexpectedKey = "unexpected_key"
+        userDefaults.set(unexpectedValue, forKey: unexpectedKey)
+
+        let diagnostics = UserDefaultsReporter(
+            userDefaults: userDefaults,
+            keys: [key1, key2]
+        ).report().diagnostics as! [String: Any]
+
+        XCTAssertTrue(diagnostics.count == 2)
+        XCTAssertEqual(diagnostics[key1] as? String, expectedValue1)
+        XCTAssertEqual(diagnostics[key2] as? String, expectedValue2)
+        XCTAssertNil(diagnostics[unexpectedKey])
     }
 
 }
