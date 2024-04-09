@@ -20,7 +20,6 @@ public enum DiagnosticsReporter {
         case appSystemMetadata
         case smartInsights
         case logs
-        case userDefaults
 
         public var reporter: DiagnosticsReporting {
             switch self {
@@ -32,8 +31,6 @@ public enum DiagnosticsReporter {
                 return SmartInsightsReporter()
             case .logs:
                 return LogsReporter()
-            case .userDefaults:
-                return UserDefaultsReporter()
             }
         }
 
