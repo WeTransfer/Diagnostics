@@ -24,7 +24,10 @@ public struct AppSystemMetadataReporter: DiagnosticsReporting {
         case freeSpace = "Free space"
         case deviceLanguage = "Device Language"
         case appLanguage = "App Language"
+
+        #if os(iOS) && !targetEnvironment(macCatalyst)
         case cellularAllowed = "Cellular Allowed"
+        #endif
     }
 
     static let hardwareName: [String: String] = [
