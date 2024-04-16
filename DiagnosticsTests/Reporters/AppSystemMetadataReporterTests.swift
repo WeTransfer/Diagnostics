@@ -20,7 +20,7 @@ final class AppSystemMetadataReporterTests: XCTestCase {
         XCTAssertEqual(metadata[AppSystemMetadataReporter.MetadataKey.appLanguage.rawValue], "en")
 
         AppSystemMetadataReporter.MetadataKey.allCases.forEach { key in
-            XCTAssertNotNil(metadata[key.rawValue])
+            XCTAssertNotNil(metadata[key.rawValue], "Metadata not found for \(key).")
         }
     }
 }
