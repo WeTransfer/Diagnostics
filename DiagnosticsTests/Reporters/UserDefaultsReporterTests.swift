@@ -6,8 +6,9 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-import XCTest
 @testable import Diagnostics
+import XCTest
+
 final class UserDefaultsReporterTests: XCTestCase {
 
     /// It should show the user defaults in the report.
@@ -31,7 +32,7 @@ final class UserDefaultsReporterTests: XCTestCase {
             keys: [key1, key2]
         ).report().diagnostics as! [String: Any]
 
-        XCTAssertTrue(diagnostics.count == 2)
+        XCTAssertEqual(diagnostics.count, 2)
         XCTAssertEqual(diagnostics[key1] as? String, expectedValue1)
         XCTAssertEqual(diagnostics[key2] as? String, expectedValue2)
         XCTAssertNil(diagnostics[unexpectedKey])
