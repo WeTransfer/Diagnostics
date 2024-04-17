@@ -6,8 +6,8 @@
 //  Copyright © 2019 WeTransfer. All rights reserved.
 //
 
-import XCTest
 @testable import Diagnostics
+import XCTest
 
 final class AppSystemMetadataReporterTests: XCTestCase {
 
@@ -15,12 +15,21 @@ final class AppSystemMetadataReporterTests: XCTestCase {
     func testMetadata() {
         let metadata = AppSystemMetadataReporter().report().diagnostics as! [String: String]
 
-        XCTAssertEqual(metadata[AppSystemMetadataReporter.MetadataKey.appName.rawValue], Bundle.appName)
-        XCTAssertEqual(metadata[AppSystemMetadataReporter.MetadataKey.appVersion.rawValue], "\(Bundle.appVersion) (\(Bundle.appBuildNumber))")
-        XCTAssertEqual(metadata[AppSystemMetadataReporter.MetadataKey.appLanguage.rawValue], "en")
+        XCTAssertEqual(
+            metadata[AppSystemMetadataReporter.MetadataKey.appName.rawValue],
+            Bundle.appName
+        )
+        XCTAssertEqual(
+            metadata[AppSystemMetadataReporter.MetadataKey.appVersion.rawValue],
+            "\(Bundle.appVersion) (\(Bundle.appBuildNumber))"
+        )
+        XCTAssertEqual(
+            metadata[AppSystemMetadataReporter.MetadataKey.appLanguage.rawValue],
+            "en"
+        )
 
         AppSystemMetadataReporter.MetadataKey.allCases.forEach { key in
-            XCTAssertNotNil(metadata[key.rawValue])
+            XCTAssertNotNil(metadata[key.rawValue], "Metadata not found for \(key).")
         }
     }
 }
