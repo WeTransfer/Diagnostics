@@ -131,7 +131,7 @@ func send(report: DiagnosticsReport) {
 }
 ```
 
-### Using a custom UserDefaults type
+### Using a UserDefaultsReporter
 In order to use `UserDefaultsReporter`, you need to set instantiate it with the desired `UserDefaults` instance together with all the keys you would like to read, and use it in `DiagnosticsReporter.create(filename:using:filters:smartInsightsProvider)` to create a `DiagnosticsReport`.
 
 ```swift
