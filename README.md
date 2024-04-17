@@ -40,7 +40,6 @@ The library allows to easily attach the Diagnostics Report as an attachment to t
     - App metadata
     - System metadata
     - System logs divided per session
-    - UserDefaults
 - [x] Possibility to filter out sensitive data using a `DiagnosticsReportFilter`
 - [x] A custom `DiagnosticsLogger` to add your own logs
 - [x] Smart insights like _"⚠️ User is low on storage"_ and *"✅ User is using the latest app version"*
@@ -132,11 +131,16 @@ func send(report: DiagnosticsReport) {
 }
 ```
 
-### Using a custom UserDefaults type
-Simply set your user defaults instance by making use of:
+### Using a UserDefaultsReporter
+In order to use `UserDefaultsReporter`, you need to set instantiate it with the desired `UserDefaults` instance together with all the keys you would like to read, and use it in `DiagnosticsReporter.create(filename:using:filters:smartInsightsProvider)` to create a `DiagnosticsReport`.
 
 ```swift
-UserDefaultsReporter.userDefaults = ..
+let userDefaultsReporter = UserDefaultsReporter(
+    userDefaults: UserDefaults(suiteName: "a.userdefaults.instance"),
+    keys: ["key_1"]
+)
+
+let diagnosticsReport = DiagnosticsReporter.create(using: [userDefaultsReporter])
 ```
 
 ### Filtering out sensitive data
