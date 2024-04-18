@@ -1,5 +1,6 @@
 ### 5.0.0
 - Add Privacy Manifest ([#171](https://github.com/WeTransfer/Diagnostics/pull/171), [#172](https://github.com/WeTransfer/Diagnostics/pull/172) and [#173](https://github.com/WeTransfer/Diagnostics/pull/173)) via [@peagasilva](https://github.com/peagasilva)
+  - BREAKING CHANGE: `UserDefaultsReporter` is not part of all reporters anymore and must be instantiated to be used
 - Merge release 4.6.0 into master ([#167](https://github.com/WeTransfer/Diagnostics/pull/167)) via [@wetransferplatform](https://github.com/wetransferplatform)
 
 ### 4.6.0
