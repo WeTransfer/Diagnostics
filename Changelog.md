@@ -1,3 +1,7 @@
+### 5.0.0
+- Add Privacy Manifest ([#171](https://github.com/WeTransfer/Diagnostics/pull/171), [#172](https://github.com/WeTransfer/Diagnostics/pull/172) and [#173](https://github.com/WeTransfer/Diagnostics/pull/173)) via [@peagasilva](https://github.com/peagasilva)
+- Merge release 4.6.0 into master ([#167](https://github.com/WeTransfer/Diagnostics/pull/167)) via [@wetransferplatform](https://github.com/wetransferplatform)
+
 ### 4.6.0
 - [TMOB 5115] Trim using lines instead of bytes ([#166](https://github.com/WeTransfer/Diagnostics/pull/166)) via [@AvdLee](https://github.com/AvdLee)
 - [TMOB 5114] Log failures happening during log reading ([#165](https://github.com/WeTransfer/Diagnostics/pull/165)) via [@AvdLee](https://github.com/AvdLee)
