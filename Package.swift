@@ -23,8 +23,7 @@ let package = Package(name: "Diagnostics",
                             path: "Sources",
                             resources: [
                                 .process("style.css"),
-                                .process("functions.js"),
-                                .process("PrivacyInfo.xcprivacy")
+                                .process("functions.js")
                             ]),
                         .testTarget(name: "DiagnosticsTests", dependencies: ["Diagnostics"], path: "DiagnosticsTests")
                         ],
