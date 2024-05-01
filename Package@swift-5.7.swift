@@ -22,7 +22,8 @@ let package = Package(name: "Diagnostics",
                             path: "Sources",
                             resources: [
                                 .process("style.css"),
-                                .process("functions.js")
+                                .process("functions.js"),
+                                .process("PrivacyInfo.xcprivacy")
                             ]),
                         .testTarget(name: "DiagnosticsTests", dependencies: ["Diagnostics"], path: "DiagnosticsTests")
                         ],
