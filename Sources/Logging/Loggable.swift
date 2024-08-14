@@ -32,10 +32,18 @@ extension Loggable {
         }
     }
 
+    var dateFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd hh:mm:ss a"
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
+        return formatter
+    }
+
     private var logMessage: String {
         var messages: [String] = []
         if let date {
-            let date = DateFormatter.current.string(from: date)
+            let date = dateFormatter.string(from: Date())
             messages.append("<span class=\"log-date\">\(date)</span>")
         }
         if let prefix {
@@ -116,7 +124,7 @@ struct SystemLog: Loggable {
     let cssClass: LoggableCSSClass? = .system
 
     init(line: String) {
-        message = "SYSTEM: \(line)"
+        message = line
     }
 }
 
